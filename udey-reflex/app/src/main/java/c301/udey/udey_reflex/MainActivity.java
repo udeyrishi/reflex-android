@@ -46,12 +46,12 @@ public class MainActivity extends AppCompatActivity
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, AppModesProvider.getInstance().selectAppMode(position))
+                .replace(R.id.container, AppModesProvider.selectAppMode(position))
                 .commit();
     }
 
     public void onSectionAttached(int number) {
-        title = AppModesProvider.getInstance().getAppModes(this)[number];
+        title = AppModesProvider.getAppModes(this)[number];
     }
 
     public void restoreActionBar() {

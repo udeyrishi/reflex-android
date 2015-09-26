@@ -7,12 +7,14 @@ package c301.udey.udey_reflex;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
- * A placeholder fragment containing a simple view.
+ * A abstract fragment for the different app modes.
  */
 public abstract class AppModeFragment extends Fragment {
     /**
@@ -25,14 +27,6 @@ public abstract class AppModeFragment extends Fragment {
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         setArguments(args);
-    }
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        return rootView;
     }
 
     @Override
