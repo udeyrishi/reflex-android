@@ -1,8 +1,15 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-    </style>
+<style name="AppTheme" parent="Theme.AppCompat.Light">
+    <item name="android:actionBarStyle">@style/MainActionBar</item>
+    <item name="actionBarStyle">@style/MainActionBar</item>
+</style>
+
+<!--Source: http://stackoverflow.com/questions/18990633/android-actionbar-text-color-->
+<style name="MainActionBar"
+    parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+    <item name="android:background">@color/darkorange</item>
+    <item name="background">@color/darkorange</item>
+</style>
 
 </resources>
