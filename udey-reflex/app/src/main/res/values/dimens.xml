@@ -9,4 +9,5 @@
     <dimen name="instructions_text_size">30sp</dimen>
     <dimen name="instructions_margin_top">80dp</dimen>
     <dimen name="countdown_text_size">200sp</dimen>
+    <dimen name="practice_try_again_button_margin_top">160dp</dimen>
 </resources>

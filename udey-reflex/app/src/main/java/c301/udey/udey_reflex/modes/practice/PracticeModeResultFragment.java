@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import c301.udey.udey_reflex.R;
@@ -44,12 +45,23 @@ public class PracticeModeResultFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_practice_mode_result, container, false);
-        TextView resultBox = (TextView)rootView.findViewById(R.id.practice_result_display);
-        resultBox.setText("Response time: " + delayMilliseconds.toString() + " ms");
+        setDelayResult(rootView);
+        Button tryAgainButton = (Button) rootView.findViewById(R.id.practice_try_again_button);
+        tryAgainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onButtonPressed();
+            }
+        });
         return rootView;
     }
 
-    public void onButtonPressed() {
+    private void setDelayResult(View rootView) {
+        TextView resultBox = (TextView)rootView.findViewById(R.id.practice_result_display);
+        resultBox.setText("Response time:\n" + delayMilliseconds.toString() + " ms");
+    }
+
+    private void onButtonPressed() {
         if (mListener != null) {
             mListener.onTryAgain();
         }
