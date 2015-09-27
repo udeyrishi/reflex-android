@@ -95,7 +95,7 @@ public class PracticeModeCountdownFragment extends Fragment {
     }
 
     public interface OnCountdownFinishedListener {
-        public void onCountdownFinished();
+        void onCountdownFinished();
     }
 
 }

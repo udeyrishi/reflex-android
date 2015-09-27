@@ -3,12 +3,15 @@ package c301.udey.udey_reflex.modes.practice;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Chronometer;
 import android.widget.TextView;
 
+import java.util.Date;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,6 +27,8 @@ public class PracticeModeTapFragment extends Fragment {
     private static final String ARG_MAX_DELAY_MILLISECONDS = "maxDelayMilliSeconds";
 
     private OnBuzzerTappedListener onBuzzerTappedListener;
+
+    private long buttonDisplayedTime;
 
     public static PracticeModeTapFragment newInstance(int minDelayMilliSeconds, int maxDelayMilliseconds) {
         PracticeModeTapFragment fragment = new PracticeModeTapFragment();
@@ -74,6 +79,7 @@ public class PracticeModeTapFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        buttonDisplayedTime = SystemClock.elapsedRealtime();
                         setInstructions(rootView, getString(R.string.practice_session_go));
                         button.setVisibility(oldVisibilty);
                     }
@@ -100,8 +106,12 @@ public class PracticeModeTapFragment extends Fragment {
     }
 
     private void onButtonPressed() {
+        long currentTime = SystemClock.elapsedRealtime();
+        long delay = currentTime  - buttonDisplayedTime;
+        buttonDisplayedTime = currentTime;
+        
         if (onBuzzerTappedListener != null) {
-            onBuzzerTappedListener.onBuzzerTapped(new Long(0));
+            onBuzzerTappedListener.onBuzzerTapped(delay);
         }
     }
 
@@ -123,7 +133,7 @@ public class PracticeModeTapFragment extends Fragment {
     }
 
     public interface OnBuzzerTappedListener {
-        public void onBuzzerTapped(Long delay);
+        void onBuzzerTapped(Long delay);
     }
 
 }
