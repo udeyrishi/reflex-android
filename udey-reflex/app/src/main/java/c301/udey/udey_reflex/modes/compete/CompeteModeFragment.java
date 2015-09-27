@@ -1,10 +1,12 @@
-package c301.udey.udey_reflex;
+package c301.udey.udey_reflex.modes.compete;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import c301.udey.udey_reflex.modes.AppModeFragment;
+import c301.udey.udey_reflex.R;
 
 /**
  * Created by rishi on 15-09-26.

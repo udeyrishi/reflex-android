@@ -2,7 +2,6 @@ package c301.udey.udey_reflex;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
-import android.app.Activity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -21,7 +20,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import c301.udey.udey_reflex.modes.AppModesProvider;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.

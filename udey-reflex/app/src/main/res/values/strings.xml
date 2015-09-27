@@ -17,4 +17,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="begin_practice_button_text">BEGIN!</string>
+    <string name="title_activity_practice_mode">PracticeModeActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>

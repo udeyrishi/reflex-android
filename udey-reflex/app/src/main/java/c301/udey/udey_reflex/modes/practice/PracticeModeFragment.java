@@ -1,15 +1,15 @@
-package c301.udey.udey_reflex;
+package c301.udey.udey_reflex.modes.practice;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import c301.udey.udey_reflex.modes.AppModeFragment;
+import c301.udey.udey_reflex.R;
 
 /**
  * Created by rishi on 15-09-26.
@@ -25,7 +25,8 @@ public class PracticeModeFragment extends AppModeFragment {
         b.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBegin(v);
+                Intent intent = new Intent(getActivity(), PracticeModeActivity.class);
+                startActivity(intent);
             }
         });
         return rootView;
@@ -35,9 +36,5 @@ public class PracticeModeFragment extends AppModeFragment {
         PracticeModeFragment fragment = new PracticeModeFragment();
         fragment.attachSectionNumber(sectionNumber);
         return fragment;
-    }
-
-    public void onBegin(View view) {
-        Toast.makeText(getActivity(), "Begin pressed.", Toast.LENGTH_SHORT).show();
     }
 }

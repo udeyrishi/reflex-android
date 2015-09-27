@@ -1,10 +1,12 @@
-package c301.udey.udey_reflex;
+package c301.udey.udey_reflex.modes;
 
 import android.support.v4.app.Fragment;
 import android.content.Context;
 
-import java.security.PrivilegedActionException;
-import java.util.ArrayList;
+import c301.udey.udey_reflex.R;
+import c301.udey.udey_reflex.modes.compete.CompeteModeFragment;
+import c301.udey.udey_reflex.modes.practice.PracticeModeFragment;
+import c301.udey.udey_reflex.modes.stats.StatsModeFragment;
 
 /**
  * Created by rishi on 15-09-26.
