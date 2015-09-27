@@ -1,8 +1,7 @@
 package c301.udey.udey_reflex.modes.practice;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -21,31 +20,17 @@ import c301.udey.udey_reflex.R;
  * create an instance of this fragment.
  */
 public class PracticeModeCountdownFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private static final String ARG_COUNTDOWN_DURATION_SECONDS = "countdownDurationSeconds";
 
-    private OnCountdownFinishedListener mListener;
+    private int countdownDurationSeconds;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PracticeModeCountdownFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PracticeModeCountdownFragment newInstance(String param1, String param2) {
+    private OnCountdownFinishedListener countdownFinishedListener;
+
+    public static PracticeModeCountdownFragment newInstance(int durationSeconds) {
         PracticeModeCountdownFragment fragment = new PracticeModeCountdownFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(ARG_COUNTDOWN_DURATION_SECONDS, durationSeconds);
         fragment.setArguments(args);
         return fragment;
     }
@@ -58,8 +43,7 @@ public class PracticeModeCountdownFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            countdownDurationSeconds = getArguments().getInt(ARG_COUNTDOWN_DURATION_SECONDS);
         }
     }
 
@@ -72,26 +56,25 @@ public class PracticeModeCountdownFragment extends Fragment {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onButtonPressed();
+                onCountdownFinished();
             }
         });
         return v;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed() {
-        if (mListener != null) {
-            mListener.onCountdownFinished();
+    private void onCountdownFinished() {
+        if (countdownFinishedListener != null) {
+            countdownFinishedListener.onCountdownFinished();
         }
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
         try {
-            mListener = (OnCountdownFinishedListener) activity;
+            countdownFinishedListener = (OnCountdownFinishedListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(context.toString()
                     + " must implement OnCountdownFinishedListener");
         }
     }
@@ -99,21 +82,10 @@ public class PracticeModeCountdownFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        countdownFinishedListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnCountdownFinishedListener {
-        // TODO: Update argument type and name
         public void onCountdownFinished();
     }
 
