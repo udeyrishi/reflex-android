@@ -1,12 +1,20 @@
 <resources>
     <string name="app_name">udey-reflex</string>
-    <string name="navigation_drawer_title">Reflex</string>
+
+    <!--Region: Practice mode-->
     <string name="section_name_practice">Practice</string>
+    <string name="practice_instructions">Try to tap the buzzer quickly after it appears.\n\nDon\'t tap too soon!</string>
+
+    <!--Region: Compete mode-->
     <string name="section_name_compete">Compete</string>
+
+    <!--Region: Stats mode-->
     <string name="section_name_stats">Stats</string>
 
+    <string name="navigation_drawer_title">Reflex</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="begin_practice_button_text">BEGIN!</string>
 </resources>
