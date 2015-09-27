@@ -79,9 +79,9 @@ public class PracticeModeTapFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        buttonDisplayedTime = SystemClock.elapsedRealtime();
                         setInstructions(rootView, getString(R.string.practice_session_go));
                         button.setVisibility(oldVisibilty);
+                        buttonDisplayedTime = SystemClock.elapsedRealtime();
                     }
                 });
 
@@ -109,7 +109,7 @@ public class PracticeModeTapFragment extends Fragment {
         long currentTime = SystemClock.elapsedRealtime();
         long delay = currentTime  - buttonDisplayedTime;
         buttonDisplayedTime = currentTime;
-        
+
         if (onBuzzerTappedListener != null) {
             onBuzzerTappedListener.onBuzzerTapped(delay);
         }

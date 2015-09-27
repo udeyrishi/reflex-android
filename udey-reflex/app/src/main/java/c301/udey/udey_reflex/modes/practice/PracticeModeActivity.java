@@ -19,7 +19,8 @@ import c301.udey.udey_reflex.modes.AppModesProvider;
 
 public class PracticeModeActivity extends AppCompatActivity
         implements PracticeModeCountdownFragment.OnCountdownFinishedListener,
-        PracticeModeTapFragment.OnBuzzerTappedListener {
+        PracticeModeTapFragment.OnBuzzerTappedListener,
+        PracticeModeResultFragment.OnResultDismissedListener {
 
     private final static int MIN_DELAY_MILLISECONDS = 10;
     private final static int MAX_DELAY_MILLISECONDS = 2000;
@@ -34,11 +35,7 @@ public class PracticeModeActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.practice_mode_container, PracticeModeCountdownFragment.newInstance(COUNTDOWN_SECONDS))
-                .commit();
+        onTryAgain();
     }
 
     @Override
@@ -52,6 +49,18 @@ public class PracticeModeActivity extends AppCompatActivity
 
     @Override
     public void onBuzzerTapped(Long delay) {
-        Toast.makeText(this, "Delay: " + delay.toString(), Toast.LENGTH_SHORT).show();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.practice_mode_container,
+                        PracticeModeResultFragment.newInstance(delay))
+                .commit();
+    }
+
+    @Override
+    public void onTryAgain() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.practice_mode_container, PracticeModeCountdownFragment.newInstance(COUNTDOWN_SECONDS))
+                .commit();
     }
 }
