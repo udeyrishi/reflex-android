@@ -10,13 +10,16 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import at.markushi.ui.CircleButton;
+import c301.udey.udey_reflex.Constants;
 import c301.udey.udey_reflex.R;
 import c301.udey.udey_reflex.modes.AppModesProvider;
+import c301.udey.udey_reflex.statisticsmanager.ReactionTimeStatisticsManager;
 
 public class PracticeModeActivity extends AppCompatActivity
         implements PracticeModeCountdownFragment.OnCountdownFinishedListener,
@@ -27,6 +30,8 @@ public class PracticeModeActivity extends AppCompatActivity
     private final static int MAX_DELAY_MILLISECONDS = 2000;
     private final static int COUNTDOWN_SECONDS = 3;
 
+    private ReactionTimeStatisticsManager statsManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +41,7 @@ public class PracticeModeActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
+        statsManager = new ReactionTimeStatisticsManager(this, Constants.STATS_FILE_NAME);
         onTryAgain();
     }
 
@@ -46,6 +52,13 @@ public class PracticeModeActivity extends AppCompatActivity
 
     @Override
     public void onBuzzerTapped(Long delay) {
+        if (delay >= 0) {
+            try {
+                statsManager.saveBuzzerDelay(delay);
+            } catch (IOException e) {
+                Toast.makeText(this, "Failed to save this delay value in the stats.", Toast.LENGTH_SHORT).show();
+            }
+        }
         swapFragments(PracticeModeResultFragment.newInstance(delay));
     }
 
