@@ -1,5 +1,6 @@
 package c301.udey.udey_reflex.modes.practice;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,27 +41,23 @@ public class PracticeModeActivity extends AppCompatActivity
 
     @Override
     public void onCountdownFinished() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.practice_mode_container,
-                        PracticeModeTapFragment.newInstance(MIN_DELAY_MILLISECONDS, MAX_DELAY_MILLISECONDS))
-                .commit();
+        swapFragments(PracticeModeTapFragment.newInstance(MIN_DELAY_MILLISECONDS, MAX_DELAY_MILLISECONDS));
     }
 
     @Override
     public void onBuzzerTapped(Long delay) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.practice_mode_container,
-                        PracticeModeResultFragment.newInstance(delay))
-                .commit();
+        swapFragments(PracticeModeResultFragment.newInstance(delay));
     }
 
     @Override
     public void onTryAgain() {
+        swapFragments(PracticeModeCountdownFragment.newInstance(COUNTDOWN_SECONDS));
+    }
+
+    private void swapFragments(Fragment newFragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.practice_mode_container, PracticeModeCountdownFragment.newInstance(COUNTDOWN_SECONDS))
+                .replace(R.id.practice_mode_container, newFragment)
                 .commit();
     }
 }
