@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,6 @@ public class PracticeModeTapFragment extends Fragment {
     private OnBuzzerTappedListener onBuzzerTappedListener;
 
     private Long buttonDisplayedTime;
-    private Boolean tappedTooSoon;
 
     public static PracticeModeTapFragment newInstance(int minDelayMilliSeconds, int maxDelayMilliseconds) {
         PracticeModeTapFragment fragment = new PracticeModeTapFragment();
@@ -74,17 +74,17 @@ public class PracticeModeTapFragment extends Fragment {
         final float oldAlpha = button.getAlpha();
         button.setAlpha(0.2f);
 
-        tappedTooSoon = false;
-
         TimerTask task = new TimerTask() {
 
             @Override
             public void run() {
                 // Needs to be run on UI thread, else CalledFromWrongThreadException
                 // Udey Source: http://stackoverflow.com/questions/5161951/android-only-the-original-thread-that-created-a-view-hierarchy-can-touch-its-vi
-
-                if (!tappedTooSoon) {
-                    getActivity().runOnUiThread(new Runnable() {
+                // Activity null check for the cases where back button might be pressed, or buzzer
+                // is pressed too soon
+                FragmentActivity activity = getActivity();
+                if (activity != null) {
+                    activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             setInstructions(rootView, getString(R.string.practice_session_go));
@@ -118,7 +118,6 @@ public class PracticeModeTapFragment extends Fragment {
         final Long delay;
         if (buttonDisplayedTime == null) {
             // Tapped too early
-            tappedTooSoon = true;
             delay = new Long(-1);
         } else {
             delay = currentTime  - buttonDisplayedTime;
