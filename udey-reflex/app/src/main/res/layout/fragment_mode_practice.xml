@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:text="@string/practice_instructions"
-        android:textSize="@dimen/practice_instructions_text_size"
+        android:textSize="@dimen/instructions_text_size"
         android:gravity="center"
         android:layout_weight="0.5"
         />
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="@dimen/practice_instructions_text_size"
+        android:textSize="@dimen/instructions_text_size"
         android:text="@string/begin_practice_button_text"
         android:id="@+id/begin_practice_button"
         />

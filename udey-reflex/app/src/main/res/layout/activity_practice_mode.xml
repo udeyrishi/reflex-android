@@ -4,9 +4,19 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
+    <TextView
+        android:id="@+id/practice_session_instructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/practice_session_wait"
+        android:textSize="@dimen/instructions_text_size"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/instructions_margin_top"/>
+
     <!--Udey Source: https://github.com/markushi/android-circlebutton-->
     <!--Udey Source Icon: http://www.iconshut.com/click-double-finger-gesture-hand-one-tap-touch-zoom-icons/dT1hSFIwY0hNNkx5OWpaRzR5TG1samIyNW1hVzVrWlhJdVkyOXRMMlJoZEdFdmFXTnZibk12WjJWemRIVnlaWE10TWk4ek1pOXZibVV0Wm1sdVoyVnlMV1J2ZFdKc1pTMTBZWEF0TWpVMkxuQnVad3x1cj1odHRwczovL3d3dy5pY29uZmluZGVyLmNvbS9pY29ucy8zMzE2MzcvY2xpY2tfZG91YmxlX2Zpbmdlcl9nZXN0dXJlX2hhbmRfb25lX3RhcF90b3VjaF96b29tX2ljb258dz0yNTZ8aD0yNTZ8dD1wbmd8/-->
     <at.markushi.ui.CircleButton
+        android:id="@+id/practice_buzzer_button"
         android:layout_width="250dip"
         android:layout_height="250dip"
         android:src="@drawable/ic_tap"
