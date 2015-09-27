@@ -24,6 +24,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <activity
+            android:name=".modes.compete.CompeteActivity"
+            android:label="@string/title_activity_compete"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="c301.udey.udey_reflex.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

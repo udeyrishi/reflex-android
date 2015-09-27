@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Udey Source: http://stackoverflow.com/questions/14995429/dialog-box-with-radio-button-and-validate-button-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/player_choice_radio_group">
+        <RadioButton
+            android:id="@+id/radio_2_players"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2 players" />
+
+        <RadioButton
+            android:id="@+id/radio_3_players"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/radio_2_players"
+            android:text="3 players" />
+
+        <RadioButton
+            android:id="@+id/radio_4_players"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/radio_3_players"
+            android:text="4 players" />
+    </RadioGroup>
+</RelativeLayout>
