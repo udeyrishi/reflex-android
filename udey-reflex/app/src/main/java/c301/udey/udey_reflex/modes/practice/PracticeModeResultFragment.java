@@ -58,7 +58,12 @@ public class PracticeModeResultFragment extends Fragment {
 
     private void setDelayResult(View rootView) {
         TextView resultBox = (TextView)rootView.findViewById(R.id.practice_result_display);
-        resultBox.setText("Response time:\n" + delayMilliseconds.toString() + " ms");
+        if (delayMilliseconds < 0) {
+            resultBox.setText("Too soon!");
+        }
+        else {
+            resultBox.setText("Response time:\n" + delayMilliseconds.toString() + " ms");
+        }
     }
 
     private void onButtonPressed() {

@@ -3,6 +3,7 @@ package c301.udey.udey_reflex.modes.practice;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -28,7 +29,8 @@ public class PracticeModeTapFragment extends Fragment {
 
     private OnBuzzerTappedListener onBuzzerTappedListener;
 
-    private long buttonDisplayedTime;
+    private Long buttonDisplayedTime;
+    private Boolean tappedTooSoon;
 
     public static PracticeModeTapFragment newInstance(int minDelayMilliSeconds, int maxDelayMilliseconds) {
         PracticeModeTapFragment fragment = new PracticeModeTapFragment();
@@ -67,8 +69,12 @@ public class PracticeModeTapFragment extends Fragment {
             }
         });
 
-        final int oldVisibilty = button.getVisibility();
-        button.setVisibility(View.INVISIBLE);
+        // Prefer Alpha over visibility in this case for registering early taps
+        // Udey Source: http://stackoverflow.com/questions/10612740/will-touch-get-detected-while-a-view-is-in-invisible-state
+        final float oldAlpha = button.getAlpha();
+        button.setAlpha(0.2f);
+
+        tappedTooSoon = false;
 
         TimerTask task = new TimerTask() {
 
@@ -76,15 +82,17 @@ public class PracticeModeTapFragment extends Fragment {
             public void run() {
                 // Needs to be run on UI thread, else CalledFromWrongThreadException
                 // Udey Source: http://stackoverflow.com/questions/5161951/android-only-the-original-thread-that-created-a-view-hierarchy-can-touch-its-vi
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        setInstructions(rootView, getString(R.string.practice_session_go));
-                        button.setVisibility(oldVisibilty);
-                        buttonDisplayedTime = SystemClock.elapsedRealtime();
-                    }
-                });
 
+                if (!tappedTooSoon) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setInstructions(rootView, getString(R.string.practice_session_go));
+                            button.setAlpha(oldAlpha);
+                            buttonDisplayedTime = SystemClock.elapsedRealtime();
+                        }
+                    });
+                }
             }
         };
 
@@ -106,12 +114,27 @@ public class PracticeModeTapFragment extends Fragment {
     }
 
     private void onButtonPressed() {
-        long currentTime = SystemClock.elapsedRealtime();
-        long delay = currentTime  - buttonDisplayedTime;
+        Long currentTime = SystemClock.elapsedRealtime();
+        final Long delay;
+        if (buttonDisplayedTime == null) {
+            // Tapped too early
+            tappedTooSoon = true;
+            delay = new Long(-1);
+        } else {
+            delay = currentTime  - buttonDisplayedTime;
+        }
         buttonDisplayedTime = currentTime;
 
         if (onBuzzerTappedListener != null) {
-            onBuzzerTappedListener.onBuzzerTapped(delay);
+            // Delay it to complete the circular button animation
+            // Udey Source: http://stackoverflow.com/questions/4111905/how-do-you-have-the-code-pause-for-a-couple-of-seconds-in-android
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    onBuzzerTappedListener.onBuzzerTapped(delay);
+                }
+            }, 100);
+
         }
     }
 
