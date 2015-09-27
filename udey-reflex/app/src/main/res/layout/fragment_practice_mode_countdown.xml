@@ -3,16 +3,11 @@
     android:layout_height="match_parent"
     tools:context="c301.udey.udey_reflex.modes.practice.PracticeModeCountdownFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
-    <Button
-        android:text="press"
+    <TextView
+        android:id="@+id/practice_countdown_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/countdown_text_size"
         android:layout_gravity="center"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="60dp"
-        android:id="@+id/test_button"
-        />
+        android:text="3"/>
 </FrameLayout>

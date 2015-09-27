@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+
+import com.ivanrg.countdownanimation.CountDownAnimation;
 
 import c301.udey.udey_reflex.R;
 
@@ -52,13 +55,19 @@ public class PracticeModeCountdownFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_practice_mode_countdown, container, false);
-        Button b = (Button) v.findViewById(R.id.test_button);
-        b.setOnClickListener(new View.OnClickListener() {
+
+        // Udey Source: https://github.com/IvanRF/CountDownAnimation/blob/master/src/com/ivanrf/countdownanimation/CountDownAnimation.java
+        CountDownAnimation animation =
+                new CountDownAnimation((TextView)v.findViewById(R.id.practice_countdown_textview),
+                        countdownDurationSeconds);
+        animation.setCountDownListener(new CountDownAnimation.CountDownListener() {
             @Override
-            public void onClick(View v) {
+            public void onCountDownEnd(CountDownAnimation animation) {
                 onCountdownFinished();
             }
         });
+        animation.start();
+
         return v;
     }
 

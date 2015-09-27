@@ -55,6 +55,13 @@ public class PracticeModeTapFragment extends Fragment {
         setInstructions(rootView, getString(R.string.practice_session_wait));
         final CircleButton button = (CircleButton) rootView.findViewById(R.id.practice_buzzer_button);
 
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onButtonPressed();
+            }
+        });
+
         final int oldVisibilty = button.getVisibility();
         button.setVisibility(View.INVISIBLE);
 
@@ -92,7 +99,7 @@ public class PracticeModeTapFragment extends Fragment {
         }
     }
 
-    private void onButtonPressed(Uri uri) {
+    private void onButtonPressed() {
         if (onBuzzerTappedListener != null) {
             onBuzzerTappedListener.onBuzzerTapped(new Long(0));
         }
