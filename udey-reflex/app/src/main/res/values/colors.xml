@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--Source: https://developer.android.com/samples/BasicMediaRouter/res/values/colors.html-->
+    <!--Udey Source: https://developer.android.com/samples/BasicMediaRouter/res/values/colors.html-->
     <item name="blue" type="color">#FF33B5E5</item>
     <item name="purple" type="color">#FFAA66CC</item>
     <item name="green" type="color">#FF99CC00</item>

@@ -1,12 +1,18 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="c301.udey.udey_reflex.modes.practice.PracticeModeActivity">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <!--Udey Source: https://github.com/markushi/android-circlebutton-->
+    <!--Udey Source Icon: http://www.iconshut.com/click-double-finger-gesture-hand-one-tap-touch-zoom-icons/dT1hSFIwY0hNNkx5OWpaRzR5TG1samIyNW1hVzVrWlhJdVkyOXRMMlJoZEdFdmFXTnZibk12WjJWemRIVnlaWE10TWk4ek1pOXZibVV0Wm1sdVoyVnlMV1J2ZFdKc1pTMTBZWEF0TWpVMkxuQnVad3x1cj1odHRwczovL3d3dy5pY29uZmluZGVyLmNvbS9pY29ucy8zMzE2MzcvY2xpY2tfZG91YmxlX2Zpbmdlcl9nZXN0dXJlX2hhbmRfb25lX3RhcF90b3VjaF96b29tX2ljb258dz0yNTZ8aD0yNTZ8dD1wbmd8/-->
+    <at.markushi.ui.CircleButton
+        android:layout_width="250dip"
+        android:layout_height="250dip"
+        android:src="@drawable/ic_tap"
+        android:layout_gravity="center"
+        app:cb_color="@color/green"
+        app:cb_pressedRingWidth="15dip"
+        />
 
-</RelativeLayout>
+</FrameLayout>

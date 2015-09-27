@@ -257,7 +257,7 @@ public class NavigationDrawerFragment extends Fragment {
         actionBar.setDisplayShowTitleEnabled(true);
 
         // Deprecation applicable only for API 21+.
-        // Source: http://stackoverflow.com/questions/27626761/actionbar-setnavigationmode-deprecated
+        // Udey Source: http://stackoverflow.com/questions/27626761/actionbar-setnavigationmode-deprecated
         //noinspection deprecation
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 
