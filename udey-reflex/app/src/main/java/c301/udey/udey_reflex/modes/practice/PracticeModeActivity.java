@@ -18,10 +18,11 @@ import java.util.TimerTask;
 import at.markushi.ui.CircleButton;
 import c301.udey.udey_reflex.Constants;
 import c301.udey.udey_reflex.R;
+import c301.udey.udey_reflex.modes.AppModeActivity;
 import c301.udey.udey_reflex.modes.AppModesProvider;
 import c301.udey.udey_reflex.statisticsmanager.ReactionTimeStatisticsManager;
 
-public class PracticeModeActivity extends AppCompatActivity
+public class PracticeModeActivity extends AppModeActivity
         implements PracticeModeCountdownFragment.OnCountdownFinishedListener,
         PracticeModeTapFragment.OnBuzzerTappedListener,
         PracticeModeResultFragment.OnResultDismissedListener {
@@ -47,7 +48,7 @@ public class PracticeModeActivity extends AppCompatActivity
 
     @Override
     public void onCountdownFinished() {
-        swapFragments(PracticeModeTapFragment.newInstance(MIN_DELAY_MILLISECONDS, MAX_DELAY_MILLISECONDS));
+        swapFragments(R.id.practice_mode_container, PracticeModeTapFragment.newInstance(MIN_DELAY_MILLISECONDS, MAX_DELAY_MILLISECONDS));
     }
 
     @Override
@@ -59,18 +60,11 @@ public class PracticeModeActivity extends AppCompatActivity
                 Toast.makeText(this, "Failed to save this delay value in the stats.", Toast.LENGTH_SHORT).show();
             }
         }
-        swapFragments(PracticeModeResultFragment.newInstance(delay));
+        swapFragments(R.id.practice_mode_container, PracticeModeResultFragment.newInstance(delay));
     }
 
     @Override
     public void onTryAgain() {
-        swapFragments(PracticeModeCountdownFragment.newInstance(COUNTDOWN_SECONDS));
-    }
-
-    private void swapFragments(Fragment newFragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.practice_mode_container, newFragment)
-                .commit();
+        swapFragments(R.id.practice_mode_container, PracticeModeCountdownFragment.newInstance(COUNTDOWN_SECONDS));
     }
 }
