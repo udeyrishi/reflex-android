@@ -7,12 +7,12 @@ import android.view.MenuItem;
 
 import c301.udey.udey_reflex.R;
 
-public class CompeteActivity extends AppCompatActivity {
+public class CompeteModeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_compete);
+        setContentView(R.layout.activity_compete_mode);
     }
 
     @Override

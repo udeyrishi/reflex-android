@@ -2,17 +2,14 @@ package c301.udey.udey_reflex.modes.compete;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.RadialGradient;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import c301.udey.udey_reflex.modes.AppModeFragment;
 import c301.udey.udey_reflex.R;
-import c301.udey.udey_reflex.modes.practice.PracticeModeActivity;
 
 /**
  * Created by rishi on 15-09-26.
@@ -37,7 +34,7 @@ public class CompeteModeFragment extends AppModeFragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 dialog.hide();
                 int numberPlayers = group.indexOfChild(group.findViewById(group.getCheckedRadioButtonId())) + 2;
-                Intent intent = new Intent(getActivity(), CompeteActivity.class);
+                Intent intent = new Intent(getActivity(), CompeteModeActivity.class);
                 intent.putExtra(EXTRA_MESSAGE_NUMBER_PLAYERS, numberPlayers);
                 startActivity(intent);
             }

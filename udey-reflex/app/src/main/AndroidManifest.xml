@@ -25,7 +25,7 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".modes.compete.CompeteActivity"
+            android:name=".modes.compete.CompeteModeActivity"
             android:label="@string/title_activity_compete"
             android:parentActivityName=".MainActivity" >
             <meta-data
