@@ -8,10 +8,13 @@
     <string name="title_activity_practice_mode">@string/section_name_practice</string>
     <string name="practice_session_go">GO!</string>
     <string name="practice_session_wait">Wait...</string>
+    <string name="practice_try_again_button_text">Try again</string>
+
 
     <!--Region: Compete mode-->
     <string name="section_name_compete">Compete</string>
     <string name="compete_instructions">First person to press the buzzer wins!</string>
+    <string name="title_activity_compete">Compete</string>
 
     <!--Region: Stats mode-->
     <string name="section_name_stats">Stats</string>
@@ -21,11 +24,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="practice_try_again_button_text">Try again</string>
-    <string name="title_activity_compete">CompeteActivity</string>
 
     <string name="hello_world">Hello world!</string>
 
