@@ -1,6 +1,7 @@
 package c301.udey.udey_reflex.modes.compete;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,18 +11,27 @@ import android.widget.RadioGroup;
 
 import c301.udey.udey_reflex.modes.AppModeFragment;
 import c301.udey.udey_reflex.R;
+import c301.udey.udey_reflex.modes.InstructionsFragment;
+import c301.udey.udey_reflex.modes.practice.PracticeModeActivity;
 
 /**
  * Created by rishi on 15-09-26.
  */
-public class CompeteModeFragment extends AppModeFragment {
+public class CompeteModeFragment extends InstructionsFragment {
 
     public static final String EXTRA_MESSAGE_NUMBER_PLAYERS = "numberOfPlayers";
+    private int numberPlayers;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_mode_compete, container, false);
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+
+        setupNumberOfPlayersRetrieval();
+        return rootView;
+    }
+
+    private void setupNumberOfPlayersRetrieval() {
         final Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.compete_player_count_dialog);
         dialog.setTitle("Number of players:");
@@ -33,20 +43,26 @@ public class CompeteModeFragment extends AppModeFragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 dialog.hide();
-                int numberPlayers = group.indexOfChild(group.findViewById(group.getCheckedRadioButtonId())) + 2;
-                Intent intent = new Intent(getActivity(), CompeteModeActivity.class);
-                intent.putExtra(EXTRA_MESSAGE_NUMBER_PLAYERS, numberPlayers);
-                startActivity(intent);
+                numberPlayers = group.indexOfChild(group.findViewById(group.getCheckedRadioButtonId())) + 2;
             }
         });
         dialog.show();
-
-        return rootView;
     }
 
-    public static CompeteModeFragment getInstance(int sectionNumber) {
-        CompeteModeFragment fragment = new CompeteModeFragment();
-        fragment.attachSectionNumber(sectionNumber);
+    public static CompeteModeFragment getInstance(Context context, int sectionNumber) {
+        final CompeteModeFragment fragment = new CompeteModeFragment();
+
+        fragment.prepareFragment(
+                sectionNumber,
+                CompeteModeActivity.class,
+                new IntentPreparer() {
+                    @Override
+                    public void prepareIntent(Intent intent) {
+                        intent.putExtra(EXTRA_MESSAGE_NUMBER_PLAYERS, fragment.numberPlayers);
+                    }
+                },
+                context.getString(R.string.compete_instructions));
+
         return fragment;
     }
 }

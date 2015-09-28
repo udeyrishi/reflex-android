@@ -4,10 +4,10 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".PracticeModeFragment"
+    tools:context=".InstructionsFragment"
     android:orientation="vertical">
 
-    <TextView android:id="@+id/practice_instructions"
+    <TextView android:id="@+id/instructions_text_view"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:text="@string/practice_instructions"
@@ -22,7 +22,7 @@
         android:layout_gravity="center"
         android:textSize="@dimen/instructions_text_size"
         android:text="@string/begin_practice_button_text"
-        android:id="@+id/begin_practice_button"
+        android:id="@+id/finish_instructions_button"
         />
 
 

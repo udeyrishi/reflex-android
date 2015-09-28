@@ -21,12 +21,12 @@ public class AppModesProvider {
         };
     }
 
-    public static Fragment selectAppMode(int sectionNumber) {
+    public static Fragment selectAppMode(Context context, int sectionNumber) {
         switch(sectionNumber) {
             case 0:
-                return PracticeModeFragment.getInstance(sectionNumber);
+                return PracticeModeFragment.getInstance(context, sectionNumber);
             case 1:
-                return CompeteModeFragment.getInstance(sectionNumber);
+                return CompeteModeFragment.getInstance(context, sectionNumber);
             case 2:
                 return StatsModeFragment.getInstance(sectionNumber);
             default:

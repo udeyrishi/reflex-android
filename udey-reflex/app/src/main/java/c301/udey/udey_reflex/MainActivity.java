@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, AppModesProvider.selectAppMode(position))
+                .replace(R.id.container, AppModesProvider.selectAppMode(this, position))
                 .commit();
     }
 
