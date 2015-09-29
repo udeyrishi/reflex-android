@@ -10,12 +10,12 @@ import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
 import c301.udey.udey_reflex.R;
-import c301.udey.udey_reflex.modes.InstructionsFragment;
+import c301.udey.udey_reflex.modes.AppModeFragment;
 
 /**
  * Created by rishi on 15-09-26.
  */
-public class CompeteModeFragment extends InstructionsFragment {
+public class CompeteModeFragment extends AppModeFragment {
 
     public static final String EXTRA_MESSAGE_NUMBER_PLAYERS = "numberOfPlayers";
     private int numberPlayers;

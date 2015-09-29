@@ -21,10 +21,15 @@ public class StatsModeFragment extends AppModeFragment {
         return rootView;
     }
 
+    @Override
+    protected void onButtonPress(View v) {
+
+    }
+
 
     public static StatsModeFragment getInstance(int sectionNumber) {
         StatsModeFragment fragment = new StatsModeFragment();
-        fragment.attachSectionNumber(sectionNumber);
+        fragment.prepareFragment(sectionNumber, "Welcome to StatsMode fragment");
         return fragment;
     }
 }
