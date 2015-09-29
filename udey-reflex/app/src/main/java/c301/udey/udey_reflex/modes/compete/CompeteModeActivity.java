@@ -2,6 +2,7 @@ package c301.udey.udey_reflex.modes.compete;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import c301.udey.udey_reflex.modes.FragmentsActivity;
 
@@ -27,7 +28,8 @@ public class CompeteModeActivity extends FragmentsActivity implements CompeteMod
     }
 
     @Override
-    public void onBuzzerTapped(int playerNumberWhoWon) {
+    public void onBuzzerTapped(CharSequence playerWhoWon) {
         // Swap to show the result
+        Toast.makeText(this, playerWhoWon + " won", Toast.LENGTH_SHORT).show();
     }
 }

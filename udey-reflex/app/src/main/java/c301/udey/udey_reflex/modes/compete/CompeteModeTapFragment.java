@@ -3,10 +3,16 @@ package c301.udey.udey_reflex.modes.compete;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import at.markushi.ui.CircleButton;
 import c301.udey.udey_reflex.R;
 
 public class CompeteModeTapFragment extends Fragment {
@@ -40,6 +46,8 @@ public class CompeteModeTapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflateProperLayout(inflater, container);
+        ArrayList<Pair<CharSequence, CircleButton>> buttons = getBuzzerButtons(rootView);
+        registerBuzzerCallbacks(buttons);
         return rootView;
     }
 
@@ -58,9 +66,52 @@ public class CompeteModeTapFragment extends Fragment {
         }
     }
 
-    public void onButtonPressed(int playerNumberWhoWon) {
+    private ArrayList<Pair<CharSequence, CircleButton>> getBuzzerButtons(View rootView) {
+        ArrayList<Pair<CharSequence, CircleButton>> buttons = new ArrayList<>();
+        switch(numberOfPlayers) {
+            case 2:
+                buttons.add(getBuzzerDescription(rootView, R.id.two_player_player_one, R.id.two_player_buzzer_one));
+                buttons.add(getBuzzerDescription(rootView, R.id.two_player_player_two, R.id.two_player_buzzer_two));
+                break;
+            case 3:
+                buttons.add(getBuzzerDescription(rootView, R.id.three_player_player_one, R.id.three_player_buzzer_one));
+                buttons.add(getBuzzerDescription(rootView, R.id.three_player_player_two, R.id.three_player_buzzer_two));
+                buttons.add(getBuzzerDescription(rootView, R.id.three_player_player_three, R.id.three_player_buzzer_three));
+                break;
+            case 4:
+                buttons.add(getBuzzerDescription(rootView, R.id.four_player_player_one, R.id.four_player_buzzer_one));
+                buttons.add(getBuzzerDescription(rootView, R.id.four_player_player_two, R.id.four_player_buzzer_two));
+                buttons.add(getBuzzerDescription(rootView, R.id.four_player_player_three, R.id.four_player_buzzer_three));
+                buttons.add(getBuzzerDescription(rootView, R.id.four_player_player_four, R.id.four_player_buzzer_four));
+                break;
+            default:
+                throw new UnsupportedOperationException("numberOfPlayers can only be between 2-4.");
+        }
+        return buttons;
+    }
+
+    private static Pair<CharSequence, CircleButton> getBuzzerDescription(View rootView,
+                                                                         int textViewId,
+                                                                         int buzzerId) {
+        CharSequence description = ((TextView)rootView.findViewById(textViewId)).getText();
+        CircleButton button = (CircleButton)rootView.findViewById(buzzerId);
+        return new Pair<>(description, button);
+    }
+
+    private void registerBuzzerCallbacks(List<Pair<CharSequence, CircleButton>> buttons) {
+        for(final Pair<CharSequence, CircleButton> button : buttons) {
+            button.second.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onButtonPressed(button.first);
+                }
+            });
+        }
+    }
+
+    public void onButtonPressed(CharSequence playerWhoWon) {
         if (buzzerTappedListener != null) {
-            buzzerTappedListener.onBuzzerTapped(playerNumberWhoWon);
+            buzzerTappedListener.onBuzzerTapped(playerWhoWon);
         }
     }
 
@@ -83,7 +134,7 @@ public class CompeteModeTapFragment extends Fragment {
 
 
     public interface OnBuzzerTappedListener {
-        void onBuzzerTapped(int playerNumberWhoWon);
+        void onBuzzerTapped(CharSequence playerWhoWon);
     }
 
 }
