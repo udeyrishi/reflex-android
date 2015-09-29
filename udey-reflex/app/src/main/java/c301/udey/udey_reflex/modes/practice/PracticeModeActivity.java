@@ -6,12 +6,13 @@ import java.io.IOException;
 
 import c301.udey.udey_reflex.Constants;
 import c301.udey.udey_reflex.modes.FragmentsActivity;
+import c301.udey.udey_reflex.modes.ResultFragment;
 import c301.udey.udey_reflex.statisticsmanager.ReactionTimeStatisticsManager;
 
 public class PracticeModeActivity extends FragmentsActivity
         implements PracticeModeCountdownFragment.OnCountdownFinishedListener,
         PracticeModeTapFragment.OnBuzzerTappedListener,
-        PracticeModeResultFragment.OnResultDismissedListener {
+        ResultFragment.OnResultDismissedListener {
 
     private final static int MIN_DELAY_MILLISECONDS = 10;
     private final static int MAX_DELAY_MILLISECONDS = 2000;
@@ -40,11 +41,20 @@ public class PracticeModeActivity extends FragmentsActivity
                 Toast.makeText(this, "Failed to save this delay value in the stats.", Toast.LENGTH_SHORT).show();
             }
         }
-        swapFragments(PracticeModeResultFragment.newInstance(delay));
+        swapFragments(ResultFragment.newInstance(getResult(delay)));
     }
 
     @Override
     public void onTryAgain() {
         swapFragments(PracticeModeCountdownFragment.newInstance(COUNTDOWN_SECONDS));
+    }
+
+    private static CharSequence getResult(Long delayMilliseconds) {
+        if (delayMilliseconds < 0) {
+            return "Too soon!";
+        }
+        else {
+            return "Response time:\n" + delayMilliseconds.toString() + " ms";
+        }
     }
 }

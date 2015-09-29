@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import c301.udey.udey_reflex.modes.FragmentsActivity;
+import c301.udey.udey_reflex.modes.ResultFragment;
 
-public class CompeteModeActivity extends FragmentsActivity implements CompeteModeTapFragment.OnBuzzerTappedListener {
+public class CompeteModeActivity extends FragmentsActivity
+        implements CompeteModeTapFragment.OnBuzzerTappedListener,
+        ResultFragment.OnResultDismissedListener {
 
     private int numberOfPlayers;
 
@@ -29,7 +32,11 @@ public class CompeteModeActivity extends FragmentsActivity implements CompeteMod
 
     @Override
     public void onBuzzerTapped(CharSequence playerWhoWon) {
-        // Swap to show the result
-        Toast.makeText(this, playerWhoWon + " won", Toast.LENGTH_SHORT).show();
+        swapFragments(ResultFragment.newInstance(playerWhoWon + " won"));
+    }
+
+    @Override
+    public void onTryAgain() {
+        onBackPressed();
     }
 }

@@ -1,4 +1,4 @@
-package c301.udey.udey_reflex.modes.practice;
+package c301.udey.udey_reflex.modes;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,25 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import c301.udey.udey_reflex.R;
-import c301.udey.udey_reflex.modes.InstructionsFragment;
 
-public class PracticeModeResultFragment extends InstructionsFragment {
+public class ResultFragment extends InstructionsFragment {
 
     private OnResultDismissedListener onResultDismissedListener;
 
-    public static PracticeModeResultFragment newInstance(Long delayMilliseconds) {
-        PracticeModeResultFragment fragment = new PracticeModeResultFragment();
-        fragment.setInstructions(getResult(delayMilliseconds));
+    public static ResultFragment newInstance(CharSequence result) {
+        ResultFragment fragment = new ResultFragment();
+        fragment.setInstructions(result);
         return fragment;
-    }
-
-    private static CharSequence getResult(Long delayMilliseconds) {
-        if (delayMilliseconds < 0) {
-            return "Too soon!";
-        }
-        else {
-            return "Response time:\n" + delayMilliseconds.toString() + " ms";
-        }
     }
 
     @Override
