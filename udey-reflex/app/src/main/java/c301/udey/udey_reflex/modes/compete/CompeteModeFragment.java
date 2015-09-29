@@ -9,10 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
-import c301.udey.udey_reflex.modes.AppModeFragment;
 import c301.udey.udey_reflex.R;
 import c301.udey.udey_reflex.modes.InstructionsFragment;
-import c301.udey.udey_reflex.modes.practice.PracticeModeActivity;
 
 /**
  * Created by rishi on 15-09-26.
@@ -27,11 +25,11 @@ public class CompeteModeFragment extends InstructionsFragment {
                              Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
 
-        setupNumberOfPlayersRetrieval();
+        getNumberOfPlayers();
         return rootView;
     }
 
-    private void setupNumberOfPlayersRetrieval() {
+    private void getNumberOfPlayers() {
         final Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.compete_player_count_dialog);
         dialog.setTitle("Number of players:");

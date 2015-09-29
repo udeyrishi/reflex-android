@@ -1,25 +1,13 @@
 package c301.udey.udey_reflex.modes.practice;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import at.markushi.ui.CircleButton;
 import c301.udey.udey_reflex.Constants;
 import c301.udey.udey_reflex.R;
 import c301.udey.udey_reflex.modes.AppModeActivity;
-import c301.udey.udey_reflex.modes.AppModesProvider;
 import c301.udey.udey_reflex.statisticsmanager.ReactionTimeStatisticsManager;
 
 public class PracticeModeActivity extends AppModeActivity
@@ -36,7 +24,7 @@ public class PracticeModeActivity extends AppModeActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_practice_mode);
+        setContentView(R.layout.activity_app_mode);
     }
 
     @Override
@@ -48,7 +36,7 @@ public class PracticeModeActivity extends AppModeActivity
 
     @Override
     public void onCountdownFinished() {
-        swapFragments(R.id.practice_mode_container, PracticeModeTapFragment.newInstance(MIN_DELAY_MILLISECONDS, MAX_DELAY_MILLISECONDS));
+        swapFragments(R.id.frame_container, PracticeModeTapFragment.newInstance(MIN_DELAY_MILLISECONDS, MAX_DELAY_MILLISECONDS));
     }
 
     @Override
@@ -60,11 +48,11 @@ public class PracticeModeActivity extends AppModeActivity
                 Toast.makeText(this, "Failed to save this delay value in the stats.", Toast.LENGTH_SHORT).show();
             }
         }
-        swapFragments(R.id.practice_mode_container, PracticeModeResultFragment.newInstance(delay));
+        swapFragments(R.id.frame_container, PracticeModeResultFragment.newInstance(delay));
     }
 
     @Override
     public void onTryAgain() {
-        swapFragments(R.id.practice_mode_container, PracticeModeCountdownFragment.newInstance(COUNTDOWN_SECONDS));
+        swapFragments(R.id.frame_container, PracticeModeCountdownFragment.newInstance(COUNTDOWN_SECONDS));
     }
 }
