@@ -44,20 +44,25 @@ public class PracticeModeResultFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_practice_mode_result, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_instructions, container, false);
+
         setDelayResult(rootView);
-        Button tryAgainButton = (Button) rootView.findViewById(R.id.practice_try_again_button);
+
+        Button tryAgainButton = (Button) rootView.findViewById(R.id.finish_instructions_button);
+
+        tryAgainButton.setText(R.string.practice_try_again_button_text);
         tryAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onButtonPressed();
             }
         });
+
         return rootView;
     }
 
     private void setDelayResult(View rootView) {
-        TextView resultBox = (TextView)rootView.findViewById(R.id.practice_result_display);
+        TextView resultBox = (TextView)rootView.findViewById(R.id.instructions_text_view);
         if (delayMilliseconds < 0) {
             resultBox.setText("Too soon!");
         }
