@@ -25,8 +25,8 @@
 
                 <at.markushi.ui.CircleButton
                     android:id="@+id/four_player_buzzer_one"
-                    android:layout_width="180dip"
-                    android:layout_height="180dip"
+                    android:layout_width="170dip"
+                    android:layout_height="170dip"
                     android:src="@drawable/ic_tap"
                     app:cb_color="@color/darkpurple"
                     app:cb_pressedRingWidth="15dip"
@@ -36,9 +36,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="end|right"
-                android:gravity="end">
+                android:orientation="vertical">
                 <TextView
                     android:id="@+id/four_player_player_two"
                     android:layout_width="wrap_content"
@@ -50,8 +48,8 @@
 
                 <at.markushi.ui.CircleButton
                     android:id="@+id/four_player_buzzer_two"
-                    android:layout_width="180dip"
-                    android:layout_height="180dip"
+                    android:layout_width="170dip"
+                    android:layout_height="170dip"
                     android:src="@drawable/ic_tap"
                     app:cb_color="@color/darkgreen"
                     app:cb_pressedRingWidth="15dip"
@@ -77,8 +75,8 @@
 
             <at.markushi.ui.CircleButton
                 android:id="@+id/four_player_buzzer_three"
-                android:layout_width="180dip"
-                android:layout_height="180dip"
+                android:layout_width="170dip"
+                android:layout_height="170dip"
                 android:src="@drawable/ic_tap"
                 app:cb_color="@color/darkred"
                 app:cb_pressedRingWidth="15dip"
@@ -100,8 +98,8 @@
 
             <at.markushi.ui.CircleButton
                 android:id="@+id/four_player_buzzer_four"
-                android:layout_width="180dip"
-                android:layout_height="180dip"
+                android:layout_width="170dip"
+                android:layout_height="170dip"
                 android:src="@drawable/ic_tap"
                 app:cb_color="@color/darkblue"
                 app:cb_pressedRingWidth="15dip"
