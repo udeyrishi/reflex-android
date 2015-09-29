@@ -3,10 +3,9 @@ package c301.udey.udey_reflex.modes.compete;
 import android.content.Intent;
 import android.os.Bundle;
 
-import c301.udey.udey_reflex.R;
-import c301.udey.udey_reflex.modes.AppModeActivity;
+import c301.udey.udey_reflex.modes.FragmentsActivity;
 
-public class CompeteModeActivity extends AppModeActivity implements CompeteModeTapFragment.OnBuzzerTappedListener {
+public class CompeteModeActivity extends FragmentsActivity implements CompeteModeTapFragment.OnBuzzerTappedListener {
 
     private int numberOfPlayers;
 
@@ -19,13 +18,12 @@ public class CompeteModeActivity extends AppModeActivity implements CompeteModeT
         if (numberOfPlayers < 2) {
             throw new IllegalArgumentException("Number of players can't be less than 2");
         }
-        setContentView(R.layout.activity_app_mode);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        swapFragments(R.id.frame_container, CompeteModeTapFragment.newInstance(numberOfPlayers));
+        swapFragments(CompeteModeTapFragment.newInstance(numberOfPlayers));
     }
 
     @Override
