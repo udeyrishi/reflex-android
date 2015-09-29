@@ -17,8 +17,6 @@ import c301.udey.udey_reflex.R;
 public abstract class InstructionsFragment extends AppModeFragment {
 
     private CharSequence instructions;
-    private Class<? extends AppCompatActivity> nextActivity;
-    private IntentPreparer intentPreparer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,24 +37,15 @@ public abstract class InstructionsFragment extends AppModeFragment {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), nextActivity);
-                intentPreparer.prepareIntent(intent);
-                startActivity(intent);
+                onButtonPress(v);
             }
         });
     }
 
-    protected void prepareFragment(int sectionNumber,
-                                   Class<? extends AppCompatActivity> nextActivity,
-                                   IntentPreparer intentPreparer,
-                                   CharSequence instructions) {
+    protected void prepareFragment(int sectionNumber, CharSequence instructions) {
         this.instructions = instructions;
-        this.nextActivity = nextActivity;
-        this.intentPreparer = intentPreparer;
         attachSectionNumber(sectionNumber);
     }
 
-    public interface IntentPreparer {
-        void prepareIntent(Intent intent);
-    }
+    protected abstract void onButtonPress(View v);
 }

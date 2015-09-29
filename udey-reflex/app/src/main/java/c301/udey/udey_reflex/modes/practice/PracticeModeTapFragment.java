@@ -1,7 +1,6 @@
 package c301.udey.udey_reflex.modes.practice;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -10,10 +9,8 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Chronometer;
 import android.widget.TextView;
 
-import java.util.Date;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;

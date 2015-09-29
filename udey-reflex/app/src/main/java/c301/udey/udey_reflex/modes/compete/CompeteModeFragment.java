@@ -29,6 +29,16 @@ public class CompeteModeFragment extends InstructionsFragment {
         return rootView;
     }
 
+    public static CompeteModeFragment getInstance(Context context, int sectionNumber) {
+        final CompeteModeFragment fragment = new CompeteModeFragment();
+
+        fragment.prepareFragment(
+                sectionNumber,
+                context.getString(R.string.compete_instructions));
+
+        return fragment;
+    }
+
     private void getNumberOfPlayers() {
         final Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.compete_player_count_dialog);
@@ -47,20 +57,10 @@ public class CompeteModeFragment extends InstructionsFragment {
         dialog.show();
     }
 
-    public static CompeteModeFragment getInstance(Context context, int sectionNumber) {
-        final CompeteModeFragment fragment = new CompeteModeFragment();
-
-        fragment.prepareFragment(
-                sectionNumber,
-                CompeteModeActivity.class,
-                new IntentPreparer() {
-                    @Override
-                    public void prepareIntent(Intent intent) {
-                        intent.putExtra(EXTRA_MESSAGE_NUMBER_PLAYERS, fragment.numberPlayers);
-                    }
-                },
-                context.getString(R.string.compete_instructions));
-
-        return fragment;
+    @Override
+    protected void onButtonPress(View v) {
+        Intent intent = new Intent(getActivity(), CompeteModeActivity.class);
+        intent.putExtra(EXTRA_MESSAGE_NUMBER_PLAYERS, numberPlayers);
+        startActivity(intent);
     }
 }
