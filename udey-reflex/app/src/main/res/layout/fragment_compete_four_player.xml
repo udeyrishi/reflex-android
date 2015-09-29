@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="c301.udey.udey_reflex.modes.compete.CompeteModeTapFragment"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/four_player_player_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/player_one"
+                    android:textSize="@dimen/instructions_text_size"
+                    android:layout_gravity="center_horizontal"/>
+
+                <at.markushi.ui.CircleButton
+                    android:id="@+id/four_player_buzzer_one"
+                    android:layout_width="180dip"
+                    android:layout_height="180dip"
+                    android:src="@drawable/ic_tap"
+                    app:cb_color="@color/darkpurple"
+                    app:cb_pressedRingWidth="15dip"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="end|right"
+                android:gravity="end">
+                <TextView
+                    android:id="@+id/four_player_player_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/player_two"
+                    android:textSize="@dimen/instructions_text_size"
+                    android:layout_gravity="center_horizontal"
+                    />
+
+                <at.markushi.ui.CircleButton
+                    android:id="@+id/four_player_buzzer_two"
+                    android:layout_width="180dip"
+                    android:layout_height="180dip"
+                    android:src="@drawable/ic_tap"
+                    app:cb_color="@color/darkgreen"
+                    app:cb_pressedRingWidth="15dip"
+                    />
+            </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/four_player_player_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/player_three"
+                android:textSize="@dimen/instructions_text_size"
+                android:layout_gravity="center_horizontal"/>
+
+            <at.markushi.ui.CircleButton
+                android:id="@+id/four_player_buzzer_three"
+                android:layout_width="180dip"
+                android:layout_height="180dip"
+                android:src="@drawable/ic_tap"
+                app:cb_color="@color/darkred"
+                app:cb_pressedRingWidth="15dip"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/four_player_player_four"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/player_four"
+                android:textSize="@dimen/instructions_text_size"
+                android:layout_gravity="center_horizontal"
+                />
+
+            <at.markushi.ui.CircleButton
+                android:id="@+id/four_player_buzzer_four"
+                android:layout_width="180dip"
+                android:layout_height="180dip"
+                android:src="@drawable/ic_tap"
+                app:cb_color="@color/darkblue"
+                app:cb_pressedRingWidth="15dip"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

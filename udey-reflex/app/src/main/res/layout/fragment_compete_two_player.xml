@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="c301.udey.udey_reflex.modes.compete.CompeteModeTapFragment"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/two_player_player_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/player_one"
+        android:textSize="@dimen/instructions_text_size"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"/>
+
+    <at.markushi.ui.CircleButton
+        android:id="@+id/two_player_buzzer_one"
+        android:layout_width="200dip"
+        android:layout_height="200dip"
+        android:src="@drawable/ic_tap"
+        app:cb_color="@color/darkpurple"
+        app:cb_pressedRingWidth="15dip"
+        android:layout_below="@id/two_player_player_one"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:id="@+id/two_player_player_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/player_two"
+        android:textSize="@dimen/instructions_text_size"
+        android:layout_gravity="center_horizontal"
+        android:layout_above="@+id/two_player_buzzer_two"
+        android:layout_alignStart="@+id/two_player_player_one" />
+
+    <at.markushi.ui.CircleButton
+        android:id="@+id/two_player_buzzer_two"
+        android:layout_width="200dip"
+        android:layout_height="200dip"
+        android:src="@drawable/ic_tap"
+        app:cb_color="@color/green"
+        app:cb_pressedRingWidth="15dip"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        />
+</RelativeLayout>

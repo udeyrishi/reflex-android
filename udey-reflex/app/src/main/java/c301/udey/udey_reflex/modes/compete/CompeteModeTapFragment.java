@@ -39,8 +39,23 @@ public class CompeteModeTapFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_compete_mode_tap, container, false);
+        View rootView = inflateProperLayout(inflater, container);
+        return rootView;
+    }
+
+    private View inflateProperLayout(LayoutInflater inflater, ViewGroup container) {
+        // TODO: Consider refactoring this to be auto generated based on number of players
+        // Potentially reusable with practice mode
+        switch(numberOfPlayers) {
+            case 2:
+                return inflater.inflate(R.layout.fragment_compete_two_player, container, false);
+            case 3:
+                return inflater.inflate(R.layout.fragment_compete_three_player, container, false);
+            case 4:
+                return inflater.inflate(R.layout.fragment_compete_four_player, container, false);
+            default:
+                throw new UnsupportedOperationException("numberOfPlayers can only be between 2-4.");
+        }
     }
 
     public void onButtonPressed(int playerNumberWhoWon) {

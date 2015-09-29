@@ -18,14 +18,14 @@
             android:id="@+id/radio_3_players"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/radio_2_players"
+            android:layout_below="@id/radio_2_players"
             android:text="3 players" />
 
         <RadioButton
             android:id="@+id/radio_4_players"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/radio_3_players"
+            android:layout_below="@id/radio_3_players"
             android:text="4 players" />
     </RadioGroup>
 </RelativeLayout>
