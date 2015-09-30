@@ -7,6 +7,7 @@ import java.io.IOException;
 import c301.udey.udey_reflex.Constants;
 import c301.udey.udey_reflex.modes.FragmentsActivity;
 import c301.udey.udey_reflex.modes.ResultFragment;
+import c301.udey.udey_reflex.statisticsmanager.LocalFileStorageManager;
 import c301.udey.udey_reflex.statisticsmanager.ReactionTimeStatisticsManager;
 
 public class PracticeModeActivity extends FragmentsActivity
@@ -23,7 +24,9 @@ public class PracticeModeActivity extends FragmentsActivity
     @Override
     protected void onStart() {
         super.onStart();
-        statsManager = new ReactionTimeStatisticsManager(this, Constants.STATS_FILE_NAME);
+        statsManager = new ReactionTimeStatisticsManager(
+                new LocalFileStorageManager(this),
+                Constants.REACTION_STATS_FILE_NAME);
         onTryAgain();
     }
 

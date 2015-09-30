@@ -14,34 +14,35 @@ import java.util.ArrayList;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import c301.udey.udey_reflex.Constants;
+
 /**
  * Created by rishi on 15-09-27.
  */
 public class ReactionTimeStatisticsManager {
 
     private static final int MAX_SAVE_COUNT = 100;
-
     private final String fileName;
-    private final Context context;
+    private final FileStorageManager  storageManager;
 
-    public ReactionTimeStatisticsManager(Context context, String fileName) {
+    public ReactionTimeStatisticsManager(FileStorageManager storageManager, String fileName) {
         this.fileName = fileName;
-        this.context = context;
+        this.storageManager = storageManager;
     }
 
     public void saveBuzzerDelay(Long delay) throws IOException {
-        ArrayList<Long> savedDelays = loadFromFile();
-        while (savedDelays.size() >= 100) {
+        ArrayList<Long> savedDelays = safeGetSavedDelays();
+
+        while (savedDelays.size() >= MAX_SAVE_COUNT) {
             savedDelays.remove(0);
         }
         savedDelays.add(delay);
-        saveToFile(savedDelays);
+        storageManager.save(savedDelays, fileName, new TypeToken<ArrayList<Long>>(){}.getType());
     }
 
     public Long getMinimumTime(int lastN) {
         return null;
     }
-
 
     public Long getMaximumTime(int lastN) {
         return null;
@@ -55,32 +56,14 @@ public class ReactionTimeStatisticsManager {
         return null;
     }
 
-
-    // saveToFile and loadFromFile adapted from lonelyTwitter lab project, CMPUT 301 Fall 2015
-    // at University of Alberta
-    // Udey Source: https://github.com/joshua2ua/lonelyTwitter/blob/master/app/src/main/java/ca/ualberta/cs/lonelytwitter/LonelyTwitterActivity.java
-    private void saveToFile(ArrayList<Long> delays) throws IOException {
-        FileOutputStream fos = context.openFileOutput(fileName, 0);
-        OutputStreamWriter writer = new OutputStreamWriter(fos);
-        Gson gson = new Gson();
-        gson.toJson(delays, writer);
-        writer.flush();
-        fos.close();
-    }
-
-    private ArrayList<Long> loadFromFile(){
-        FileInputStream fis = null;
-
+    private ArrayList<Long> safeGetSavedDelays() {
+        ArrayList<Long> savedDelays;
         try {
-            fis = context.openFileInput(fileName);
-        } catch (FileNotFoundException e) {
-            return new ArrayList<Long>();
+            savedDelays = storageManager.load(fileName, new TypeToken<ArrayList<Long>>(){}.getType());
         }
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-        Gson gson = new Gson();
-
-        // Following line from: https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/Gson.html
-        return gson.fromJson(in, new TypeToken<ArrayList<Long>>(){}.getType());
+        catch (FileNotFoundException e){
+            savedDelays = new ArrayList<>();
+        }
+        return savedDelays;
     }
 }

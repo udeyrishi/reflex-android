@@ -4,14 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import java.io.IOException;
+
+import c301.udey.udey_reflex.Constants;
 import c301.udey.udey_reflex.modes.FragmentsActivity;
 import c301.udey.udey_reflex.modes.ResultFragment;
+import c301.udey.udey_reflex.statisticsmanager.BuzzerCountStatisticsManager;
+import c301.udey.udey_reflex.statisticsmanager.LocalFileStorageManager;
 
 public class CompeteModeActivity extends FragmentsActivity
         implements CompeteModeTapFragment.OnBuzzerTappedListener,
         ResultFragment.OnResultDismissedListener {
 
-    private int numberOfPlayers;
+    private Integer numberOfPlayers;
+    private BuzzerCountStatisticsManager statsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +28,8 @@ public class CompeteModeActivity extends FragmentsActivity
         if (numberOfPlayers < 2) {
             throw new IllegalArgumentException("Number of players can't be less than 2");
         }
+        statsManager = new BuzzerCountStatisticsManager(new LocalFileStorageManager(this),
+                Constants.BUZZER_STATS_FILE_NAME);
     }
 
     @Override
@@ -33,6 +41,12 @@ public class CompeteModeActivity extends FragmentsActivity
     @Override
     public void onBuzzerTapped(CharSequence playerWhoWon) {
         swapFragments(ResultFragment.newInstance(playerWhoWon + " won"));
+        try {
+            statsManager.registerBuzzerWin(numberOfPlayers, playerWhoWon.toString());
+        }
+        catch (IOException e) {
+            Toast.makeText(this, "Failed to save this win in the stats.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
