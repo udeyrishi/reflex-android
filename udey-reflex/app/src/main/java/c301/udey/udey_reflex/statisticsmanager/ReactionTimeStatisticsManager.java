@@ -1,14 +1,12 @@
 package c301.udey.udey_reflex.statisticsmanager;
 
+import com.google.gson.reflect.TypeToken;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
-import com.google.gson.reflect.TypeToken;
 
 import c301.udey.udey_reflex.filestorage.FileStorageManager;
 

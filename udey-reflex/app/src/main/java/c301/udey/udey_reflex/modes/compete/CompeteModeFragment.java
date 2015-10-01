@@ -9,33 +9,38 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
+import c301.udey.udey_reflex.MainActivity;
 import c301.udey.udey_reflex.R;
-import c301.udey.udey_reflex.modes.AppModeFragment;
+import c301.udey.udey_reflex.modes.InstructionsFragment;
+import c301.udey.udey_reflex.sectionmanager.FragmentAttacher;
 
 /**
  * Created by rishi on 15-09-26.
  */
-public class CompeteModeFragment extends AppModeFragment {
+public class CompeteModeFragment extends InstructionsFragment {
 
     public static final String EXTRA_MESSAGE_NUMBER_PLAYERS = "numberOfPlayers";
     private int numberPlayers;
+    private FragmentAttacher fragmentAttacher;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        fragmentAttacher = new FragmentAttacher(this);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
-
         getNumberOfPlayers();
         return rootView;
     }
 
     public static CompeteModeFragment getInstance(Context context, int sectionNumber) {
-        final CompeteModeFragment fragment = new CompeteModeFragment();
-
-        fragment.prepareFragment(
-                sectionNumber,
-                context.getString(R.string.compete_instructions));
-
+        CompeteModeFragment fragment = new CompeteModeFragment();
+        fragment.setInstructions(context.getString(R.string.compete_instructions));
+        fragment.fragmentAttacher.attachSectionNumber(sectionNumber);
         return fragment;
     }
 
@@ -55,6 +60,12 @@ public class CompeteModeFragment extends AppModeFragment {
             }
         });
         dialog.show();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        fragmentAttacher.onSectionAttached((MainActivity) context);
     }
 
     @Override

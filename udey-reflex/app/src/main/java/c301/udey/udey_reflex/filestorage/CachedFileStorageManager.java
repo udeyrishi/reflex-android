@@ -27,7 +27,7 @@ public class CachedFileStorageManager implements FileStorageManager {
     @Override
     public <T> T load(String fileName, Type typeOfT) throws FileNotFoundException {
         if (!cache.containsKey(fileName)) {
-            cache.put(fileName, load(fileName, typeOfT));
+            cache.put(fileName, innerStorageManager.load(fileName, typeOfT));
         }
 
         @SuppressWarnings("unchecked")

@@ -1,7 +1,7 @@
 package c301.udey.udey_reflex.modes;
 
-import android.support.v4.app.Fragment;
 import android.content.Context;
+import android.support.v4.app.Fragment;
 
 import c301.udey.udey_reflex.R;
 import c301.udey.udey_reflex.modes.compete.CompeteModeFragment;
