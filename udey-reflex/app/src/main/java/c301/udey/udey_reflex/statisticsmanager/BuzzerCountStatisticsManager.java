@@ -1,12 +1,12 @@
 package c301.udey.udey_reflex.statisticsmanager;
 
-import android.content.Context;
-
 import com.google.gson.reflect.TypeToken;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
+
+import c301.udey.udey_reflex.filestorage.FileStorageManager;
 
 /**
  * Created by rishi on 15-09-27.

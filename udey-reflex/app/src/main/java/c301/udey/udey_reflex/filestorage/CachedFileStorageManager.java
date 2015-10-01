@@ -1,11 +1,9 @@
-package c301.udey.udey_reflex;
+package c301.udey.udey_reflex.filestorage;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
-
-import c301.udey.udey_reflex.statisticsmanager.FileStorageManager;
 
 /**
  * Created by rishi on 2015-10-01.

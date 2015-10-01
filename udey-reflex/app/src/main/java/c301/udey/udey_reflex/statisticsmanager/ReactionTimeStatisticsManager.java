@@ -1,20 +1,12 @@
 package c301.udey.udey_reflex.statisticsmanager;
 
-import android.content.Context;
-
-import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import c301.udey.udey_reflex.Constants;
+import c301.udey.udey_reflex.filestorage.FileStorageManager;
 
 /**
  * Created by rishi on 15-09-27.
@@ -23,7 +15,7 @@ public class ReactionTimeStatisticsManager {
 
     private static final int MAX_SAVE_COUNT = 100;
     private final String fileName;
-    private final FileStorageManager  storageManager;
+    private final FileStorageManager storageManager;
 
     public ReactionTimeStatisticsManager(FileStorageManager storageManager, String fileName) {
         this.fileName = fileName;
