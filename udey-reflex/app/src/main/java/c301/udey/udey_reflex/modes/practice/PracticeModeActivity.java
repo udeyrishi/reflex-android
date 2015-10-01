@@ -4,6 +4,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
+import c301.udey.udey_reflex.CachedFileStorageManager;
 import c301.udey.udey_reflex.Constants;
 import c301.udey.udey_reflex.modes.FragmentsActivity;
 import c301.udey.udey_reflex.modes.ResultFragment;
@@ -25,7 +26,7 @@ public class PracticeModeActivity extends FragmentsActivity
     protected void onStart() {
         super.onStart();
         statsManager = new ReactionTimeStatisticsManager(
-                new LocalFileStorageManager(this),
+                new CachedFileStorageManager(new LocalFileStorageManager(this)),
                 Constants.REACTION_STATS_FILE_NAME);
         onTryAgain();
     }
