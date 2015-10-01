@@ -45,7 +45,7 @@ public class CompeteModeFragment extends InstructionsFragment {
 
     public static CompeteModeFragment getInstance(Context context, int sectionNumber) {
         CompeteModeFragment fragment = new CompeteModeFragment();
-        fragment.setInstructions(context.getString(R.string.compete_instructions));
+        fragment.setArguments(context.getString(R.string.compete_instructions));
         fragment.fragmentAttacher.attachSectionNumber(sectionNumber);
         return fragment;
     }

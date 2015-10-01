@@ -32,7 +32,7 @@ public class PracticeModeFragment extends InstructionsFragment {
     public static PracticeModeFragment getInstance(Context context, int sectionNumber) {
 
         PracticeModeFragment fragment = new PracticeModeFragment();
-        fragment.setInstructions(context.getString(R.string.practice_instructions));
+        fragment.setArguments(context.getString(R.string.practice_instructions));
         fragment.fragmentAttacher.attachSectionNumber(sectionNumber);
         return fragment;
     }

@@ -14,7 +14,7 @@ public class ResultFragment extends InstructionsFragment {
 
     public static ResultFragment newInstance(CharSequence result) {
         ResultFragment fragment = new ResultFragment();
-        fragment.setInstructions(result);
+        fragment.setArguments(result);
         return fragment;
     }
 

@@ -22,13 +22,13 @@ public abstract class InstructionsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_instructions, container, false);
         setButtonHandler(rootView);
-        setInstructions(rootView);
+        changeInstructionsInTextView(rootView);
         return rootView;
     }
 
-    private void setInstructions(View rootView) {
+    private void changeInstructionsInTextView(View rootView) {
         TextView v = getInstructionsTextView(rootView);
-        v.setText(instructions);
+        v.setText(instructions == null ? "" : instructions);
     }
 
     private void setButtonHandler(View rootView) {
@@ -41,7 +41,7 @@ public abstract class InstructionsFragment extends Fragment {
         });
     }
 
-    protected void setInstructions(CharSequence instructions) {
+    protected void setArguments(CharSequence instructions) {
         this.instructions = instructions;
     }
 
