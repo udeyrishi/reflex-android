@@ -3,6 +3,10 @@ package c301.udey.udey_reflex.statisticsmanager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -33,19 +37,55 @@ public class ReactionTimeStatisticsManager {
     }
 
     public Long getMinimumTime(int lastN) {
-        return null;
+        List<Long> delays = getLastNOrAllDelays(lastN);
+        return delays.isEmpty() ? null : Collections.min(delays);
     }
 
     public Long getMaximumTime(int lastN) {
-        return null;
+        List<Long> delays = getLastNOrAllDelays(lastN);
+        return delays.isEmpty() ? null : Collections.max(delays);
     }
 
-    public Long getAverageTime(int lastN) {
-        return null;
+    public Double getAverageTime(int lastN) {
+        List<Long> delays = getLastNOrAllDelays(lastN);
+
+        if (delays.isEmpty()) {
+            return null;
+        }
+
+        long sum = 0;
+        for(Long delay : delays) {
+            sum += delay;
+        }
+        return ((double)sum)/((double)delays.size());
     }
 
-    public Long getMedianTime(int lastN) {
-        return null;
+    public Double getMedianTime(int lastN) {
+
+        // Udey Source: http://stackoverflow.com/questions/11955728/how-to-calculate-the-median-of-an-array
+        List<Long> delays = getLastNOrAllDelays(lastN);
+
+        if (delays.isEmpty()) {
+            return null;
+        }
+
+        // To prevent the side effects of sorting in place for future calls
+        // TODO: consider fixing CachedFileStorageManager to not be affected by this
+        delays = new ArrayList<>(delays);
+        Collections.sort(delays);
+
+        double median;
+        if (delays.size() % 2 == 0)
+            median = ((double)delays.get(delays.size()/2) + (double)delays.get(delays.size()/2 - 1))/2;
+        else
+            median = (double) delays.get(delays.size()/2);
+
+        return median;
+    }
+
+    private List<Long> getLastNOrAllDelays(int lastN) {
+        ArrayList<Long> delays = safeGetSavedDelays();
+        return (lastN >= delays.size()) ? delays : delays.subList(0, lastN - 1);
     }
 
     private ArrayList<Long> safeGetSavedDelays() {
