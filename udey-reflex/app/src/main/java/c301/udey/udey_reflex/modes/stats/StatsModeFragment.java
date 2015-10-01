@@ -18,10 +18,16 @@ public class StatsModeFragment extends Fragment {
 
     private FragmentAttacher fragmentAttacher;
 
+    public StatsModeFragment() {
+        this.fragmentAttacher = new FragmentAttacher(this);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.fragmentAttacher = new FragmentAttacher(this);
+        if (fragmentAttacher == null) {
+            fragmentAttacher = new FragmentAttacher(this);
+        }
     }
 
     @Override

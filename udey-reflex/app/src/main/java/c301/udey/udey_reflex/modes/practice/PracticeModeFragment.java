@@ -17,10 +17,16 @@ public class PracticeModeFragment extends InstructionsFragment {
 
     private FragmentAttacher fragmentAttacher;
 
+    public PracticeModeFragment() {
+        fragmentAttacher = new FragmentAttacher(this);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.fragmentAttacher = new FragmentAttacher(this);
+        if (fragmentAttacher == null) {
+            fragmentAttacher = new FragmentAttacher(this);
+        }
     }
 
     public static PracticeModeFragment getInstance(Context context, int sectionNumber) {

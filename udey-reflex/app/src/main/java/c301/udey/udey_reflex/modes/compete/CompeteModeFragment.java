@@ -23,10 +23,16 @@ public class CompeteModeFragment extends InstructionsFragment {
     private int numberPlayers;
     private FragmentAttacher fragmentAttacher;
 
+    public CompeteModeFragment() {
+        fragmentAttacher = new FragmentAttacher(this);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        fragmentAttacher = new FragmentAttacher(this);
+        if (fragmentAttacher == null) {
+            fragmentAttacher = new FragmentAttacher(this);
+        }
     }
 
     @Override
