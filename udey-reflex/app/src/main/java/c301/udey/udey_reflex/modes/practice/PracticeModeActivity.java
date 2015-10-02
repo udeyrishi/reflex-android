@@ -5,14 +5,12 @@ import android.widget.Toast;
 import java.io.IOException;
 
 import c301.udey.udey_reflex.modes.FragmentsActivity;
-import c301.udey.udey_reflex.modes.ResultFragment;
 import c301.udey.udey_reflex.statisticsmanager.ReactionTimeStatisticsManager;
 import c301.udey.udey_reflex.statisticsmanager.StatisticsManagerFactory;
 
 public class PracticeModeActivity extends FragmentsActivity
         implements PracticeModeCountdownFragment.OnCountdownFinishedListener,
-        PracticeModeTapFragment.OnBuzzerTappedListener,
-        ResultFragment.OnResultDismissedListener {
+        PracticeModeTapFragment.OnBuzzerTappedListener {
 
     private final static int MIN_DELAY_MILLISECONDS = 10;
     private final static int MAX_DELAY_MILLISECONDS = 2000;
@@ -20,11 +18,15 @@ public class PracticeModeActivity extends FragmentsActivity
 
     private ReactionTimeStatisticsManager statsManager;
 
+    // Udey Source: http://stackoverflow.com/questions/2755277/android-hide-all-showed-toast-messages
+    // Single toast suggestion
+    private Toast statusToast;
+
     @Override
     protected void onStart() {
         super.onStart();
         statsManager = StatisticsManagerFactory.getReactionTimeStatisticsManager(this);
-        onTryAgain();
+        startCountdown();
     }
 
     @Override
@@ -34,27 +36,37 @@ public class PracticeModeActivity extends FragmentsActivity
 
     @Override
     public void onBuzzerTapped(Long delay) {
-        if (delay >= 0) {
-            try {
-                statsManager.saveBuzzerDelay(delay);
-            } catch (IOException e) {
-                Toast.makeText(this, "Failed to save this delay value in the stats.", Toast.LENGTH_SHORT).show();
-            }
+        if (delay < 0) {
+            showToast("Too soon!");
+            onCountdownFinished();
         }
-        swapFragments(ResultFragment.newInstance(getResult(delay)));
+        else {
+            saveDelayToStorage(delay);
+            startCountdown();
+            showToast("Response time:\n" + delay.toString() + " ms");
+        }
     }
 
-    @Override
-    public void onTryAgain() {
+    private void saveDelayToStorage(Long delay) {
+        try {
+            statsManager.saveBuzzerDelay(delay);
+        } catch (IOException e) {
+            showToast("Failed to save this delay value in the stats.");
+        }
+    }
+
+    private void startCountdown() {
         swapFragments(PracticeModeCountdownFragment.newInstance(COUNTDOWN_SECONDS));
     }
 
-    private static CharSequence getResult(Long delayMilliseconds) {
-        if (delayMilliseconds < 0) {
-            return "Too soon!";
+    private void showToast(String message) {
+        if (statusToast == null) {
+            // First time
+            statusToast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
         }
         else {
-            return "Response time:\n" + delayMilliseconds.toString() + " ms";
+            statusToast.setText(message);
         }
+        statusToast.show();
     }
 }

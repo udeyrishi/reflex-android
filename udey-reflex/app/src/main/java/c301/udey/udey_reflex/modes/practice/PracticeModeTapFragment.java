@@ -28,6 +28,7 @@ public class PracticeModeTapFragment extends Fragment {
     private OnBuzzerTappedListener onBuzzerTappedListener;
 
     private Long buttonDisplayedTime;
+    private Timer timer;
 
     public static PracticeModeTapFragment newInstance(int minDelayMilliSeconds, int maxDelayMilliseconds) {
         PracticeModeTapFragment fragment = new PracticeModeTapFragment();
@@ -49,6 +50,7 @@ public class PracticeModeTapFragment extends Fragment {
             minDelayMilliSeconds = getArguments().getInt(ARG_MIN_DELAY_MILLISECONDS);
             maxDelayMilliseconds = getArguments().getInt(ARG_MAX_DELAY_MILLISECONDS);
         }
+        timer = new Timer();
     }
 
     @Override
@@ -94,7 +96,7 @@ public class PracticeModeTapFragment extends Fragment {
         };
 
         int delay = getRandom(minDelayMilliSeconds, maxDelayMilliseconds);
-        new Timer().schedule(task, delay);
+        timer.schedule(task, delay);
         return rootView;
     }
 
@@ -111,6 +113,7 @@ public class PracticeModeTapFragment extends Fragment {
     }
 
     private void onButtonPressed() {
+        timer.cancel();
         Long currentTime = SystemClock.elapsedRealtime();
         final Long delay;
         if (buttonDisplayedTime == null) {
@@ -118,8 +121,8 @@ public class PracticeModeTapFragment extends Fragment {
             delay = new Long(-1);
         } else {
             delay = currentTime  - buttonDisplayedTime;
+            buttonDisplayedTime = null;
         }
-        buttonDisplayedTime = currentTime;
 
         if (onBuzzerTappedListener != null) {
             // Delay it to complete the circular button animation
