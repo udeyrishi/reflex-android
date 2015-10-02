@@ -10,6 +10,7 @@ import c301.udey.udey_reflex.filestorage.LocalFileStorageManager;
 import c301.udey.udey_reflex.modes.FragmentsActivity;
 import c301.udey.udey_reflex.modes.ResultFragment;
 import c301.udey.udey_reflex.statisticsmanager.ReactionTimeStatisticsManager;
+import c301.udey.udey_reflex.statisticsmanager.StatisticsManagerFactory;
 
 public class PracticeModeActivity extends FragmentsActivity
         implements PracticeModeCountdownFragment.OnCountdownFinishedListener,
@@ -25,9 +26,7 @@ public class PracticeModeActivity extends FragmentsActivity
     @Override
     protected void onStart() {
         super.onStart();
-        statsManager = new ReactionTimeStatisticsManager(
-                new CachedFileStorageManager(new LocalFileStorageManager(this)),
-                Constants.REACTION_STATS_FILE_NAME);
+        statsManager = StatisticsManagerFactory.getReactionTimeStatisticsManager(this);
         onTryAgain();
     }
 

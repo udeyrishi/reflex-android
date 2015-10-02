@@ -23,6 +23,7 @@ import c301.udey.udey_reflex.sectionmanager.FragmentAttacher;
 import c301.udey.udey_reflex.statisticsmanager.BuzzerCountStatisticsManager;
 import c301.udey.udey_reflex.statisticsmanager.ReactionTimeStatisticsManager;
 import c301.udey.udey_reflex.statisticsmanager.Statistic;
+import c301.udey.udey_reflex.statisticsmanager.StatisticsManagerFactory;
 
 /**
  * Created by rishi on 15-09-26.
@@ -60,14 +61,8 @@ public class StatsModeFragment extends Fragment {
             fragmentAttacher = new FragmentAttacher(this);
         }
 
-        buzzerCountStatisticsManager
-                = new BuzzerCountStatisticsManager(new CachedFileStorageManager(new LocalFileStorageManager(getContext())),
-                Constants.BUZZER_STATS_FILE_NAME);
-        reactionTimeStatisticsManager
-                = new ReactionTimeStatisticsManager(
-                new CachedFileStorageManager(new LocalFileStorageManager(getContext())),
-                Constants.REACTION_STATS_FILE_NAME);
-
+        buzzerCountStatisticsManager = StatisticsManagerFactory.getBuzzerCountStatisticsManager(getContext());
+        reactionTimeStatisticsManager = StatisticsManagerFactory.getReactionTimeStatisticsManager(getContext());
         setHasOptionsMenu(true);
     }
 
@@ -88,7 +83,7 @@ public class StatsModeFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        final MenuItem clearReactionTimeStatsItem = menu.add(R.string.clear_reaction_time_stats_label);
+        MenuItem clearReactionTimeStatsItem = menu.add(R.string.clear_reaction_time_stats_label);
         clearReactionTimeStatsItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -97,7 +92,7 @@ public class StatsModeFragment extends Fragment {
             }
         });
 
-        final MenuItem clearBuzzerStatsItem = menu.add(R.string.clear_buzzer_count_stats_label);
+        MenuItem clearBuzzerStatsItem = menu.add(R.string.clear_buzzer_count_stats_label);
         clearBuzzerStatsItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {

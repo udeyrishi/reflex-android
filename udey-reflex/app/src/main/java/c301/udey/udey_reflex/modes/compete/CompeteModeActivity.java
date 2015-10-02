@@ -12,6 +12,7 @@ import c301.udey.udey_reflex.filestorage.LocalFileStorageManager;
 import c301.udey.udey_reflex.modes.FragmentsActivity;
 import c301.udey.udey_reflex.modes.ResultFragment;
 import c301.udey.udey_reflex.statisticsmanager.BuzzerCountStatisticsManager;
+import c301.udey.udey_reflex.statisticsmanager.StatisticsManagerFactory;
 
 public class CompeteModeActivity extends FragmentsActivity
         implements CompeteModeTapFragment.OnBuzzerTappedListener,
@@ -29,8 +30,7 @@ public class CompeteModeActivity extends FragmentsActivity
         if (numberOfPlayers < 2) {
             throw new IllegalArgumentException("Number of players can't be less than 2");
         }
-        statsManager = new BuzzerCountStatisticsManager(new CachedFileStorageManager(new LocalFileStorageManager(this)),
-                Constants.BUZZER_STATS_FILE_NAME);
+        statsManager = StatisticsManagerFactory.getBuzzerCountStatisticsManager(this);
     }
 
     @Override
