@@ -22,17 +22,17 @@ public class BuzzerCountStatisticsManager {
     }
 
     public void registerBuzzerWin(Integer numberOfPlayers, final String playerWhoWon) throws IOException {
-        HashMap<Integer, HashMap<String, Integer>> stats = safeGetStats();
+        HashMap<Integer, HashMap<String, Long>> stats = safeGetStats();
 
         if (stats.containsKey(numberOfPlayers)) {
-            HashMap<String, Integer> playerRecords = stats.get(numberOfPlayers);
-            Integer currentValue = playerRecords.containsKey(playerWhoWon) ? playerRecords.get(playerWhoWon) : 0;
+            HashMap<String, Long> playerRecords = stats.get(numberOfPlayers);
+            Long currentValue = playerRecords.containsKey(playerWhoWon) ? playerRecords.get(playerWhoWon) : 0;
             playerRecords.put(playerWhoWon, currentValue + 1);
         }
         else {
-            stats.put(numberOfPlayers, new HashMap<String, Integer>() {
+            stats.put(numberOfPlayers, new HashMap<String, Long>() {
                 {
-                    put(playerWhoWon, 1);
+                    put(playerWhoWon, new Long(1));
                 }
             });
         }
@@ -40,22 +40,26 @@ public class BuzzerCountStatisticsManager {
         storageManager.save(stats, fileName, new TypeToken<HashMap<Integer, HashMap<String, Integer>>>(){}.getType());
     }
 
-    public int getNumberOfBuzzes(Integer numberOfPlayers, String playerName) {
-        HashMap<Integer, HashMap<String, Integer>> stats = safeGetStats();
+    public Statistic<Long> getNumberOfBuzzes(Integer numberOfPlayers, String playerName) {
+        HashMap<Integer, HashMap<String, Long>> stats = safeGetStats();
+
+        Long numberOfBuzzes;
         if (stats.containsKey(numberOfPlayers)) {
-            HashMap<String, Integer> playerRecords = stats.get(numberOfPlayers);
-            return playerRecords.containsKey(playerName) ? playerRecords.get(playerName) : 0;
+            HashMap<String, Long> playerRecords = stats.get(numberOfPlayers);
+            numberOfBuzzes = playerRecords.containsKey(playerName) ? playerRecords.get(playerName) : 0;
         }
         else {
-            return 0;
+            numberOfBuzzes = new Long(0);
         }
+
+        return new Statistic<>(String.format("%d player mode, %s buzzes", numberOfPlayers, playerName), numberOfBuzzes);
     }
 
-    private HashMap<Integer, HashMap<String, Integer>> safeGetStats() {
-        HashMap<Integer, HashMap<String, Integer>> stats;
+    private HashMap<Integer, HashMap<String, Long>> safeGetStats() {
+        HashMap<Integer, HashMap<String, Long>> stats;
         try {
             stats = storageManager.load(fileName,
-                    new TypeToken<HashMap<Integer, HashMap<String, Integer>>>() {}.getType());
+                    new TypeToken<HashMap<Integer, HashMap<String, Long>>>() {}.getType());
         }
         catch (FileNotFoundException e) {
             stats = new HashMap<>();

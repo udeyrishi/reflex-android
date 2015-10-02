@@ -34,17 +34,19 @@ public class ReactionTimeStatisticsManager {
         storageManager.save(savedDelays, fileName, new TypeToken<ArrayList<Long>>(){}.getType());
     }
 
-    public Long getMinimumTime(int lastN) {
+    public Statistic<Long> getMinimumTime(int lastN) {
         List<Long> delays = getLastNOrAllDelays(lastN);
-        return delays.isEmpty() ? null : Collections.min(delays);
+        Long minTime = delays.isEmpty() ? null : Collections.min(delays);
+        return new Statistic<>(String.format("Min reaction time over last %d tries", lastN), minTime);
     }
 
-    public Long getMaximumTime(int lastN) {
+    public Statistic<Long> getMaximumTime(int lastN) {
         List<Long> delays = getLastNOrAllDelays(lastN);
-        return delays.isEmpty() ? null : Collections.max(delays);
+        Long maxTime = delays.isEmpty() ? null : Collections.max(delays);
+        return new Statistic<>(String.format("Max reaction time over last %d tries", lastN), maxTime);
     }
 
-    public Double getAverageTime(int lastN) {
+    public Statistic<Double> getAverageTime(int lastN) {
         List<Long> delays = getLastNOrAllDelays(lastN);
 
         if (delays.isEmpty()) {
@@ -55,10 +57,12 @@ public class ReactionTimeStatisticsManager {
         for(Long delay : delays) {
             sum += delay;
         }
-        return ((double)sum)/((double)delays.size());
+
+        Double averageTime = ((double)sum)/((double)delays.size());
+        return new Statistic<>(String.format("Average reaction time over last %d tries", lastN), averageTime);
     }
 
-    public Double getMedianTime(int lastN) {
+    public Statistic<Double> getMedianTime(int lastN) {
 
         // Udey Source: http://stackoverflow.com/questions/11955728/how-to-calculate-the-median-of-an-array
         List<Long> delays = getLastNOrAllDelays(lastN);
@@ -78,7 +82,7 @@ public class ReactionTimeStatisticsManager {
         else
             median = (double) delays.get(delays.size()/2);
 
-        return median;
+        return new Statistic<>(String.format("Median reaction time over last %d tries", lastN), median);
     }
 
     private List<Long> getLastNOrAllDelays(int lastN) {
