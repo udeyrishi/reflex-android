@@ -33,6 +33,10 @@ public class CompeteModeActivity extends FragmentsActivity
     @Override
     protected void onStart() {
         super.onStart();
+        loadButtonsScreen();
+    }
+
+    private void loadButtonsScreen() {
         swapFragments(CompeteModeTapFragment.newInstance(numberOfPlayers));
     }
 
@@ -49,6 +53,6 @@ public class CompeteModeActivity extends FragmentsActivity
 
     @Override
     public void onTryAgain() {
-        onBackPressed();
+        loadButtonsScreen();
     }
 }
