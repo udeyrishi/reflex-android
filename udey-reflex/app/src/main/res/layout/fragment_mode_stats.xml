@@ -9,6 +9,7 @@
     android:orientation="vertical"
     android:scrollbars="vertical">
 
+    <!--Udey Source: http://stackoverflow.com/questions/17945498/how-set-listview-not-clickable-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,10 +18,11 @@
         android:text="Reaction Time statistics:"
         android:padding="10dp"/>
     <ListView
-        android:id="@+id/reactionTimeStatsList"
+        android:id="@+id/reaction_time_stats_list"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:listSelector="@android:color/transparent">
     </ListView>
 
     <TextView
@@ -31,9 +33,10 @@
         android:text="Buzzer Count statistics:"
         android:padding="10dp"/>
     <ListView
-        android:id="@+id/buzzerStatsList"
+        android:id="@+id/buzzer_count_stats_list"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:listSelector="@android:color/transparent">
     </ListView>
 </LinearLayout>

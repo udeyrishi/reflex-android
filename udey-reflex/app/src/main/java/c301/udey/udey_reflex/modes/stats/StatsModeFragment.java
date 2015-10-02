@@ -65,8 +65,8 @@ public class StatsModeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_mode_stats, container, false);
 
-        buzzerStatsBox = (ListView)rootView.findViewById(R.id.buzzerStatsList);
-        reactionTimeStatsBox = (ListView)rootView.findViewById(R.id.reactionTimeStatsList);
+        buzzerStatsBox = (ListView)rootView.findViewById(R.id.buzzer_count_stats_list);
+        reactionTimeStatsBox = (ListView)rootView.findViewById(R.id.reaction_time_stats_list);
 
         refreshStats();
         return rootView;
