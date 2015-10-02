@@ -68,12 +68,6 @@ public class StatsModeFragment extends Fragment {
                 new CachedFileStorageManager(new LocalFileStorageManager(getContext())),
                 Constants.REACTION_STATS_FILE_NAME);
 
-        reactionTimeStats = getReactionTimeStats();
-        buzzerStats = getBuzzerTimeStats();
-
-        buzzerStatsAdapter = new ArrayAdapter<>(getContext(), R.layout.list_item, buzzerStats);
-        reactionTimeStatsAdapter = new ArrayAdapter<>(getContext(), R.layout.list_item, reactionTimeStats);
-
         setHasOptionsMenu(true);
     }
 
@@ -85,8 +79,7 @@ public class StatsModeFragment extends Fragment {
         buzzerStatsBox = (ListView)rootView.findViewById(R.id.buzzerStatsList);
         reactionTimeStatsBox = (ListView)rootView.findViewById(R.id.reactionTimeStatsList);
 
-        buzzerStatsBox.setAdapter(buzzerStatsAdapter);
-        reactionTimeStatsBox.setAdapter(reactionTimeStatsAdapter);
+        refreshStats();
         return rootView;
     }
 
@@ -132,7 +125,14 @@ public class StatsModeFragment extends Fragment {
     }
 
     private void refreshStats() {
+        reactionTimeStats = getReactionTimeStats();
+        buzzerStats = getBuzzerTimeStats();
 
+        buzzerStatsAdapter = new ArrayAdapter<>(getContext(), R.layout.list_item, buzzerStats);
+        reactionTimeStatsAdapter = new ArrayAdapter<>(getContext(), R.layout.list_item, reactionTimeStats);
+
+        buzzerStatsBox.setAdapter(buzzerStatsAdapter);
+        reactionTimeStatsBox.setAdapter(reactionTimeStatsAdapter);
     }
 
     private ArrayList<Statistic<Long>> getBuzzerTimeStats() {
