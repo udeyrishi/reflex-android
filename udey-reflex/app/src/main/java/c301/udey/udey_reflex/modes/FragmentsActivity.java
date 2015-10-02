@@ -16,6 +16,10 @@ public class FragmentsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragments);
+
+        // ActionBar is present -- can't be null in this case
+        //noinspection ConstantConditions
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
     protected void swapFragments(Fragment newFragment) {

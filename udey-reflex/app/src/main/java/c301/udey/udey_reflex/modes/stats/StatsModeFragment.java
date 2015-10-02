@@ -116,23 +116,29 @@ public class StatsModeFragment extends Fragment {
 
     private void clearBuzzerStats() {
         buzzerCountStatisticsManager.clearStats();
-        refreshStats();
+        refreshBuzzerCountStats();
     }
 
     private void clearReactionTimeStats() {
         reactionTimeStatisticsManager.clearStats();
-        refreshStats();
+        refreshReactionTimeStats();
     }
 
     private void refreshStats() {
+        refreshBuzzerCountStats();
+        refreshReactionTimeStats();
+    }
+
+    private void refreshReactionTimeStats() {
         reactionTimeStats = getReactionTimeStats();
-        buzzerStats = getBuzzerTimeStats();
-
-        buzzerStatsAdapter = new ArrayAdapter<>(getContext(), R.layout.list_item, buzzerStats);
         reactionTimeStatsAdapter = new ArrayAdapter<>(getContext(), R.layout.list_item, reactionTimeStats);
-
-        buzzerStatsBox.setAdapter(buzzerStatsAdapter);
         reactionTimeStatsBox.setAdapter(reactionTimeStatsAdapter);
+    }
+
+    private void refreshBuzzerCountStats() {
+        buzzerStats = getBuzzerTimeStats();
+        buzzerStatsAdapter = new ArrayAdapter<>(getContext(), R.layout.list_item, buzzerStats);
+        buzzerStatsBox.setAdapter(buzzerStatsAdapter);
     }
 
     private ArrayList<Statistic<Long>> getBuzzerTimeStats() {
