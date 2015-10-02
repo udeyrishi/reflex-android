@@ -4,6 +4,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -44,6 +47,12 @@ public class StatsModeFragment extends Fragment {
         this.fragmentAttacher = new FragmentAttacher(this);
     }
 
+    public static StatsModeFragment getInstance(int sectionNumber) {
+        StatsModeFragment fragment = new StatsModeFragment();
+        fragment.fragmentAttacher.attachSectionNumber(sectionNumber);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +73,8 @@ public class StatsModeFragment extends Fragment {
 
         buzzerStatsAdapter = new ArrayAdapter<>(getContext(), R.layout.list_item, buzzerStats);
         reactionTimeStatsAdapter = new ArrayAdapter<>(getContext(), R.layout.list_item, reactionTimeStats);
+
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -79,16 +90,49 @@ public class StatsModeFragment extends Fragment {
         return rootView;
     }
 
-    public static StatsModeFragment getInstance(int sectionNumber) {
-        StatsModeFragment fragment = new StatsModeFragment();
-        fragment.fragmentAttacher.attachSectionNumber(sectionNumber);
-        return fragment;
+    // Udey Source: http://stackoverflow.com/questions/8308695/android-options-menu-in-fragment
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        final MenuItem clearReactionTimeStatsItem = menu.add(R.string.clear_reaction_time_stats_label);
+        clearReactionTimeStatsItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                clearReactionTimeStats();
+                return true;
+            }
+        });
+
+        final MenuItem clearBuzzerStatsItem = menu.add(R.string.clear_buzzer_count_stats_label);
+        clearBuzzerStatsItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                clearBuzzerStats();
+                return true;
+            }
+        });
     }
+
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         fragmentAttacher.onSectionAttached((MainActivity) context);
+    }
+
+    private void clearBuzzerStats() {
+        buzzerCountStatisticsManager.clearStats();
+        refreshStats();
+    }
+
+    private void clearReactionTimeStats() {
+        reactionTimeStatisticsManager.clearStats();
+        refreshStats();
+    }
+
+    private void refreshStats() {
+
     }
 
     private ArrayList<Statistic<Long>> getBuzzerTimeStats() {

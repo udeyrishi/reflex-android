@@ -45,4 +45,9 @@ public class LocalFileStorageManager implements FileStorageManager {
         // Following line from: https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/Gson.html
         return gson.fromJson(in, typeOfT);
     }
+
+    @Override
+    public void delete(String fileName) {
+        context.deleteFile(fileName);
+    }
 }

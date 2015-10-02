@@ -35,4 +35,12 @@ public class CachedFileStorageManager implements FileStorageManager {
 
         return loadedValue;
     }
+
+    @Override
+    public void delete(String fileName) {
+        innerStorageManager.delete(fileName);
+        if (cache.containsKey(fileName)) {
+            cache.remove(fileName);
+        }
+    }
 }

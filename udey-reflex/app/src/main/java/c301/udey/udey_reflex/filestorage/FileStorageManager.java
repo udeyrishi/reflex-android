@@ -10,4 +10,5 @@ import java.lang.reflect.Type;
 public interface FileStorageManager {
     <T> void save(T obj, String fileName, Type typeOfT) throws IOException;
     <T> T load(String fileName, Type typeOfT) throws FileNotFoundException;
+    void delete(String fileName);
 }

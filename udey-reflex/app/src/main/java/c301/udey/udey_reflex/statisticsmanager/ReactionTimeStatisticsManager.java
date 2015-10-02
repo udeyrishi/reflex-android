@@ -49,16 +49,19 @@ public class ReactionTimeStatisticsManager {
     public Statistic<Double> getAverageTime(int lastN) {
         List<Long> delays = getLastNOrAllDelays(lastN);
 
+        Double averageTime;
         if (delays.isEmpty()) {
-            return null;
+            averageTime = null;
+        }
+        else {
+
+            long sum = 0;
+            for (Long delay : delays) {
+                sum += delay;
+            }
+            averageTime = ((double) sum) / ((double) delays.size());
         }
 
-        long sum = 0;
-        for(Long delay : delays) {
-            sum += delay;
-        }
-
-        Double averageTime = ((double)sum)/((double)delays.size());
         return new Statistic<>(String.format("Average reaction time over last %d tries", lastN), averageTime);
     }
 
@@ -67,26 +70,28 @@ public class ReactionTimeStatisticsManager {
         // Udey Source: http://stackoverflow.com/questions/11955728/how-to-calculate-the-median-of-an-array
         List<Long> delays = getLastNOrAllDelays(lastN);
 
+        Double median;
         if (delays.isEmpty()) {
-            return null;
+            median = null;
         }
+        else {
 
-        // To prevent the side effects of sorting in place for future calls
-        // TODO: consider fixing CachedFileStorageManager to not be affected by this
-        delays = new ArrayList<>(delays);
-        Collections.sort(delays);
+            // To prevent the side effects of sorting in place for future calls
+            // TODO: consider fixing CachedFileStorageManager to not be affected by this
+            delays = new ArrayList<>(delays);
+            Collections.sort(delays);
 
-        double median;
-        if (delays.size() % 2 == 0)
-            median = ((double)delays.get(delays.size()/2) + (double)delays.get(delays.size()/2 - 1))/2;
-        else
-            median = (double) delays.get(delays.size()/2);
+            if (delays.size() % 2 == 0)
+                median = ((double) delays.get(delays.size() / 2) + (double) delays.get(delays.size() / 2 - 1)) / 2;
+            else
+                median = (double) delays.get(delays.size() / 2);
+        }
 
         return new Statistic<>(String.format("Median reaction time over last %d tries", lastN), median);
     }
 
-    public void clearStats() throws IOException {
-        storageManager.save(new ArrayList<Long>(), fileName, new TypeToken<ArrayList<Long>>(){}.getType());
+    public void clearStats() {
+        storageManager.delete(fileName);
     }
 
     private List<Long> getLastNOrAllDelays(int lastN) {
