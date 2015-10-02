@@ -55,6 +55,11 @@ public class BuzzerCountStatisticsManager {
         return new Statistic<>(String.format("%d player mode, %s buzzes", numberOfPlayers, playerName), numberOfBuzzes);
     }
 
+    public void clearStats() throws IOException {
+        storageManager.save(new HashMap<Integer, HashMap<String, Long>>(),
+                fileName, new TypeToken<HashMap<Integer, HashMap<String, Integer>>>(){}.getType());
+    }
+
     private HashMap<Integer, HashMap<String, Long>> safeGetStats() {
         HashMap<Integer, HashMap<String, Long>> stats;
         try {

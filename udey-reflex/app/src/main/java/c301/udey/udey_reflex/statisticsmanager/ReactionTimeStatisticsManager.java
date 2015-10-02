@@ -85,6 +85,10 @@ public class ReactionTimeStatisticsManager {
         return new Statistic<>(String.format("Median reaction time over last %d tries", lastN), median);
     }
 
+    public void clearStats() throws IOException {
+        storageManager.save(new ArrayList<Long>(), fileName, new TypeToken<ArrayList<Long>>(){}.getType());
+    }
+
     private List<Long> getLastNOrAllDelays(int lastN) {
         ArrayList<Long> delays = safeGetSavedDelays();
         return (lastN >= delays.size()) ? delays : delays.subList(0, lastN - 1);
