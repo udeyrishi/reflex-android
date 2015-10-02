@@ -1,6 +1,7 @@
 package c301.udey.udey_reflex.modes.stats;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,16 +15,11 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import c301.udey.udey_reflex.Constants;
 import c301.udey.udey_reflex.MainActivity;
 import c301.udey.udey_reflex.R;
-import c301.udey.udey_reflex.filestorage.CachedFileStorageManager;
-import c301.udey.udey_reflex.filestorage.LocalFileStorageManager;
 import c301.udey.udey_reflex.sectionmanager.FragmentAttacher;
-import c301.udey.udey_reflex.statisticsmanager.BuzzerCountStatisticsManager;
-import c301.udey.udey_reflex.statisticsmanager.ReactionTimeStatisticsManager;
 import c301.udey.udey_reflex.statisticsmanager.Statistic;
-import c301.udey.udey_reflex.statisticsmanager.StatisticsManagerFactory;
+import c301.udey.udey_reflex.statisticsmanager.StatisticsManager;
 
 /**
  * Created by rishi on 15-09-26.
@@ -41,8 +37,7 @@ public class StatsModeFragment extends Fragment {
     private ListView buzzerStatsBox;
     private ListView reactionTimeStatsBox;
 
-    private BuzzerCountStatisticsManager buzzerCountStatisticsManager;
-    private ReactionTimeStatisticsManager reactionTimeStatisticsManager;
+    private StatisticsManager statsManager;
 
     public StatsModeFragment() {
         this.fragmentAttacher = new FragmentAttacher(this);
@@ -61,8 +56,7 @@ public class StatsModeFragment extends Fragment {
             fragmentAttacher = new FragmentAttacher(this);
         }
 
-        buzzerCountStatisticsManager = StatisticsManagerFactory.getBuzzerCountStatisticsManager(getContext());
-        reactionTimeStatisticsManager = StatisticsManagerFactory.getReactionTimeStatisticsManager(getContext());
+        statsManager = new StatisticsManager(getContext());
         setHasOptionsMenu(true);
     }
 
@@ -100,6 +94,38 @@ public class StatsModeFragment extends Fragment {
                 return true;
             }
         });
+
+        MenuItem sendEmailItem = menu.add(R.string.send_email_stats_label);
+        sendEmailItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                sendStatsEmail();
+                return true;
+            }
+        });
+    }
+
+    private void sendStatsEmail() {
+        Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+        emailIntent.setType("plain/text");
+        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.stats_email_subject));
+        emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, getAllStatsSerialized());
+        startActivityForResult(emailIntent, 1);
+    }
+
+    private String getAllStatsSerialized() {
+
+        StringBuilder allStats = new StringBuilder("Reaction time stats:\n");
+        for(Statistic<? extends Number> statistic : reactionTimeStats) {
+            allStats.append(statistic.toString()).append("\n");
+        }
+
+        allStats.append("\n\nBuzzer count stats:\n");
+        for(Statistic<Long> statistic : buzzerStats) {
+            allStats.append(statistic.toString()).append("\n");
+        }
+
+        return allStats.toString();
     }
 
 
@@ -110,12 +136,12 @@ public class StatsModeFragment extends Fragment {
     }
 
     private void clearBuzzerStats() {
-        buzzerCountStatisticsManager.clearStats();
+        statsManager.clearBuzzerCountStats();
         refreshBuzzerCountStats();
     }
 
     private void clearReactionTimeStats() {
-        reactionTimeStatisticsManager.clearStats();
+        statsManager.clearReactionTimeStats();
         refreshReactionTimeStats();
     }
 
@@ -125,59 +151,14 @@ public class StatsModeFragment extends Fragment {
     }
 
     private void refreshReactionTimeStats() {
-        reactionTimeStats = getReactionTimeStats();
+        reactionTimeStats = statsManager.getReactionTimeStats();
         reactionTimeStatsAdapter = new ArrayAdapter<>(getContext(), R.layout.list_item, reactionTimeStats);
         reactionTimeStatsBox.setAdapter(reactionTimeStatsAdapter);
     }
 
     private void refreshBuzzerCountStats() {
-        buzzerStats = getBuzzerTimeStats();
+        buzzerStats = statsManager.getBuzzerCountStats();
         buzzerStatsAdapter = new ArrayAdapter<>(getContext(), R.layout.list_item, buzzerStats);
         buzzerStatsBox.setAdapter(buzzerStatsAdapter);
-    }
-
-    private ArrayList<Statistic<Long>> getBuzzerTimeStats() {
-        ArrayList<Statistic<Long>> buzzerTimeStats = new ArrayList<>();
-
-        buzzerTimeStats.add(buzzerCountStatisticsManager.getNumberOfBuzzes(2,
-                getContext().getString(R.string.player_one)));
-        buzzerTimeStats.add(buzzerCountStatisticsManager.getNumberOfBuzzes(2,
-                getContext().getString(R.string.player_two)));
-
-        buzzerTimeStats.add(buzzerCountStatisticsManager.getNumberOfBuzzes(3,
-                getContext().getString(R.string.player_one)));
-        buzzerTimeStats.add(buzzerCountStatisticsManager.getNumberOfBuzzes(3,
-                getContext().getString(R.string.player_two)));
-        buzzerTimeStats.add(buzzerCountStatisticsManager.getNumberOfBuzzes(3,
-                getContext().getString(R.string.player_three)));
-
-        buzzerTimeStats.add(buzzerCountStatisticsManager.getNumberOfBuzzes(4,
-                getContext().getString(R.string.player_one)));
-        buzzerTimeStats.add(buzzerCountStatisticsManager.getNumberOfBuzzes(4,
-                getContext().getString(R.string.player_two)));
-        buzzerTimeStats.add(buzzerCountStatisticsManager.getNumberOfBuzzes(4,
-                getContext().getString(R.string.player_three)));
-        buzzerTimeStats.add(buzzerCountStatisticsManager.getNumberOfBuzzes(4,
-                getContext().getString(R.string.player_four)));
-
-        return buzzerTimeStats;
-    }
-
-    private ArrayList<Statistic<? extends Number>> getReactionTimeStats() {
-        ArrayList<Statistic<? extends Number>> reactionTimeStats = new ArrayList<>();
-
-        reactionTimeStats.add(reactionTimeStatisticsManager.getMinimumTime(10));
-        reactionTimeStats.add(reactionTimeStatisticsManager.getMinimumTime(100));
-
-        reactionTimeStats.add(reactionTimeStatisticsManager.getMaximumTime(10));
-        reactionTimeStats.add(reactionTimeStatisticsManager.getMaximumTime(100));
-
-        reactionTimeStats.add(reactionTimeStatisticsManager.getAverageTime(10));
-        reactionTimeStats.add(reactionTimeStatisticsManager.getAverageTime(100));
-
-        reactionTimeStats.add(reactionTimeStatisticsManager.getMedianTime(10));
-        reactionTimeStats.add(reactionTimeStatisticsManager.getMedianTime(100));
-
-        return reactionTimeStats;
     }
 }

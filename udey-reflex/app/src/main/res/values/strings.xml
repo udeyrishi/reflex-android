@@ -31,5 +31,7 @@
     <string name="player_four">Player 4</string>
     <string name="clear_reaction_time_stats_label">Clear Reaction Time stats</string>
     <string name="clear_buzzer_count_stats_label">Clear Buzzer count stats</string>
+    <string name="send_email_stats_label">Send stats via e-mail</string>
+    <string name="stats_email_subject">Reflex Stats</string>
 
 </resources>
