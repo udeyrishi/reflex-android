@@ -26,6 +26,17 @@ public class PracticeModeActivity extends FragmentsActivity
     protected void onStart() {
         super.onStart();
         statsManager = StatisticsManagerFactory.getReactionTimeStatisticsManager(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        onBackPressed();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         startCountdown();
     }
 

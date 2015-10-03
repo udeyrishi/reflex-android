@@ -12,6 +12,20 @@ import c301.udey.udey_reflex.R;
  */
 public class FragmentsActivity extends AppCompatActivity {
 
+    private Boolean isActivityActive;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isActivityActive = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isActivityActive = false;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,9 +37,12 @@ public class FragmentsActivity extends AppCompatActivity {
     }
 
     protected void swapFragments(Fragment newFragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, newFragment)
-                .commit();
+        // Keep the old fragment after the app is no longer in the foreground
+        if (isActivityActive) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, newFragment)
+                    .commit();
+        }
     }
 }
