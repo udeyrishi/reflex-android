@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity
      */
     private CharSequence title;
 
+    private RefocusAwareFragment currentFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,11 +58,17 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
+        currentFragment = AppModesProvider.selectAppMode(this, position);
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, AppModesProvider.selectAppMode(this, position))
+                .replace(R.id.container, currentFragment)
                 .commit();
+    }
+
+    @Override
+    public void onNavigationDrawerClosed() {
+        currentFragment.onRefocus();
     }
 
     @Override
@@ -87,5 +95,9 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
         return super.onCreateOptionsMenu(menu);
+    }
+
+    public void openDrawer() {
+        navigationDrawerFragment.openDrawer();
     }
 }

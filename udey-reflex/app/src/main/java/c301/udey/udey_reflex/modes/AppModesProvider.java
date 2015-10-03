@@ -17,9 +17,9 @@
 package c301.udey.udey_reflex.modes;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 
 import c301.udey.udey_reflex.R;
+import c301.udey.udey_reflex.RefocusAwareFragment;
 import c301.udey.udey_reflex.modes.compete.CompeteModeFragment;
 import c301.udey.udey_reflex.modes.practice.PracticeModeFragment;
 import c301.udey.udey_reflex.modes.stats.StatsModeFragment;
@@ -37,7 +37,7 @@ public class AppModesProvider {
         };
     }
 
-    public static Fragment selectAppMode(Context context, int sectionNumber) {
+    public static RefocusAwareFragment selectAppMode(Context context, int sectionNumber) {
         switch(sectionNumber) {
             case 0:
                 return PracticeModeFragment.getInstance(context, sectionNumber);

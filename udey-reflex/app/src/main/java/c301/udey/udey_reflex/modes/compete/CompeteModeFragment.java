@@ -18,11 +18,10 @@ package c301.udey.udey_reflex.modes.compete;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
 import c301.udey.udey_reflex.MainActivity;
@@ -38,6 +37,7 @@ public class CompeteModeFragment extends InstructionsFragment {
     public static final String EXTRA_MESSAGE_NUMBER_PLAYERS = "numberOfPlayers";
     private int numberPlayers;
     private FragmentAttacher fragmentAttacher;
+    private boolean areNumberOfPlayersSelected;
 
     public CompeteModeFragment() {
         fragmentAttacher = new FragmentAttacher(this);
@@ -51,19 +51,6 @@ public class CompeteModeFragment extends InstructionsFragment {
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        getNumberOfPlayers();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        return rootView;
-    }
-
     public static CompeteModeFragment getInstance(Context context, int sectionNumber) {
         CompeteModeFragment fragment = new CompeteModeFragment();
         fragment.setArguments(context.getString(R.string.compete_instructions));
@@ -75,18 +62,26 @@ public class CompeteModeFragment extends InstructionsFragment {
         final Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.compete_player_count_dialog);
         dialog.setTitle("Number of players:");
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                ((MainActivity) getContext()).openDrawer();
+            }
+        });
 
         RadioGroup playerNumberChoices = (RadioGroup)dialog.findViewById(R.id.player_choice_radio_group);
 
         playerNumberChoices.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                areNumberOfPlayersSelected = true;
                 dialog.hide();
                 numberPlayers = group.indexOfChild(group.findViewById(group.getCheckedRadioButtonId())) + 2;
             }
         });
         dialog.show();
+        areNumberOfPlayersSelected = false;
     }
 
     @Override
@@ -97,8 +92,15 @@ public class CompeteModeFragment extends InstructionsFragment {
 
     @Override
     protected void onButtonPress(View v) {
-        Intent intent = new Intent(getActivity(), CompeteModeActivity.class);
-        intent.putExtra(EXTRA_MESSAGE_NUMBER_PLAYERS, numberPlayers);
-        startActivity(intent);
+        if (areNumberOfPlayersSelected) {
+            Intent intent = new Intent(getActivity(), CompeteModeActivity.class);
+            intent.putExtra(EXTRA_MESSAGE_NUMBER_PLAYERS, numberPlayers);
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onRefocus() {
+        getNumberOfPlayers();
     }
 }

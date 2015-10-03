@@ -19,7 +19,6 @@ package c301.udey.udey_reflex.modes.stats;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,6 +32,7 @@ import java.util.ArrayList;
 
 import c301.udey.udey_reflex.MainActivity;
 import c301.udey.udey_reflex.R;
+import c301.udey.udey_reflex.RefocusAwareFragment;
 import c301.udey.udey_reflex.sectionmanager.FragmentAttacher;
 import c301.udey.udey_reflex.statisticsmanager.Statistic;
 import c301.udey.udey_reflex.statisticsmanager.StatisticsManager;
@@ -40,7 +40,7 @@ import c301.udey.udey_reflex.statisticsmanager.StatisticsManager;
 /**
  * Created by rishi on 15-09-26.
  */
-public class StatsModeFragment extends Fragment {
+public class StatsModeFragment extends RefocusAwareFragment {
 
     private FragmentAttacher fragmentAttacher;
 

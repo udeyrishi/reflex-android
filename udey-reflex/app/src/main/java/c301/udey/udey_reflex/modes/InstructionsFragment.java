@@ -17,7 +17,6 @@
 package c301.udey.udey_reflex.modes;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +24,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import c301.udey.udey_reflex.R;
+import c301.udey.udey_reflex.RefocusAwareFragment;
 
 /**
  * Created by rishi on 15-09-27.
  */
-public abstract class InstructionsFragment extends Fragment {
+public abstract class InstructionsFragment extends RefocusAwareFragment {
 
     private CharSequence instructions;
 
