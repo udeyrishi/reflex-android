@@ -41,7 +41,7 @@ public class PracticeModeActivity extends FragmentsActivity
     @Override
     protected void onStart() {
         super.onStart();
-        statsManager = StatisticsManagerFactory.getReactionTimeStatisticsManager(this);
+        statsManager = StatisticsManagerFactory.getReactionTimeStatisticsManager();
     }
 
     @Override

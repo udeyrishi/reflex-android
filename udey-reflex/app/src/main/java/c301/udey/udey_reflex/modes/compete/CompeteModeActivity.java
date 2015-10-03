@@ -43,7 +43,7 @@ public class CompeteModeActivity extends FragmentsActivity
         if (numberOfPlayers < 2) {
             throw new IllegalArgumentException("Number of players can't be less than 2");
         }
-        statsManager = StatisticsManagerFactory.getBuzzerCountStatisticsManager(this);
+        statsManager = StatisticsManagerFactory.getBuzzerCountStatisticsManager();
     }
 
     @Override

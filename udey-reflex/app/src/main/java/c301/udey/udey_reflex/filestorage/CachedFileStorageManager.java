@@ -22,7 +22,9 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 
 /**
- * Created by rishi on 2015-10-01.
+ * A FileStorageManager wrapper that wraps around another FileStorageManager
+ * to keep the data retrieved and sent to/from the inner FileStorageManager in-memory.
+ * Useful to keep the data in-memory for the lifetime of the app for repeated data accesses.
  */
 public class CachedFileStorageManager implements FileStorageManager {
 
