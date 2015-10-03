@@ -38,7 +38,7 @@ import c301.udey.udey_reflex.statisticsmanager.Statistic;
 import c301.udey.udey_reflex.statisticsmanager.StatisticsManager;
 
 /**
- * Created by rishi on 15-09-26.
+ * A fragment for showing the stats.
  */
 public class StatsModeFragment extends RefocusAwareFragment {
 
@@ -55,16 +55,27 @@ public class StatsModeFragment extends RefocusAwareFragment {
 
     private StatisticsManager statsManager;
 
+    /**
+     * The default constructor.
+     */
     public StatsModeFragment() {
         this.fragmentAttacher = new FragmentAttacher(this);
     }
 
+    /**
+     * Creates an instance of {@link StatsModeFragment}.
+     * @param sectionNumber The section number where this fragment will be placed.
+     * @return The generated StatsModeFragment.
+     */
     public static StatsModeFragment getInstance(int sectionNumber) {
         StatsModeFragment fragment = new StatsModeFragment();
         fragment.fragmentAttacher.attachSectionNumber(sectionNumber);
         return fragment;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,18 +87,31 @@ public class StatsModeFragment extends RefocusAwareFragment {
         setHasOptionsMenu(true);
     }
 
+    /**
+     * Inflates the appropriate views, refreshes the stats, and displays them.
+     * @param inflater           The LayoutInflater.
+     * @param container          The ViewGroup container that will contain the inflated view.
+     * @param savedInstanceState The saved instance's state.
+     * @return The inflated view.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_mode_stats, container, false);
 
-        buzzerStatsBox = (ListView)rootView.findViewById(R.id.buzzer_count_stats_list);
-        reactionTimeStatsBox = (ListView)rootView.findViewById(R.id.reaction_time_stats_list);
+        buzzerStatsBox = (ListView) rootView.findViewById(R.id.buzzer_count_stats_list);
+        reactionTimeStatsBox = (ListView) rootView.findViewById(R.id.reaction_time_stats_list);
 
         refreshStats();
         return rootView;
     }
 
+    /**
+     * Adds the 'clear reaction time stats', 'clear buzzer count stats', and 'email stats'
+     * options in the menu bar.
+     * @param menu The menu.
+     * @param inflater The menu inflator.
+     */
     // Udey Source: http://stackoverflow.com/questions/8308695/android-options-menu-in-fragment
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -121,6 +145,15 @@ public class StatsModeFragment extends RefocusAwareFragment {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        fragmentAttacher.onSectionAttached((MainActivity) context);
+    }
+
     private void sendStatsEmail() {
         // Udey Source: http://stackoverflow.com/questions/6583010/how-to-create-email-button-on-android
         Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -133,23 +166,16 @@ public class StatsModeFragment extends RefocusAwareFragment {
     private String getAllStatsSerialized() {
 
         StringBuilder allStats = new StringBuilder("Reaction time stats:\n");
-        for(Statistic<? extends Number> statistic : reactionTimeStats) {
+        for (Statistic<? extends Number> statistic : reactionTimeStats) {
             allStats.append(statistic.toString()).append("\n");
         }
 
         allStats.append("\n\nBuzzer count stats:\n");
-        for(Statistic<Long> statistic : buzzerStats) {
+        for (Statistic<Long> statistic : buzzerStats) {
             allStats.append(statistic.toString()).append("\n");
         }
 
         return allStats.toString();
-    }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        fragmentAttacher.onSectionAttached((MainActivity) context);
     }
 
     private void clearBuzzerStats() {

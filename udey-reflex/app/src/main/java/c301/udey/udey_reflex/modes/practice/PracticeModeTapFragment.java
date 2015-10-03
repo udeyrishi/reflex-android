@@ -20,6 +20,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -34,18 +35,32 @@ import java.util.TimerTask;
 import at.markushi.ui.CircleButton;
 import c301.udey.udey_reflex.R;
 
+/**
+ * A fragment containing the buzzer buttons for the practice (single-player) mode.
+ */
 public class PracticeModeTapFragment extends Fragment {
-    private int minDelayMilliSeconds;
-    private int maxDelayMilliseconds;
-
     private static final String ARG_MIN_DELAY_MILLISECONDS = "minDelayMilliSeconds";
     private static final String ARG_MAX_DELAY_MILLISECONDS = "maxDelayMilliSeconds";
-
+    private int minDelayMilliSeconds;
+    private int maxDelayMilliseconds;
     private OnBuzzerTappedListener onBuzzerTappedListener;
 
     private Long buttonDisplayedTime;
     private Timer timer;
 
+    /**
+     * Default constructor.
+     */
+    public PracticeModeTapFragment() { }
+
+    /**
+     * Creates a new instance of {@link PracticeModeTapFragment}
+     * @param minDelayMilliSeconds The minimum delay value in milliseconds before the buzzer is to be
+     *                             activated.
+     * @param maxDelayMilliseconds The maximum delay value in milliseconds before the buzzer is to be
+     *                             activated.
+     * @return The created PracticeModeTapFragment.
+     */
     public static PracticeModeTapFragment newInstance(int minDelayMilliSeconds, int maxDelayMilliseconds) {
         PracticeModeTapFragment fragment = new PracticeModeTapFragment();
         Bundle args = new Bundle();
@@ -55,10 +70,9 @@ public class PracticeModeTapFragment extends Fragment {
         return fragment;
     }
 
-    public PracticeModeTapFragment() {
-        // Required empty public constructor
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,27 +83,51 @@ public class PracticeModeTapFragment extends Fragment {
         timer = new Timer();
     }
 
+    /**
+     * Inflates the buzzer button view, and configures the button to be activated after a random
+     * delay.
+     * @param inflater           The LayoutInflater.
+     * @param container          The ViewGroup container that will contain the inflated view.
+     * @param savedInstanceState The saved instance's state.
+     * @return The inflated view.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        final View rootView = inflater.inflate(R.layout.fragment_practice_mode_tap, container, false);
-        setInstructions(rootView, getString(R.string.practice_session_wait));
-        final CircleButton button = (CircleButton) rootView.findViewById(R.id.practice_buzzer_button);
+        View rootView = inflater.inflate(R.layout.fragment_practice_mode_tap, container, false);
 
+        setInstructions(rootView, getString(R.string.practice_session_wait));
+
+        CircleButton button = (CircleButton) rootView.findViewById(R.id.practice_buzzer_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onButtonPressed();
             }
         });
+        TimerTask alphaChangeTask = configureBuzzerActivationTask(rootView, button);
 
+        int delay = getRandom(minDelayMilliSeconds, maxDelayMilliseconds);
+        timer.schedule(alphaChangeTask, delay);
+
+        return rootView;
+    }
+
+    /**
+     * Sets the button alpha to a translucent value, and creates a task to restore it to the original
+     * value. Also changes the instructions to {@link c301.udey.udey_reflex.R.string#practice_session_go}.
+     * @param rootView The root View.
+     * @param button The buzzer button.
+     * @return The created task.
+     */
+    @NonNull
+    private TimerTask configureBuzzerActivationTask(final View rootView, final CircleButton button) {
         // Prefer Alpha over visibility in this case for registering early taps
         // Udey Source: http://stackoverflow.com/questions/10612740/will-touch-get-detected-while-a-view-is-in-invisible-state
         final float oldAlpha = button.getAlpha();
         button.setAlpha(0.2f);
 
-        TimerTask task = new TimerTask() {
+        return new TimerTask() {
 
             @Override
             public void run() {
@@ -110,33 +148,29 @@ public class PracticeModeTapFragment extends Fragment {
                 }
             }
         };
-
-        int delay = getRandom(minDelayMilliSeconds, maxDelayMilliseconds);
-        timer.schedule(task, delay);
-        return rootView;
-    }
-
-
-    protected static int getRandom(int min, int max) {
-        return new Random().nextInt(max-min) + min;
     }
 
     private void setInstructions(View v, String value) {
-        TextView instructions = (TextView)v.findViewById(R.id.practice_session_instructions);
+        TextView instructions = (TextView) v.findViewById(R.id.practice_session_instructions);
         if (!instructions.getText().equals(value)) {
             instructions.setText(value);
         }
     }
 
+    /**
+     * The buzzer tapped callback.
+     */
     private void onButtonPressed() {
         timer.cancel();
         Long currentTime = SystemClock.elapsedRealtime();
-        final Long delay;
+
+        final Long delayMilliseconds;
         if (buttonDisplayedTime == null) {
             // Tapped too early
-            delay = new Long(-1);
-        } else {
-            delay = currentTime  - buttonDisplayedTime;
+            delayMilliseconds = new Long(-1);
+        }
+        else {
+            delayMilliseconds = currentTime - buttonDisplayedTime;
             buttonDisplayedTime = null;
         }
 
@@ -146,13 +180,15 @@ public class PracticeModeTapFragment extends Fragment {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    onBuzzerTappedListener.onBuzzerTapped(delay);
+                    onBuzzerTappedListener.onBuzzerTapped(delayMilliseconds);
                 }
             }, 100);
-
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -164,14 +200,27 @@ public class PracticeModeTapFragment extends Fragment {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onDetach() {
         super.onDetach();
         onBuzzerTappedListener = null;
     }
 
+    /**
+     * An interface to be implemented by the class interested in listening to the buzzer tap event.
+     */
     public interface OnBuzzerTappedListener {
-        void onBuzzerTapped(Long delay);
+        /**
+         * The callback for the buzzer tapping event.
+         * @param delayInMilliseconds The delayInMilliseconds in milliseconds that the user took to hit the buzzer.
+         */
+        void onBuzzerTapped(Long delayInMilliseconds);
     }
 
+    private static int getRandom(int min, int max) {
+        return new Random().nextInt(max - min) + min;
+    }
 }

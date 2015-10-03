@@ -24,6 +24,9 @@ import c301.udey.udey_reflex.modes.FragmentsActivity;
 import c301.udey.udey_reflex.statisticsmanager.ReactionTimeStatisticsManager;
 import c301.udey.udey_reflex.statisticsmanager.StatisticsManagerFactory;
 
+/**
+ * Activity corresponding to the the practice (single-player) mode.
+ */
 public class PracticeModeActivity extends FragmentsActivity
         implements PracticeModeCountdownFragment.OnCountdownFinishedListener,
         PracticeModeTapFragment.OnBuzzerTappedListener {
@@ -38,39 +41,60 @@ public class PracticeModeActivity extends FragmentsActivity
     // Single toast suggestion
     private Toast statusToast;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onStart() {
         super.onStart();
         statsManager = StatisticsManagerFactory.getReactionTimeStatisticsManager();
     }
 
+    /**
+     * Imitates the pressing of the back button, and hence goes back to the view before this activity.
+     * Useful, because the user shouldn't just see the countdown ticking automatically when they come
+     * back to the app.
+     */
     @Override
     protected void onPause() {
         super.onPause();
         onBackPressed();
     }
 
+    /**
+     * Starts the countdown before the buzzer appears.
+     */
     @Override
     protected void onResume() {
         super.onResume();
         startCountdown();
     }
 
+    /**
+     * Loads the {@link PracticeModeTapFragment}.
+     */
     @Override
     public void onCountdownFinished() {
         swapFragments(PracticeModeTapFragment.newInstance(MIN_DELAY_MILLISECONDS, MAX_DELAY_MILLISECONDS));
     }
 
+    /**
+     * Callback for the buzzer. Displays the result in a toast.
+     *
+     * @param delayInMilliseconds The delay value between the buzzer being activated, and the user pressing it.
+     *              A negative value implies that the buzzer was pressed too soon. The random wait
+     *              timer (before the buzzer is activated) will be restarted.
+     *              A positive value will display the result, and go back to the countdown screen.
+     */
     @Override
-    public void onBuzzerTapped(Long delay) {
-        if (delay < 0) {
+    public void onBuzzerTapped(Long delayInMilliseconds) {
+        if (delayInMilliseconds < 0) {
             showToast("Too soon!");
             onCountdownFinished();
-        }
-        else {
-            saveDelayToStorage(delay);
+        } else {
+            saveDelayToStorage(delayInMilliseconds);
             startCountdown();
-            showToast("Response time:\n" + delay.toString() + " ms");
+            showToast("Response time:\n" + delayInMilliseconds.toString() + " ms");
         }
     }
 
@@ -90,8 +114,7 @@ public class PracticeModeActivity extends FragmentsActivity
         if (statusToast == null) {
             // First time
             statusToast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
-        }
-        else {
+        } else {
             statusToast.setText(message);
         }
         statusToast.show();

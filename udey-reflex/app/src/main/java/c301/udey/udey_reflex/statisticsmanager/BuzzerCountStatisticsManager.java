@@ -44,8 +44,7 @@ public class BuzzerCountStatisticsManager {
             HashMap<String, Long> playerRecords = stats.get(numberOfPlayers);
             Long currentValue = playerRecords.containsKey(playerWhoWon) ? playerRecords.get(playerWhoWon) : 0;
             playerRecords.put(playerWhoWon, currentValue + 1);
-        }
-        else {
+        } else {
             stats.put(numberOfPlayers, new HashMap<String, Long>() {
                 {
                     put(playerWhoWon, new Long(1));
@@ -53,7 +52,8 @@ public class BuzzerCountStatisticsManager {
             });
         }
 
-        storageManager.save(stats, fileName, new TypeToken<HashMap<Integer, HashMap<String, Integer>>>(){}.getType());
+        storageManager.save(stats, fileName, new TypeToken<HashMap<Integer, HashMap<String, Integer>>>() {
+        }.getType());
     }
 
     public Statistic<Long> getNumberOfBuzzes(Integer numberOfPlayers, String playerName) {
@@ -63,8 +63,7 @@ public class BuzzerCountStatisticsManager {
         if (stats.containsKey(numberOfPlayers)) {
             HashMap<String, Long> playerRecords = stats.get(numberOfPlayers);
             numberOfBuzzes = playerRecords.containsKey(playerName) ? playerRecords.get(playerName) : 0;
-        }
-        else {
+        } else {
             numberOfBuzzes = new Long(0);
         }
 
@@ -79,9 +78,9 @@ public class BuzzerCountStatisticsManager {
         HashMap<Integer, HashMap<String, Long>> stats;
         try {
             stats = storageManager.load(fileName,
-                    new TypeToken<HashMap<Integer, HashMap<String, Long>>>() {}.getType());
-        }
-        catch (FileNotFoundException e) {
+                    new TypeToken<HashMap<Integer, HashMap<String, Long>>>() {
+                    }.getType());
+        } catch (FileNotFoundException e) {
             stats = new HashMap<>();
         }
         return stats;

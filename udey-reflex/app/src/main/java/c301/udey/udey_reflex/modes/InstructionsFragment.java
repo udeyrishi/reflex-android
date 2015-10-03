@@ -27,28 +27,39 @@ import c301.udey.udey_reflex.R;
 import c301.udey.udey_reflex.RefocusAwareFragment;
 
 /**
- * Created by rishi on 15-09-27.
+ * An abstract {@link RefocusAwareFragment} that contains a text view for showing some instructions,
+ * and a button for moving to the next logical step.
  */
 public abstract class InstructionsFragment extends RefocusAwareFragment {
 
     private CharSequence instructions;
+    private View rootView;
 
+    /**
+     * Inflates the appropriate views, sets the instructions, and the button's callback.
+     * The instructions must be set by the child classes through the {@link #setArguments(CharSequence)}
+     * before this method is called.
+     * @param inflater           The LayoutInflater.
+     * @param container          The ViewGroup container that will contain the inflated view.
+     * @param savedInstanceState The saved instance's state.
+     * @return The inflated view.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_instructions, container, false);
-        setButtonHandler(rootView);
-        changeInstructionsInTextView(rootView);
+        rootView = inflater.inflate(R.layout.fragment_instructions, container, false);
+        setButtonHandler();
+        changeInstructionsInTextView();
         return rootView;
     }
 
-    private void changeInstructionsInTextView(View rootView) {
-        TextView v = getInstructionsTextView(rootView);
+    private void changeInstructionsInTextView() {
+        TextView v = getInstructionsTextView();
         v.setText(instructions == null ? "" : instructions);
     }
 
-    private void setButtonHandler(View rootView) {
-        Button b = getButton(rootView);
+    private void setButtonHandler() {
+        Button b = getButton();
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,17 +68,35 @@ public abstract class InstructionsFragment extends RefocusAwareFragment {
         });
     }
 
+    /**
+     * Sets the arguments needed by this class, i.e., the text in the instructions.
+     * This method shall be called immediately after construction, before
+     * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} is called by Android.
+     * @param instructions The instructions to be set.
+     */
     protected void setArguments(CharSequence instructions) {
         this.instructions = instructions;
     }
 
+    /**
+     * The callback for the button press.
+     * @param v The button's view.
+     */
     protected abstract void onButtonPress(View v);
 
-    protected TextView getInstructionsTextView(View rootView) {
+    /**
+     * Gets a reference to the text view containing the instructions for more specific tweaking.
+     * @return The {@link TextView}
+     */
+    protected TextView getInstructionsTextView() {
         return (TextView) rootView.findViewById(R.id.instructions_text_view);
     }
 
-    protected Button getButton(View rootView) {
+    /**
+     * Gets a reference to the fragment's button for more specific tweaking.
+     * @return The {@link Button}
+     */
+    protected Button getButton() {
         return (Button) rootView.findViewById(R.id.finish_instructions_button);
     }
 }

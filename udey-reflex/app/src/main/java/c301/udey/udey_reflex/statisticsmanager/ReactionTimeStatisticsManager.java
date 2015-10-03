@@ -47,7 +47,8 @@ public class ReactionTimeStatisticsManager {
             savedDelays.remove(0);
         }
         savedDelays.add(delay);
-        storageManager.save(savedDelays, fileName, new TypeToken<ArrayList<Long>>(){}.getType());
+        storageManager.save(savedDelays, fileName, new TypeToken<ArrayList<Long>>() {
+        }.getType());
     }
 
     public Statistic<Long> getMinimumTime(int lastN) {
@@ -68,8 +69,7 @@ public class ReactionTimeStatisticsManager {
         Double averageTime;
         if (delays.isEmpty()) {
             averageTime = null;
-        }
-        else {
+        } else {
 
             long sum = 0;
             for (Long delay : delays) {
@@ -89,8 +89,7 @@ public class ReactionTimeStatisticsManager {
         Double median;
         if (delays.isEmpty()) {
             median = null;
-        }
-        else {
+        } else {
 
             // To prevent the side effects of sorting in place for future calls
             // TODO: consider fixing CachedFileStorageManager to not be affected by this
@@ -118,9 +117,9 @@ public class ReactionTimeStatisticsManager {
     private ArrayList<Long> safeGetSavedDelays() {
         ArrayList<Long> savedDelays;
         try {
-            savedDelays = storageManager.load(fileName, new TypeToken<ArrayList<Long>>(){}.getType());
-        }
-        catch (FileNotFoundException e){
+            savedDelays = storageManager.load(fileName, new TypeToken<ArrayList<Long>>() {
+            }.getType());
+        } catch (FileNotFoundException e) {
             savedDelays = new ArrayList<>();
         }
         return savedDelays;

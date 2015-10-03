@@ -37,7 +37,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import c301.udey.udey_reflex.modes.AppModesProvider;
+import c301.udey.udey_reflex.modes.AppModesFactory;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -122,7 +122,7 @@ public class NavigationDrawerFragment extends Fragment {
                 getActionBar().getThemedContext(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
-                AppModesProvider.getAppModes(getContext())));
+                AppModesFactory.getAppModes(getContext())));
         drawerListView.setItemChecked(currentSelectedPosition, true);
         return drawerListView;
     }
@@ -297,6 +297,7 @@ public class NavigationDrawerFragment extends Fragment {
          * Called when an item in the navigation drawer is selected.
          */
         void onNavigationDrawerItemSelected(int position);
+
         void onNavigationDrawerClosed();
     }
 }

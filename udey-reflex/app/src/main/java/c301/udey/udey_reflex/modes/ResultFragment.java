@@ -24,6 +24,9 @@ import android.view.ViewGroup;
 
 import c301.udey.udey_reflex.R;
 
+/**
+ * A {@link InstructionsFragment} for displaying the result of an app mode and a 'Try again' button.
+ */
 public class ResultFragment extends InstructionsFragment {
 
     private OnResultDismissedListener onResultDismissedListener;
@@ -38,7 +41,7 @@ public class ResultFragment extends InstructionsFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        getButton(rootView).setText(R.string.practice_try_again_button_text);
+        getButton().setText(R.string.practice_try_again_button_text);
         return rootView;
     }
 

@@ -31,6 +31,9 @@ import java.util.List;
 import at.markushi.ui.CircleButton;
 import c301.udey.udey_reflex.R;
 
+/**
+ * A fragment containing the buzzer buttons for the compete (multi-player) mode.
+ */
 public class CompeteModeTapFragment extends Fragment {
     private static final String ARG_NUMBER_OF_PLAYERS = "numberOfPlayers";
 
@@ -38,6 +41,18 @@ public class CompeteModeTapFragment extends Fragment {
 
     private OnBuzzerTappedListener buzzerTappedListener;
 
+    /**
+     * Required empty public constructor
+     */
+    public CompeteModeTapFragment() {
+    }
+
+    /**
+     * Creates an instance of the {@link CompeteModeTapFragment}.
+     *
+     * @param numberOfPlayers The number of players competing.
+     * @return The created CompeteModeTapFragment.
+     */
     public static CompeteModeTapFragment newInstance(int numberOfPlayers) {
         CompeteModeTapFragment fragment = new CompeteModeTapFragment();
         Bundle args = new Bundle();
@@ -46,10 +61,17 @@ public class CompeteModeTapFragment extends Fragment {
         return fragment;
     }
 
-    public CompeteModeTapFragment() {
-        // Required empty public constructor
+    private static Pair<CharSequence, CircleButton> getBuzzerAndItsDescription(View rootView,
+                                                                               int textViewId,
+                                                                               int buzzerId) {
+        CharSequence description = ((TextView) rootView.findViewById(textViewId)).getText();
+        CircleButton button = (CircleButton) rootView.findViewById(buzzerId);
+        return new Pair<>(description, button);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +80,14 @@ public class CompeteModeTapFragment extends Fragment {
         }
     }
 
+    /**
+     * Inflates the appropriate view based on the number of players playing.
+     *
+     * @param inflater           The LayoutInflater.
+     * @param container          The ViewGroup container that will contain the inflated view.
+     * @param savedInstanceState The saved instance's state.
+     * @return The inflated view.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,10 +97,55 @@ public class CompeteModeTapFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            buzzerTappedListener = (OnBuzzerTappedListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement OnBuzzerTappedListener");
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        buzzerTappedListener = null;
+    }
+
+    /**
+     * Since all the buzzer buttons are symmetrical, this method registers callbacks with the same logic
+     * to all the buttons. The CharSequence (i.e., label) corresponding to these buttons should be used
+     * to identify the source of the callback.
+     *
+     * @param buttons The list of buttons.
+     */
+    private void registerBuzzerCallbacks(List<Pair<CharSequence, CircleButton>> buttons) {
+        for (final Pair<CharSequence, CircleButton> button : buttons) {
+            button.second.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onButtonPressed(button.first);
+                }
+            });
+        }
+    }
+
+    private void onButtonPressed(CharSequence playerWhoWon) {
+        if (buzzerTappedListener != null) {
+            buzzerTappedListener.onBuzzerTapped(playerWhoWon);
+        }
+    }
+
     private View inflateProperLayout(LayoutInflater inflater, ViewGroup container) {
-        // TODO: Consider refactoring this to be auto generated based on number of players
-        // Potentially reusable with practice mode
-        switch(numberOfPlayers) {
+        switch (numberOfPlayers) {
             case 2:
                 return inflater.inflate(R.layout.fragment_compete_two_player, container, false);
             case 3:
@@ -84,21 +159,21 @@ public class CompeteModeTapFragment extends Fragment {
 
     private ArrayList<Pair<CharSequence, CircleButton>> getBuzzerButtons(View rootView) {
         ArrayList<Pair<CharSequence, CircleButton>> buttons = new ArrayList<>();
-        switch(numberOfPlayers) {
+        switch (numberOfPlayers) {
             case 2:
-                buttons.add(getBuzzerDescription(rootView, R.id.two_player_player_one, R.id.two_player_buzzer_one));
-                buttons.add(getBuzzerDescription(rootView, R.id.two_player_player_two, R.id.two_player_buzzer_two));
+                buttons.add(getBuzzerAndItsDescription(rootView, R.id.two_player_player_one, R.id.two_player_buzzer_one));
+                buttons.add(getBuzzerAndItsDescription(rootView, R.id.two_player_player_two, R.id.two_player_buzzer_two));
                 break;
             case 3:
-                buttons.add(getBuzzerDescription(rootView, R.id.three_player_player_one, R.id.three_player_buzzer_one));
-                buttons.add(getBuzzerDescription(rootView, R.id.three_player_player_two, R.id.three_player_buzzer_two));
-                buttons.add(getBuzzerDescription(rootView, R.id.three_player_player_three, R.id.three_player_buzzer_three));
+                buttons.add(getBuzzerAndItsDescription(rootView, R.id.three_player_player_one, R.id.three_player_buzzer_one));
+                buttons.add(getBuzzerAndItsDescription(rootView, R.id.three_player_player_two, R.id.three_player_buzzer_two));
+                buttons.add(getBuzzerAndItsDescription(rootView, R.id.three_player_player_three, R.id.three_player_buzzer_three));
                 break;
             case 4:
-                buttons.add(getBuzzerDescription(rootView, R.id.four_player_player_one, R.id.four_player_buzzer_one));
-                buttons.add(getBuzzerDescription(rootView, R.id.four_player_player_two, R.id.four_player_buzzer_two));
-                buttons.add(getBuzzerDescription(rootView, R.id.four_player_player_three, R.id.four_player_buzzer_three));
-                buttons.add(getBuzzerDescription(rootView, R.id.four_player_player_four, R.id.four_player_buzzer_four));
+                buttons.add(getBuzzerAndItsDescription(rootView, R.id.four_player_player_one, R.id.four_player_buzzer_one));
+                buttons.add(getBuzzerAndItsDescription(rootView, R.id.four_player_player_two, R.id.four_player_buzzer_two));
+                buttons.add(getBuzzerAndItsDescription(rootView, R.id.four_player_player_three, R.id.four_player_buzzer_three));
+                buttons.add(getBuzzerAndItsDescription(rootView, R.id.four_player_player_four, R.id.four_player_buzzer_four));
                 break;
             default:
                 throw new UnsupportedOperationException("numberOfPlayers can only be between 2-4.");
@@ -106,51 +181,14 @@ public class CompeteModeTapFragment extends Fragment {
         return buttons;
     }
 
-    private static Pair<CharSequence, CircleButton> getBuzzerDescription(View rootView,
-                                                                         int textViewId,
-                                                                         int buzzerId) {
-        CharSequence description = ((TextView)rootView.findViewById(textViewId)).getText();
-        CircleButton button = (CircleButton)rootView.findViewById(buzzerId);
-        return new Pair<>(description, button);
-    }
-
-    private void registerBuzzerCallbacks(List<Pair<CharSequence, CircleButton>> buttons) {
-        for(final Pair<CharSequence, CircleButton> button : buttons) {
-            button.second.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onButtonPressed(button.first);
-                }
-            });
-        }
-    }
-
-    public void onButtonPressed(CharSequence playerWhoWon) {
-        if (buzzerTappedListener != null) {
-            buzzerTappedListener.onBuzzerTapped(playerWhoWon);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            buzzerTappedListener = (OnBuzzerTappedListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()
-                    + " must implement OnBuzzerTappedListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        buzzerTappedListener = null;
-    }
-
-
+    /**
+     * An interface to be implemented by the class that wants to listen the buzzer's tap event
+     */
     public interface OnBuzzerTappedListener {
+        /**
+         * Callback for the buzzer tap event.
+         * @param playerWhoWon The player's name who won.
+         */
         void onBuzzerTapped(CharSequence playerWhoWon);
     }
-
 }

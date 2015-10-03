@@ -30,19 +30,35 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 
 /**
- * Created by rishi on 15-09-29.
+ * A {@link FileStorageManager} for storing the objects locally. Serializes the objects to JSON.
  */
 public class LocalFileStorageManager implements FileStorageManager {
 
     private final Context context;
 
+    /**
+     * Creates an instance of {@link LocalFileStorageManager}.
+     *
+     * @param context The context for opening files.
+     */
     public LocalFileStorageManager(Context context) {
         this.context = context;
     }
 
-    // saveToFile and loadFromFile adapted from lonelyTwitter lab project, CMPUT 301 Fall 2015
-    // at University of Alberta
-    // Udey Source: https://github.com/joshua2ua/lonelyTwitter/blob/master/app/src/main/java/ca/ualberta/cs/lonelytwitter/LonelyTwitterActivity.java
+    // Udey Source
+
+    /**
+     * Saves the file to the local file storage.
+     * Adapted from UAlberta CMPUT 301, CMPUT 301 Lab Materials,
+     * https://github.com/joshua2ua/lonelyTwitter/blob/master/app/src/main/java/ca/ualberta/cs/lonelytwitter/LonelyTwitterActivity.java
+     * 2015
+     *
+     * @param obj      The object to be stored.
+     * @param fileName The name of the file.
+     * @param typeOfT  The Type corresponding to the generic type T.
+     * @param <T>      The generic type of the object to be stored.
+     * @throws IOException Thrown if I/O fails.
+     */
     @Override
     public <T> void save(T obj, String fileName, Type typeOfT) throws IOException {
         FileOutputStream fos = context.openFileOutput(fileName, 0);
@@ -53,6 +69,18 @@ public class LocalFileStorageManager implements FileStorageManager {
         fos.close();
     }
 
+    /**
+     * Loads the file from the local file storage.
+     * Adapted from UAlberta CMPUT 301, CMPUT 301 Lab Materials,
+     * https://github.com/joshua2ua/lonelyTwitter/blob/master/app/src/main/java/ca/ualberta/cs/lonelytwitter/LonelyTwitterActivity.java
+     * 2015
+     *
+     * @param fileName The name of the file.
+     * @param typeOfT  The Type corresponding to the generic type T.
+     * @param <T>      The generic type of the object to be stored.
+     * @return The loaded object.
+     * @throws FileNotFoundException Thrown if the file is not found.
+     */
     @Override
     public <T> T load(String fileName, Type typeOfT) throws FileNotFoundException {
         FileInputStream fis = context.openFileInput(fileName);
@@ -62,6 +90,9 @@ public class LocalFileStorageManager implements FileStorageManager {
         return gson.fromJson(in, typeOfT);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void delete(String fileName) {
         context.deleteFile(fileName);

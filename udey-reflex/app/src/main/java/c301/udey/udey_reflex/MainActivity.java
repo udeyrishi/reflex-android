@@ -23,7 +23,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 
-import c301.udey.udey_reflex.modes.AppModesProvider;
+import c301.udey.udey_reflex.modes.AppModesFactory;
 import c301.udey.udey_reflex.sectionmanager.SectionHolder;
 
 public class MainActivity extends AppCompatActivity
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        currentFragment = AppModesProvider.selectAppMode(this, position);
+        currentFragment = AppModesFactory.getAppModeFragment(this, position);
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onSectionAttached(int sectionNumber) {
-        title = AppModesProvider.getAppModes(this)[sectionNumber];
+        title = AppModesFactory.getAppModes(this)[sectionNumber];
     }
 
     public void restoreActionBar() {

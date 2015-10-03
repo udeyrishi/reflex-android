@@ -28,13 +28,11 @@ import com.ivanrg.countdownanimation.CountDownAnimation;
 
 import c301.udey.udey_reflex.R;
 
+// Udey Source
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link OnCountdownFinishedListener} interface
- * to handle interaction events.
- * Use the {@link PracticeModeCountdownFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * A fragment for showing the countdown for the practice mode.
+ * The animation is facilitated by the {@link com.ivanrg.countdownanimation.CountDownAnimation}.
+ * Source: https://github.com/IvanRF/CountDownAnimation/blob/master/src/com/ivanrf/countdownanimation/CountDownAnimation.java
  */
 public class PracticeModeCountdownFragment extends Fragment {
 
@@ -44,18 +42,27 @@ public class PracticeModeCountdownFragment extends Fragment {
 
     private OnCountdownFinishedListener countdownFinishedListener;
 
-    public static PracticeModeCountdownFragment newInstance(int durationSeconds) {
+    /**
+     * The default constructor
+     */
+    public PracticeModeCountdownFragment() { }
+
+    /**
+     * Creates an instance of {@link PracticeModeCountdownFragment}.
+     * @param countdownDurationSeconds The duration of the countdown in seconds.
+     * @return The generated PracticeModeCountdownFragment.
+     */
+    public static PracticeModeCountdownFragment newInstance(int countdownDurationSeconds) {
         PracticeModeCountdownFragment fragment = new PracticeModeCountdownFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_COUNTDOWN_DURATION_SECONDS, durationSeconds);
+        args.putInt(ARG_COUNTDOWN_DURATION_SECONDS, countdownDurationSeconds);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public PracticeModeCountdownFragment() {
-        // Required empty public constructor
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,15 +71,20 @@ public class PracticeModeCountdownFragment extends Fragment {
         }
     }
 
+    /**
+     * Inflates the layout and starts the animation.
+     * @param inflater           The LayoutInflater.
+     * @param container          The ViewGroup container that will contain the inflated view.
+     * @param savedInstanceState The saved instance's state.
+     * @return The inflated view.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_practice_mode_countdown, container, false);
 
-        // Udey Source: https://github.com/IvanRF/CountDownAnimation/blob/master/src/com/ivanrf/countdownanimation/CountDownAnimation.java
         CountDownAnimation animation =
-                new CountDownAnimation((TextView)v.findViewById(R.id.practice_countdown_textview),
+                new CountDownAnimation((TextView) v.findViewById(R.id.practice_countdown_textview),
                         countdownDurationSeconds);
         animation.setCountDownListener(new CountDownAnimation.CountDownListener() {
             @Override
@@ -91,6 +103,9 @@ public class PracticeModeCountdownFragment extends Fragment {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -102,13 +117,24 @@ public class PracticeModeCountdownFragment extends Fragment {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onDetach() {
         super.onDetach();
         countdownFinishedListener = null;
     }
 
+    /**
+     * An interface to be implemented by the class that wants to listen to the countdown finishing
+     * event,
+     */
     public interface OnCountdownFinishedListener {
+
+        /**
+         * Callback for the countdown finishing event.
+         */
         void onCountdownFinished();
     }
 

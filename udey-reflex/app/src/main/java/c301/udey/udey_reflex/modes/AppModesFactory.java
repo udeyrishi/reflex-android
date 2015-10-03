@@ -25,20 +25,34 @@ import c301.udey.udey_reflex.modes.practice.PracticeModeFragment;
 import c301.udey.udey_reflex.modes.stats.StatsModeFragment;
 
 /**
- * Created by rishi on 15-09-26.
+ * A factory for the different app modes supported by the app.
  */
-public class AppModesProvider {
+public class AppModesFactory {
 
+    /**
+     * Gets the names of all the modes supported by the app.
+     * @param context The context to be used for getting the string resources.
+     * @return The array of Strings corresponding to the app mode names.
+     */
     public static String[] getAppModes(Context context) {
-        return new String[] {
+        return new String[]{
                 context.getString(R.string.section_name_practice),
                 context.getString(R.string.section_name_compete),
                 context.getString(R.string.section_name_stats)
         };
     }
 
-    public static RefocusAwareFragment selectAppMode(Context context, int sectionNumber) {
-        switch(sectionNumber) {
+    /**
+     * Gets the {@link RefocusAwareFragment} corresponding to the app mode specified by the
+     * sectionNumber.
+     * @param context The caller's context.
+     * @param sectionNumber The section number to be attached to the fragment. This section number
+     *                      is the index in the navigation pane, and correspond to the
+     *                      index in the array that is the return value of {@link #getAppModes(Context)}.
+     * @return The appropriate fragment.
+     */
+    public static RefocusAwareFragment getAppModeFragment(Context context, int sectionNumber) {
+        switch (sectionNumber) {
             case 0:
                 return PracticeModeFragment.getInstance(context, sectionNumber);
             case 1:

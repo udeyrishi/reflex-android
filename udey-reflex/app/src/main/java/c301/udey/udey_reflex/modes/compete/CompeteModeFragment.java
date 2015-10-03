@@ -30,7 +30,8 @@ import c301.udey.udey_reflex.modes.InstructionsFragment;
 import c301.udey.udey_reflex.sectionmanager.FragmentAttacher;
 
 /**
- * Created by rishi on 15-09-26.
+ * Fragment showing the instructions for the compete (multi-player) mode.
+ * Also loads the {@link CompeteModeActivity} when user requests.
  */
 public class CompeteModeFragment extends InstructionsFragment {
 
@@ -39,10 +40,30 @@ public class CompeteModeFragment extends InstructionsFragment {
     private FragmentAttacher fragmentAttacher;
     private boolean areNumberOfPlayersSelected;
 
+    /**
+     * Default constructor.
+     */
     public CompeteModeFragment() {
         fragmentAttacher = new FragmentAttacher(this);
     }
 
+    /**
+     * Creates an instance of {@link CompeteModeFragment}.
+     *
+     * @param context       The callers context.
+     * @param sectionNumber The section number where this fragment will be placed.
+     * @return The generated CompeteModeFragment.
+     */
+    public static CompeteModeFragment getInstance(Context context, int sectionNumber) {
+        CompeteModeFragment fragment = new CompeteModeFragment();
+        fragment.setArguments(context.getString(R.string.compete_instructions));
+        fragment.fragmentAttacher.attachSectionNumber(sectionNumber);
+        return fragment;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +72,37 @@ public class CompeteModeFragment extends InstructionsFragment {
         }
     }
 
-    public static CompeteModeFragment getInstance(Context context, int sectionNumber) {
-        CompeteModeFragment fragment = new CompeteModeFragment();
-        fragment.setArguments(context.getString(R.string.compete_instructions));
-        fragment.fragmentAttacher.attachSectionNumber(sectionNumber);
-        return fragment;
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        fragmentAttacher.onSectionAttached((MainActivity) context);
+    }
+
+    /**
+     * Pops up the 'get number of players' radio buttons.
+     */
+    @Override
+    public void onRefocus() {
+        getNumberOfPlayers();
+    }
+
+    /**
+     * The button press event handler that loads the {@link CompeteModeActivity}.
+     * Corresponds the the state where user has read the instructions, and now wants to move on
+     * to the game.
+     *
+     * @param v The button's view.
+     */
+    @Override
+    protected void onButtonPress(View v) {
+        if (areNumberOfPlayersSelected) {
+            Intent intent = new Intent(getActivity(), CompeteModeActivity.class);
+            intent.putExtra(EXTRA_MESSAGE_NUMBER_PLAYERS, numberPlayers);
+            startActivity(intent);
+        }
     }
 
     private void getNumberOfPlayers() {
@@ -70,7 +117,7 @@ public class CompeteModeFragment extends InstructionsFragment {
             }
         });
 
-        RadioGroup playerNumberChoices = (RadioGroup)dialog.findViewById(R.id.player_choice_radio_group);
+        RadioGroup playerNumberChoices = (RadioGroup) dialog.findViewById(R.id.player_choice_radio_group);
 
         playerNumberChoices.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -82,25 +129,5 @@ public class CompeteModeFragment extends InstructionsFragment {
         });
         dialog.show();
         areNumberOfPlayersSelected = false;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        fragmentAttacher.onSectionAttached((MainActivity) context);
-    }
-
-    @Override
-    protected void onButtonPress(View v) {
-        if (areNumberOfPlayersSelected) {
-            Intent intent = new Intent(getActivity(), CompeteModeActivity.class);
-            intent.putExtra(EXTRA_MESSAGE_NUMBER_PLAYERS, numberPlayers);
-            startActivity(intent);
-        }
-    }
-
-    @Override
-    public void onRefocus() {
-        getNumberOfPlayers();
     }
 }

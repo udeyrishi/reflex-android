@@ -24,34 +24,48 @@ import android.support.v7.app.AppCompatActivity;
 import c301.udey.udey_reflex.R;
 
 /**
- * Created by rishi on 15-09-28.
+ * A base class for an activity that contains multiple fragments.
  */
 public class FragmentsActivity extends AppCompatActivity {
 
     private Boolean isActivityActive;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onResume() {
         super.onResume();
         isActivityActive = true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onPause() {
         super.onPause();
         isActivityActive = false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragments);
 
-        // ActionBar is present -- can't be null in this case
+        // ActionBar is present -- can't be null in this case. So safe to suppress.
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
+    /**
+     * Swaps the fragment with the new fragment, if the activity is still in foreground.
+     * Does nothing if the activity is not in the foreground ({@link #onPause()} was called).
+     * @param newFragment The new fragment to be put up in the fragment container of the layout.
+     */
     protected void swapFragments(Fragment newFragment) {
         // Keep the old fragment after the app is no longer in the foreground
         if (isActivityActive) {

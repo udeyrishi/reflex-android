@@ -28,13 +28,13 @@ public class ReflexApp extends Application {
 
     private static Context context;
 
-    @Override
-    public void onCreate(){
-        super.onCreate();
-        ReflexApp.context = getApplicationContext();
-    }
-
     public static Context getAppContext() {
         return ReflexApp.context;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        ReflexApp.context = getApplicationContext();
     }
 }

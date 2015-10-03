@@ -27,24 +27,26 @@ import c301.udey.udey_reflex.modes.InstructionsFragment;
 import c301.udey.udey_reflex.sectionmanager.FragmentAttacher;
 
 /**
- * Created by rishi on 15-09-26.
+ * A fragment showing the instructions for the PracticeMode.
  */
 public class PracticeModeFragment extends InstructionsFragment {
 
     private FragmentAttacher fragmentAttacher;
 
+    /**
+     * Default constructor.
+     */
     public PracticeModeFragment() {
         fragmentAttacher = new FragmentAttacher(this);
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (fragmentAttacher == null) {
-            fragmentAttacher = new FragmentAttacher(this);
-        }
-    }
-
+    /**
+     * Creates an instance of {@link PracticeModeFragment}.
+     *
+     * @param context       The callers context.
+     * @param sectionNumber The section number where this fragment will be placed.
+     * @return The generated PracticeModeFragment.
+     */
     public static PracticeModeFragment getInstance(Context context, int sectionNumber) {
 
         PracticeModeFragment fragment = new PracticeModeFragment();
@@ -53,12 +55,33 @@ public class PracticeModeFragment extends InstructionsFragment {
         return fragment;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (fragmentAttacher == null) {
+            fragmentAttacher = new FragmentAttacher(this);
+        }
+    }
+
+    /**
+     * The button press event handler that loads the {@link PracticeModeActivity}.
+     * Corresponds the the state where user has read the instructions, and now wants to move on
+     * to the game.
+     *
+     * @param v The button's view.
+     */
     @Override
     protected void onButtonPress(View v) {
         Intent intent = new Intent(getActivity(), PracticeModeActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
