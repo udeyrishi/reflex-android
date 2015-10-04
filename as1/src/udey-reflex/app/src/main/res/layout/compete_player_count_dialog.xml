@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Udey Source: http://stackoverflow.com/questions/14995429/dialog-box-with-radio-button-and-validate-button-->
+<!-- Source: http://stackoverflow.com/questions/14995429/dialog-box-with-radio-button-and-validate-button-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" >

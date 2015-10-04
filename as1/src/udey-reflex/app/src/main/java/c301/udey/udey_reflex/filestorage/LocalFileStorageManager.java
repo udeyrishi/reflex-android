@@ -45,8 +45,6 @@ public class LocalFileStorageManager implements FileStorageManager {
         this.context = context;
     }
 
-    // Udey Source
-
     /**
      * Saves the file to the local file storage.
      * Adapted from UAlberta CMPUT 301, CMPUT 301 Lab Materials,

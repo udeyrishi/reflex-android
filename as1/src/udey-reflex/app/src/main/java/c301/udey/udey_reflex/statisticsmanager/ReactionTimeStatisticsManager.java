@@ -115,7 +115,8 @@ public class ReactionTimeStatisticsManager {
      */
     public Statistic<Double> getMedianTime(int lastN) {
 
-        // Udey Source: http://stackoverflow.com/questions/11955728/how-to-calculate-the-median-of-an-array
+        // Algorithm borrowed from:
+        // Source: http://stackoverflow.com/questions/11955728/how-to-calculate-the-median-of-an-array
         List<Long> delays = getLastNOrAllDelays(lastN);
 
         Double median;

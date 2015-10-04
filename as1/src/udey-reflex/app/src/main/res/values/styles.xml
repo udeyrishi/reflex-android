@@ -5,7 +5,7 @@
     <item name="actionBarStyle">@style/MainActionBar</item>
 </style>
 
-<!--Udey Source: http://stackoverflow.com/questions/18990633/android-actionbar-text-color-->
+<!-- Source: http://stackoverflow.com/questions/18990633/android-actionbar-text-color-->
 <style name="MainActionBar"
     parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
     <item name="android:background">@color/darkorange</item>

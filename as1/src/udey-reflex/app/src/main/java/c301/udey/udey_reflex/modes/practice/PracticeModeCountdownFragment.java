@@ -28,7 +28,6 @@ import com.ivanrg.countdownanimation.CountDownAnimation;
 
 import c301.udey.udey_reflex.R;
 
-// Udey Source
 /**
  * A fragment for showing the countdown for the practice mode.
  * The animation is facilitated by the {@link com.ivanrg.countdownanimation.CountDownAnimation}.

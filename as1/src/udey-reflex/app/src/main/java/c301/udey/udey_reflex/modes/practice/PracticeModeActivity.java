@@ -39,8 +39,8 @@ public class PracticeModeActivity extends FragmentsActivity
 
     private ReactionTimeStatisticsManager statsManager;
 
-    // Udey Source: http://stackoverflow.com/questions/2755277/android-hide-all-showed-toast-messages
-    // Single toast suggestion
+    // The suggestion for using a single toast object for multiple toasts in quick succession from:
+    // Source: http://stackoverflow.com/questions/2755277/android-hide-all-showed-toast-messages
     private Toast statusToast;
 
     /**

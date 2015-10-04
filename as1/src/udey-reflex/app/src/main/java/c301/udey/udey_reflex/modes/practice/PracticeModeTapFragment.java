@@ -123,7 +123,7 @@ public class PracticeModeTapFragment extends Fragment {
     @NonNull
     private TimerTask configureBuzzerActivationTask(final View rootView, final CircleButton button) {
         // Prefer Alpha over visibility in this case for registering early taps
-        // Udey Source: http://stackoverflow.com/questions/10612740/will-touch-get-detected-while-a-view-is-in-invisible-state
+        // Source: http://stackoverflow.com/questions/10612740/will-touch-get-detected-while-a-view-is-in-invisible-state
         final float oldAlpha = button.getAlpha();
         button.setAlpha(0.2f);
 
@@ -131,8 +131,8 @@ public class PracticeModeTapFragment extends Fragment {
 
             @Override
             public void run() {
-                // Needs to be run on UI thread, else CalledFromWrongThreadException
-                // Udey Source: http://stackoverflow.com/questions/5161951/android-only-the-original-thread-that-created-a-view-hierarchy-can-touch-its-vi
+                // Needs to be run on UI thread, else throws CalledFromWrongThreadException
+                // Source: http://stackoverflow.com/questions/5161951/android-only-the-original-thread-that-created-a-view-hierarchy-can-touch-its-vi
                 // Activity null check for the cases where back button might be pressed, or buzzer
                 // is pressed too soon
                 FragmentActivity activity = getActivity();
@@ -176,7 +176,7 @@ public class PracticeModeTapFragment extends Fragment {
 
         if (onBuzzerTappedListener != null) {
             // Delay it to complete the circular button animation
-            // Udey Source: http://stackoverflow.com/questions/4111905/how-do-you-have-the-code-pause-for-a-couple-of-seconds-in-android
+            // Source: http://stackoverflow.com/questions/4111905/how-do-you-have-the-code-pause-for-a-couple-of-seconds-in-android
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

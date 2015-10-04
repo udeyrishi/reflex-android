@@ -19,7 +19,6 @@ package c301.udey.udey_reflex;
 import android.app.Application;
 import android.content.Context;
 
-// Udey Source
 /**
  * Class for accessing the app wide contexts.
  * Source: http://stackoverflow.com/questions/2002288/static-way-to-get-context-on-android

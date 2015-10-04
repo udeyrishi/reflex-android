@@ -107,13 +107,14 @@ public class StatsModeFragment extends RefocusAwareFragment {
         return rootView;
     }
 
+    // Method to add menu items borrowed from:
+    // Source: http://stackoverflow.com/questions/8308695/android-options-menu-in-fragment
     /**
      * Adds the 'clear reaction time stats', 'clear buzzer count stats', and 'email stats'
      * options in the menu bar.
      * @param menu The menu.
      * @param inflater The menu inflator.
      */
-    // Udey Source: http://stackoverflow.com/questions/8308695/android-options-menu-in-fragment
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);

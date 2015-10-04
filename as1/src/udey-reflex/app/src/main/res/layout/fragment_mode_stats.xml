@@ -9,7 +9,8 @@
     android:orientation="vertical"
     android:scrollbars="vertical">
 
-    <!--Udey Source: http://stackoverflow.com/questions/17945498/how-set-listview-not-clickable-->
+    <!-- How to make the list items not clickable:-->
+    <!-- Source: http://stackoverflow.com/questions/17945498/how-set-listview-not-clickable-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

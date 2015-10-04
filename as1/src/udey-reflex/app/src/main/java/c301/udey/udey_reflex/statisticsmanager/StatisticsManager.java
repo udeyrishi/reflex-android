@@ -115,7 +115,7 @@ public class StatisticsManager {
      * @return The created intent.
      */
     public Intent getStatsEmailIntent(String emailSubject) {
-        // Udey Source: http://stackoverflow.com/questions/6583010/how-to-create-email-button-on-android
+        // Source: http://stackoverflow.com/questions/6583010/how-to-create-email-button-on-android
         Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
         emailIntent.setType("plain/text");
         emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, emailSubject);
