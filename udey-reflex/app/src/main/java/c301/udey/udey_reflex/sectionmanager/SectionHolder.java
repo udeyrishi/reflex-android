@@ -17,8 +17,14 @@
 package c301.udey.udey_reflex.sectionmanager;
 
 /**
- * Created by rishi on 15-10-01.
+ * An interface for a class that contains multiple fragments as sections, and it wants to listen
+ * to these fragment's attach events.
+ * Should be used in combination with {@link FragmentAttacher}.
  */
 public interface SectionHolder {
+    /**
+     * Callback for the section attached event of a {@link android.support.v4.app.Fragment}.
+     * @param sectionNumber The fragments section number.
+     */
     void onSectionAttached(int sectionNumber);
 }

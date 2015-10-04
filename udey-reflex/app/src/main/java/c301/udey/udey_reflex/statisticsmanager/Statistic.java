@@ -17,34 +17,59 @@
 package c301.udey.udey_reflex.statisticsmanager;
 
 /**
- * Created by rishi on 15-10-01.
+ * A model for a statistic.
  */
 public class Statistic<T> {
 
     private String message;
     private T value;
 
+    /**
+     * Creates a new instance of {@link Statistic}.
+     * @param message The statistic's message/descriptor.
+     * @param value The value associated to a statistic.
+     */
     public Statistic(String message, T value) {
         setMessage(message);
         setValue(value);
     }
 
+    /**
+     * Gets the message.
+     * @return The message.
+     */
     public String getMessage() {
         return message;
     }
 
+    /**
+     * Sets the message.
+     * @param message The message.
+     */
     public void setMessage(String message) {
         this.message = message;
     }
 
+    /**
+     * Gets the value.
+     * @return The value.
+     */
     public T getValue() {
         return value;
     }
 
+    /**
+     * Sets the value.
+     * @param value The value.
+     */
     public void setValue(T value) {
         this.value = value;
     }
 
+    /**
+     * Creates a human friendly string describing the statistic.
+     * @return The string describing the statistic.
+     */
     @Override
     public String toString() {
         return message + ": " + (value == null ? "N/A" : value.toString());

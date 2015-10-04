@@ -19,19 +19,27 @@ package c301.udey.udey_reflex;
 import android.app.Application;
 import android.content.Context;
 
+// Udey Source
 /**
- * Created by rishi on 15-10-03.
+ * Class for accessing the app wide contexts.
+ * Source: http://stackoverflow.com/questions/2002288/static-way-to-get-context-on-android
  */
 
-// Udey Source: http://stackoverflow.com/questions/2002288/static-way-to-get-context-on-android
 public class ReflexApp extends Application {
 
     private static Context context;
 
+    /**
+     * Gets the app wide context. Should be used for non-UI actions.
+     * @return The app wide {@link Context}
+     */
     public static Context getAppContext() {
         return ReflexApp.context;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreate() {
         super.onCreate();

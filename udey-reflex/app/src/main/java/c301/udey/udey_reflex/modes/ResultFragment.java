@@ -26,17 +26,27 @@ import c301.udey.udey_reflex.R;
 
 /**
  * A {@link InstructionsFragment} for displaying the result of an app mode and a 'Try again' button.
+ * Useful when the button press's logic resides in an activity. In that case, the activity should implement
+ * {@link c301.udey.udey_reflex.modes.ResultFragment.OnResultDismissedListener}
  */
 public class ResultFragment extends InstructionsFragment {
 
     private OnResultDismissedListener onResultDismissedListener;
 
+    /**
+     * Creates a new instance of {@link ResultFragment}.
+     * @param result The result to be displayed.
+     * @return The created ResultFragment.
+     */
     public static ResultFragment newInstance(CharSequence result) {
         ResultFragment fragment = new ResultFragment();
         fragment.setArguments(result);
         return fragment;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,13 +55,19 @@ public class ResultFragment extends InstructionsFragment {
         return rootView;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onButtonPress(View v) {
         if (onResultDismissedListener != null) {
-            onResultDismissedListener.onTryAgain();
+            onResultDismissedListener.onResultDismissed();
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -63,13 +79,23 @@ public class ResultFragment extends InstructionsFragment {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onDetach() {
         super.onDetach();
         onResultDismissedListener = null;
     }
 
+    /**
+     * An interface to be implemented by a class interested in listening to the result dismissal
+     * event.
+     */
     public interface OnResultDismissedListener {
-        void onTryAgain();
+        /**
+         * Callback for the result dismissal event.
+         */
+        void onResultDismissed();
     }
 }

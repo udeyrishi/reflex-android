@@ -29,6 +29,7 @@ import c301.udey.udey_reflex.RefocusAwareFragment;
 /**
  * An abstract {@link RefocusAwareFragment} that contains a text view for showing some instructions,
  * and a button for moving to the next logical step.
+ * Useful if the button press's callback logic resides in a fragment. In that case, extend this fragment.
  */
 public abstract class InstructionsFragment extends RefocusAwareFragment {
 

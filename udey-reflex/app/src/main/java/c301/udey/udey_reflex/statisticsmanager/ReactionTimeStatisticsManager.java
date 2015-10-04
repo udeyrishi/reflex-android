@@ -20,6 +20,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,7 +28,7 @@ import java.util.List;
 import c301.udey.udey_reflex.filestorage.FileStorageManager;
 
 /**
- * Created by rishi on 15-09-27.
+ * A stats manager for the practice mode reaction times.
  */
 public class ReactionTimeStatisticsManager {
 
@@ -35,34 +36,60 @@ public class ReactionTimeStatisticsManager {
     private final String fileName;
     private final FileStorageManager storageManager;
 
+    /**
+     * Creates a new instance of {@link ReactionTimeStatisticsManager}.
+     * @param storageManager The {@link FileStorageManager} to be used for stats persistance.
+     * @param fileName The file name to be used for persistance.
+     */
     public ReactionTimeStatisticsManager(FileStorageManager storageManager, String fileName) {
         this.fileName = fileName;
         this.storageManager = storageManager;
     }
 
-    public void saveBuzzerDelay(Long delay) throws IOException {
+    /**
+     * Saves a new delayInMilliseconds value. Only stores the last 100 stats, and keeps
+     * deleting old ones when this threshold is crossed.
+     * @param delayInMilliseconds The delay value in milliseconds.
+     * @throws IOException Thrown by {@link FileStorageManager#save(Object, String, Type)}.
+     */
+    public void saveBuzzerDelay(Long delayInMilliseconds) throws IOException {
         ArrayList<Long> savedDelays = safeGetSavedDelays();
 
         while (savedDelays.size() >= MAX_SAVE_COUNT) {
             savedDelays.remove(0);
         }
-        savedDelays.add(delay);
+        savedDelays.add(delayInMilliseconds);
         storageManager.save(savedDelays, fileName, new TypeToken<ArrayList<Long>>() {
         }.getType());
     }
 
+    /**
+     * Gets the minimum delay time over the last min(lastN, 100) plays.
+     * @param lastN The number of stats to be analysed. If lastN > 100, then analyses last 100 stats.
+     * @return The minimum delay time.
+     */
     public Statistic<Long> getMinimumTime(int lastN) {
         List<Long> delays = getLastNOrAllDelays(lastN);
         Long minTime = delays.isEmpty() ? null : Collections.min(delays);
         return new Statistic<>(String.format("Min reaction time over last %d tries", lastN), minTime);
     }
 
+    /**
+     * Gets the maximum delay time over the last min(lastN, 100) plays.
+     * @param lastN The number of stats to be analysed. If lastN > 100, then analyses last 100 stats.
+     * @return The maximum delay time.
+     */
     public Statistic<Long> getMaximumTime(int lastN) {
         List<Long> delays = getLastNOrAllDelays(lastN);
         Long maxTime = delays.isEmpty() ? null : Collections.max(delays);
         return new Statistic<>(String.format("Max reaction time over last %d tries", lastN), maxTime);
     }
 
+    /**
+     * Gets the average delay time over the last min(lastN, 100) plays.
+     * @param lastN The number of stats to be analysed. If lastN > 100, then analyses last 100 stats.
+     * @return The average delay time.
+     */
     public Statistic<Double> getAverageTime(int lastN) {
         List<Long> delays = getLastNOrAllDelays(lastN);
 
@@ -81,6 +108,11 @@ public class ReactionTimeStatisticsManager {
         return new Statistic<>(String.format("Average reaction time over last %d tries", lastN), averageTime);
     }
 
+    /**
+     * Gets the median delay time over the last min(lastN, 100) plays.
+     * @param lastN The number of stats to be analysed. If lastN > 100, then analyses last 100 stats.
+     * @return The median delay time.
+     */
     public Statistic<Double> getMedianTime(int lastN) {
 
         // Udey Source: http://stackoverflow.com/questions/11955728/how-to-calculate-the-median-of-an-array
@@ -105,6 +137,9 @@ public class ReactionTimeStatisticsManager {
         return new Statistic<>(String.format("Median reaction time over last %d tries", lastN), median);
     }
 
+    /**
+     * Clears all the stats.
+     */
     public void clearStats() {
         storageManager.delete(fileName);
     }

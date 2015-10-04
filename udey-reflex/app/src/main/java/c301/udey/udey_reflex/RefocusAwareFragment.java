@@ -19,9 +19,14 @@ package c301.udey.udey_reflex;
 import android.support.v4.app.Fragment;
 
 /**
- * Created by rishi on 15-10-03.
+ * A base class for a {@link Fragment} that needs to be aware of when the fragment comes back in
+ * focus.
  */
 public class RefocusAwareFragment extends Fragment {
+
+    /**
+     * Callback for the event when the fragment comes back in focus.
+     */
     public void onRefocus() {
         // Default implementation => don't do anything
     }

@@ -20,23 +20,35 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 
 import c301.udey.udey_reflex.filestorage.FileStorageManager;
 
 /**
- * Created by rishi on 15-09-27.
+ * A statistics manager for Buzzer Counts.
  */
 public class BuzzerCountStatisticsManager {
 
     private final FileStorageManager storageManager;
     private final String fileName;
 
+    /**
+     * Creates a new instance of {@link BuzzerCountStatisticsManager}.
+     * @param storageManager The {@link FileStorageManager} to be used for stats persistance.
+     * @param fileName The file name to be used for persistance.
+     */
     public BuzzerCountStatisticsManager(FileStorageManager storageManager, String fileName) {
         this.storageManager = storageManager;
         this.fileName = fileName;
     }
 
+    /**
+     * Registers a new buzzer win event.
+     * @param numberOfPlayers The number of players that were playing.
+     * @param playerWhoWon The name ot the player who won.
+     * @throws IOException Thrown by the {@link FileStorageManager#save(Object, String, Type)}.
+     */
     public void registerBuzzerWin(Integer numberOfPlayers, final String playerWhoWon) throws IOException {
         HashMap<Integer, HashMap<String, Long>> stats = safeGetStats();
 
@@ -56,6 +68,13 @@ public class BuzzerCountStatisticsManager {
         }.getType());
     }
 
+    /**
+     * Gets the number of buzzes for the specified player name in the specified number of players
+     * game mode.
+     * @param numberOfPlayers The number of players that were playing.
+     * @param playerName The name of the player.
+     * @return The number of victories by the player in this game mode.
+     */
     public Statistic<Long> getNumberOfBuzzes(Integer numberOfPlayers, String playerName) {
         HashMap<Integer, HashMap<String, Long>> stats = safeGetStats();
 
@@ -70,6 +89,9 @@ public class BuzzerCountStatisticsManager {
         return new Statistic<>(String.format("%d player mode, %s buzzes", numberOfPlayers, playerName), numberOfBuzzes);
     }
 
+    /**
+     * Clears all the stats.
+     */
     public void clearStats() {
         storageManager.delete(fileName);
     }

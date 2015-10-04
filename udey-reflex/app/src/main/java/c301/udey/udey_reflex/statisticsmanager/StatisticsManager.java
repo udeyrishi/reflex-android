@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import c301.udey.udey_reflex.R;
 
 /**
- * Created by rishi on 15-10-02.
+ * A statistic manager for the stats needed by the ReflexApp.
  */
 public class StatisticsManager {
 
@@ -31,12 +31,20 @@ public class StatisticsManager {
     private final BuzzerCountStatisticsManager buzzerCountStatisticsManager;
     private final ReactionTimeStatisticsManager reactionTimeStatisticsManager;
 
+    /**
+     * Creates a new instance of {@link StatisticsManager}.
+     * @param context The context for getting the string resources.
+     */
     public StatisticsManager(Context context) {
         this.context = context;
         buzzerCountStatisticsManager = StatisticsManagerFactory.getBuzzerCountStatisticsManager();
         reactionTimeStatisticsManager = StatisticsManagerFactory.getReactionTimeStatisticsManager();
     }
 
+    /**
+     * Gets a list of buzzer count stats.
+     * @return List of buzzer count stats.
+     */
     public ArrayList<Statistic<Long>> getBuzzerCountStats() {
         ArrayList<Statistic<Long>> buzzerTimeStats = new ArrayList<>();
 
@@ -64,10 +72,17 @@ public class StatisticsManager {
         return buzzerTimeStats;
     }
 
+    /**
+     * Deletes all the buzzer count stats.
+     */
     public void clearBuzzerCountStats() {
         buzzerCountStatisticsManager.clearStats();
     }
 
+    /**
+     * Gets a list of reaction time stats.
+     * @return List of reaction time stats.
+     */
     public ArrayList<Statistic<? extends Number>> getReactionTimeStats() {
         ArrayList<Statistic<? extends Number>> reactionTimeStats = new ArrayList<>();
 
@@ -86,6 +101,9 @@ public class StatisticsManager {
         return reactionTimeStats;
     }
 
+    /**
+     * Deletes all the reaction time stats.
+     */
     public void clearReactionTimeStats() {
         reactionTimeStatisticsManager.clearStats();
     }

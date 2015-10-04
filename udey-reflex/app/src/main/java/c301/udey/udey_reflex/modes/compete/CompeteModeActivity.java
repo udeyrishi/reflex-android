@@ -55,7 +55,7 @@ public class CompeteModeActivity extends FragmentsActivity
      * Loads the {@link CompeteModeTapFragment}.
      */
     @Override
-    public void onTryAgain() {
+    public void onResultDismissed() {
         loadButtonsScreen();
     }
 
