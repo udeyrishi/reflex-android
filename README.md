@@ -2,8 +2,8 @@
 
 Reflex is an Android gameshow buzzer app. It has three modes:
 
-  - Practice mode: The single player mode for measuring the buzzer pressing reaction times
-  - Compete mode: The multiplayer mode (2, 3 or 4 players) for acting as a digital gameshow buzzer
+  - Single-User mode: The practice mode for measuring the buzzer pressing reaction times
+  - Gameshow Buzzer mode: The multiplayer compete mode (2, 3 or 4 players) for acting as a digital gameshow buzzer
   - Statistics mode: Shows all the stats from the practice and compete modes
 
 YouTube demo: <Insert here>

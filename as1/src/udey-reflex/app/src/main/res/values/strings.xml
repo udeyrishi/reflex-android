@@ -2,7 +2,7 @@
     <string name="app_name">udey-reflex</string>
 
     <!--Region: Practice mode-->
-    <string name="section_name_practice">Practice</string>
+    <string name="section_name_practice">Single-User Mode</string>
     <string name="practice_instructions">Try to tap the buzzer quickly after it appears.\n\nDon\'t tap too soon!</string>
     <string name="begin_practice_button_text">BEGIN!</string>
     <string name="title_activity_practice_mode">@string/section_name_practice</string>
@@ -12,7 +12,7 @@
 
 
     <!--Region: Compete mode-->
-    <string name="section_name_compete">Compete</string>
+    <string name="section_name_compete">Gameshow Buzzer Mode</string>
     <string name="compete_instructions">First person to press the buzzer wins!</string>
     <string name="title_activity_compete">Compete</string>
 
