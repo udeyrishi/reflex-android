@@ -102,7 +102,8 @@ public class StatsModeFragment extends RefocusAwareFragment {
         buzzerStatsBox = (ListView) rootView.findViewById(R.id.buzzer_count_stats_list);
         reactionTimeStatsBox = (ListView) rootView.findViewById(R.id.reaction_time_stats_list);
 
-        refreshStats();
+        refreshBuzzerCountStats();
+        refreshReactionTimeStats();
         return rootView;
     }
 
@@ -139,7 +140,8 @@ public class StatsModeFragment extends RefocusAwareFragment {
         sendEmailItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                sendStatsEmail();
+                Intent emailIntent = statsManager.getStatsEmailIntent(getString(R.string.stats_email_subject));
+                startActivityForResult(emailIntent, 1);
                 return true;
             }
         });
@@ -154,30 +156,6 @@ public class StatsModeFragment extends RefocusAwareFragment {
         fragmentAttacher.onSectionAttached((MainActivity) context);
     }
 
-    private void sendStatsEmail() {
-        // Udey Source: http://stackoverflow.com/questions/6583010/how-to-create-email-button-on-android
-        Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
-        emailIntent.setType("plain/text");
-        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.stats_email_subject));
-        emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, getAllStatsSerialized());
-        startActivityForResult(emailIntent, 1);
-    }
-
-    private String getAllStatsSerialized() {
-
-        StringBuilder allStats = new StringBuilder("Reaction time stats:\n");
-        for (Statistic<? extends Number> statistic : reactionTimeStats) {
-            allStats.append(statistic.toString()).append("\n");
-        }
-
-        allStats.append("\n\nBuzzer count stats:\n");
-        for (Statistic<Long> statistic : buzzerStats) {
-            allStats.append(statistic.toString()).append("\n");
-        }
-
-        return allStats.toString();
-    }
-
     private void clearBuzzerStats() {
         statsManager.clearBuzzerCountStats();
         refreshBuzzerCountStats();
@@ -185,11 +163,6 @@ public class StatsModeFragment extends RefocusAwareFragment {
 
     private void clearReactionTimeStats() {
         statsManager.clearReactionTimeStats();
-        refreshReactionTimeStats();
-    }
-
-    private void refreshStats() {
-        refreshBuzzerCountStats();
         refreshReactionTimeStats();
     }
 

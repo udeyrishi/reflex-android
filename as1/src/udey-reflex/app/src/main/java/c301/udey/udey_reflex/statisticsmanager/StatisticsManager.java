@@ -17,6 +17,7 @@
 package c301.udey.udey_reflex.statisticsmanager;
 
 import android.content.Context;
+import android.content.Intent;
 
 import java.util.ArrayList;
 
@@ -106,5 +107,34 @@ public class StatisticsManager {
      */
     public void clearReactionTimeStats() {
         reactionTimeStatisticsManager.clearStats();
+    }
+
+    /**
+     * Creates an intent for sending an email containing all the stats.
+     * @param emailSubject The emails subject.
+     * @return The created intent.
+     */
+    public Intent getStatsEmailIntent(String emailSubject) {
+        // Udey Source: http://stackoverflow.com/questions/6583010/how-to-create-email-button-on-android
+        Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+        emailIntent.setType("plain/text");
+        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, emailSubject);
+        emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, getAllStatsSerialized());
+        return emailIntent;
+    }
+
+    private String getAllStatsSerialized() {
+
+        StringBuilder allStats = new StringBuilder("Reaction time stats:\n");
+        for (Statistic<? extends Number> statistic : getReactionTimeStats()) {
+            allStats.append(statistic.toString()).append("\n");
+        }
+
+        allStats.append("\n\nBuzzer count stats:\n");
+        for (Statistic<Long> statistic : getBuzzerCountStats()) {
+            allStats.append(statistic.toString()).append("\n");
+        }
+
+        return allStats.toString();
     }
 }
