@@ -72,6 +72,20 @@ public class Statistic<T> {
      */
     @Override
     public String toString() {
-        return message + ": " + (value == null ? "N/A" : value.toString());
+        String valueString;
+        if (value == null) {
+            valueString = "N/A";
+        }
+        else if (value instanceof Double) {
+            valueString = String.format("%.2f", (Double)value);
+        }
+        else if (value instanceof Float) {
+            valueString = String.format("%.2f", (Float)value);
+        }
+        else {
+            valueString = value.toString();
+        }
+
+        return message + ": " + valueString;
     }
 }
