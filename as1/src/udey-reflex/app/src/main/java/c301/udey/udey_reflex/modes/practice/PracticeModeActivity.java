@@ -16,6 +16,8 @@
 
 package c301.udey.udey_reflex.modes.practice;
 
+import android.support.v7.internal.app.ToolbarActionBar;
+import android.view.View;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -94,7 +96,7 @@ public class PracticeModeActivity extends FragmentsActivity
         } else {
             saveDelayToStorage(delayInMilliseconds);
             startCountdown();
-            showToast("Response time:\n" + delayInMilliseconds.toString() + " ms");
+            showToast("Reaction time: " + delayInMilliseconds.toString() + " ms");
         }
     }
 
@@ -111,12 +113,10 @@ public class PracticeModeActivity extends FragmentsActivity
     }
 
     private void showToast(String message) {
-        if (statusToast == null) {
-            // First time
-            statusToast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
-        } else {
-            statusToast.setText(message);
+        if (statusToast != null) {
+            statusToast.cancel();
         }
+        statusToast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
         statusToast.show();
     }
 }

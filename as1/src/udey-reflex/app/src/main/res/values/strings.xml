@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">udey-reflex</string>
+    <string name="navigation_drawer_title">Reflex</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!--Region: Practice mode-->
     <string name="section_name_practice">Single-User Mode</string>
@@ -10,28 +13,19 @@
     <string name="practice_session_wait">Wait...</string>
     <string name="practice_try_again_button_text">Try again</string>
 
-
     <!--Region: Compete mode-->
     <string name="section_name_compete">Gameshow Buzzer Mode</string>
     <string name="compete_instructions">First person to press the buzzer wins!</string>
     <string name="title_activity_compete">@string/section_name_compete</string>
-
-    <!--Region: Stats mode-->
-    <string name="section_name_stats">Stats</string>
-
-    <string name="navigation_drawer_title">Reflex</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_settings">Settings</string>
-
     <string name="player_one">Player 1</string>
     <string name="player_two">Player 2</string>
     <string name="player_three">Player 3</string>
     <string name="player_four">Player 4</string>
+
+    <!--Region: Stats mode-->
+    <string name="section_name_stats">Stats</string>
     <string name="clear_reaction_time_stats_label">Clear Reaction Time stats</string>
     <string name="clear_buzzer_count_stats_label">Clear Buzzer count stats</string>
     <string name="send_email_stats_label">Send stats via e-mail</string>
     <string name="stats_email_subject">Reflex Stats</string>
-
 </resources>
