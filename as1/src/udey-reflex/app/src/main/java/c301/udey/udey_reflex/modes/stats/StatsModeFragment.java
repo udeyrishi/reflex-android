@@ -16,6 +16,7 @@
 
 package c301.udey.udey_reflex.modes.stats;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -142,7 +144,14 @@ public class StatsModeFragment extends RefocusAwareFragment {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 Intent emailIntent = statsManager.getStatsEmailIntent(getString(R.string.stats_email_subject));
-                startActivityForResult(emailIntent, 1);
+                try {
+                    startActivityForResult(emailIntent, 1);
+                }
+                catch (ActivityNotFoundException e) {
+                    Toast errorToast = Toast.makeText(StatsModeFragment.this.getContext(),
+                            "No email app configured. Please install one and try again.", Toast.LENGTH_LONG);
+                    errorToast.show();
+                }
                 return true;
             }
         });
