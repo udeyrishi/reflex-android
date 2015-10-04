@@ -6,7 +6,7 @@ Reflex is an Android gameshow buzzer app. It has three modes:
   - Gameshow Buzzer mode: The multiplayer compete mode (2, 3 or 4 players) for acting as a digital gameshow buzzer
   - Statistics mode: Shows all the stats from the practice and compete modes
 
-YouTube demo: <Insert here>
+YouTube demo: https://youtu.be/3D_M7UMxprc
 
 ### Installation
 
