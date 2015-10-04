@@ -18,7 +18,6 @@ package c301.udey.udey_reflex.statisticsmanager;
 
 import com.google.gson.reflect.TypeToken;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -28,10 +27,7 @@ import c301.udey.udey_reflex.filestorage.FileStorageManager;
 /**
  * A statistics manager for Buzzer Counts.
  */
-public class BuzzerCountStatisticsManager {
-
-    private final FileStorageManager storageManager;
-    private final String fileName;
+public class BuzzerCountStatisticsManager extends StatisticsManager {
 
     /**
      * Creates a new instance of {@link BuzzerCountStatisticsManager}.
@@ -40,8 +36,7 @@ public class BuzzerCountStatisticsManager {
      * @param fileName       The file name to be used for persistance.
      */
     public BuzzerCountStatisticsManager(FileStorageManager storageManager, String fileName) {
-        this.storageManager = storageManager;
-        this.fileName = fileName;
+        super(storageManager, fileName);
     }
 
     /**
@@ -52,7 +47,7 @@ public class BuzzerCountStatisticsManager {
      * @throws IOException Thrown by the {@link FileStorageManager#save(Object, String, Type)}.
      */
     public void registerBuzzerWin(Integer numberOfPlayers, final String playerWhoWon) throws IOException {
-        HashMap<Integer, HashMap<String, Long>> stats = safeGetStats();
+        HashMap<Integer, HashMap<String, Long>> stats = safeGetBuzzerCounts();
 
         if (stats.containsKey(numberOfPlayers)) {
             HashMap<String, Long> playerRecords = stats.get(numberOfPlayers);
@@ -79,7 +74,7 @@ public class BuzzerCountStatisticsManager {
      * @return The number of victories by the player in this game mode.
      */
     public Statistic<Long> getNumberOfBuzzes(Integer numberOfPlayers, String playerName) {
-        HashMap<Integer, HashMap<String, Long>> stats = safeGetStats();
+        HashMap<Integer, HashMap<String, Long>> stats = safeGetBuzzerCounts();
 
         Long numberOfBuzzes;
         if (stats.containsKey(numberOfPlayers)) {
@@ -93,21 +88,14 @@ public class BuzzerCountStatisticsManager {
     }
 
     /**
-     * Clears all the stats.
+     * {@inheritDoc}
      */
-    public void clearStats() {
-        storageManager.delete(fileName);
+    @Override
+    protected Type getStorageFormatType() {
+        return new TypeToken<HashMap<Integer, HashMap<String, Long>>>() {}.getType();
     }
 
-    private HashMap<Integer, HashMap<String, Long>> safeGetStats() {
-        HashMap<Integer, HashMap<String, Long>> stats;
-        try {
-            stats = storageManager.load(fileName,
-                    new TypeToken<HashMap<Integer, HashMap<String, Long>>>() {
-                    }.getType());
-        } catch (FileNotFoundException e) {
-            stats = new HashMap<>();
-        }
-        return stats;
+    private HashMap<Integer, HashMap<String, Long>> safeGetBuzzerCounts() {
+        return safeGetStats(new HashMap<Integer, HashMap<String, Long>>());
     }
 }

@@ -20,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A {@link FileStorageManager} wrapper that wraps around another FileStorageManager
@@ -29,7 +30,7 @@ import java.util.HashMap;
 public class CachedFileStorageManager implements FileStorageManager {
 
     private final FileStorageManager innerStorageManager;
-    private final HashMap<String, Object> cache;
+    private final Map<String, Object> cache;
 
     /**
      * Creates a new instance of the {@link CachedFileStorageManager}.

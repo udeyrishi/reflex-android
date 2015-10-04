@@ -18,11 +18,11 @@ package c301.udey.udey_reflex.statisticsmanager;
 
 import com.google.gson.reflect.TypeToken;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import c301.udey.udey_reflex.filestorage.FileStorageManager;
@@ -30,11 +30,9 @@ import c301.udey.udey_reflex.filestorage.FileStorageManager;
 /**
  * A stats manager for the practice mode reaction times.
  */
-public class ReactionTimeStatisticsManager {
+public class ReactionTimeStatisticsManager extends StatisticsManager {
 
     private static final int MAX_SAVE_COUNT = 100;
-    private final String fileName;
-    private final FileStorageManager storageManager;
 
     /**
      * Creates a new instance of {@link ReactionTimeStatisticsManager}.
@@ -43,8 +41,7 @@ public class ReactionTimeStatisticsManager {
      * @param fileName       The file name to be used for persistance.
      */
     public ReactionTimeStatisticsManager(FileStorageManager storageManager, String fileName) {
-        this.fileName = fileName;
-        this.storageManager = storageManager;
+        super(storageManager, fileName);
     }
 
     /**
@@ -145,10 +142,11 @@ public class ReactionTimeStatisticsManager {
     }
 
     /**
-     * Clears all the stats.
+     * {@inheritDoc}
      */
-    public void clearStats() {
-        storageManager.delete(fileName);
+    @Override
+    protected Type getStorageFormatType() {
+        return new TypeToken<ArrayList<Long>>() {}.getType();
     }
 
     private List<Long> getLastNOrAllDelays(int lastN) {
@@ -157,13 +155,6 @@ public class ReactionTimeStatisticsManager {
     }
 
     private ArrayList<Long> safeGetSavedDelays() {
-        ArrayList<Long> savedDelays;
-        try {
-            savedDelays = storageManager.load(fileName, new TypeToken<ArrayList<Long>>() {
-            }.getType());
-        } catch (FileNotFoundException e) {
-            savedDelays = new ArrayList<>();
-        }
-        return savedDelays;
+        return safeGetStats(new ArrayList<Long>());
     }
 }
