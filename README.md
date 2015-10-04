@@ -10,11 +10,11 @@ YouTube demo: <Insert here>
 
 ### Installation
 
-Option 1: Install the apk located in: /as1/bin/udey-finder.apk
+Option 1: Install the apk located in: /as1/bin/udey-reflex.apk
 
 To install via command line:
 ```sh
-$ adb install udey-finder.apk
+$ adb install udey-reflex.apk
 ```
 
 Or, copy the .apk to the phone's SD card, and install it through Android's launcher.
