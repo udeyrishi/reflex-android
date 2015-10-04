@@ -14,7 +14,7 @@
     <!--Region: Compete mode-->
     <string name="section_name_compete">Gameshow Buzzer Mode</string>
     <string name="compete_instructions">First person to press the buzzer wins!</string>
-    <string name="title_activity_compete">Compete</string>
+    <string name="title_activity_compete">@string/section_name_compete</string>
 
     <!--Region: Stats mode-->
     <string name="section_name_stats">Stats</string>
