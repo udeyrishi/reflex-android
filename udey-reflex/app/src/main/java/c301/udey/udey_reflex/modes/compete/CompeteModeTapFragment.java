@@ -18,6 +18,7 @@ package c301.udey.udey_reflex.modes.compete;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
@@ -138,9 +139,15 @@ public class CompeteModeTapFragment extends Fragment {
         }
     }
 
-    private void onButtonPressed(CharSequence playerWhoWon) {
+    private void onButtonPressed(final CharSequence playerWhoWon) {
         if (buzzerTappedListener != null) {
-            buzzerTappedListener.onBuzzerTapped(playerWhoWon);
+            // For completing the circular animation
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    buzzerTappedListener.onBuzzerTapped(playerWhoWon);
+                }
+            }, 100);
         }
     }
 
