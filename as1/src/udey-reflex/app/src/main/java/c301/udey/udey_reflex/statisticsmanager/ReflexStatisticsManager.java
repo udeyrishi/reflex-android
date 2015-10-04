@@ -26,17 +26,17 @@ import c301.udey.udey_reflex.R;
 /**
  * A statistic manager for the stats needed by the ReflexApp.
  */
-public class StatisticsManager {
+public class ReflexStatisticsManager {
 
     private final Context context;
     private final BuzzerCountStatisticsManager buzzerCountStatisticsManager;
     private final ReactionTimeStatisticsManager reactionTimeStatisticsManager;
 
     /**
-     * Creates a new instance of {@link StatisticsManager}.
+     * Creates a new instance of {@link ReflexStatisticsManager}.
      * @param context The context for getting the string resources.
      */
-    public StatisticsManager(Context context) {
+    public ReflexStatisticsManager(Context context) {
         this.context = context;
         buzzerCountStatisticsManager = StatisticsManagerFactory.getBuzzerCountStatisticsManager();
         reactionTimeStatisticsManager = StatisticsManagerFactory.getReactionTimeStatisticsManager();

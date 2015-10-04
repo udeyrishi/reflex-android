@@ -37,7 +37,7 @@ import c301.udey.udey_reflex.R;
 import c301.udey.udey_reflex.RefocusAwareFragment;
 import c301.udey.udey_reflex.sectionmanager.FragmentAttacher;
 import c301.udey.udey_reflex.statisticsmanager.Statistic;
-import c301.udey.udey_reflex.statisticsmanager.StatisticsManager;
+import c301.udey.udey_reflex.statisticsmanager.ReflexStatisticsManager;
 
 /**
  * A fragment for showing the stats.
@@ -55,7 +55,7 @@ public class StatsModeFragment extends RefocusAwareFragment {
     private ListView buzzerStatsBox;
     private ListView reactionTimeStatsBox;
 
-    private StatisticsManager statsManager;
+    private ReflexStatisticsManager statsManager;
 
     /**
      * The default constructor.
@@ -85,7 +85,7 @@ public class StatsModeFragment extends RefocusAwareFragment {
             fragmentAttacher = new FragmentAttacher(this);
         }
 
-        statsManager = new StatisticsManager(getContext());
+        statsManager = new ReflexStatisticsManager(getContext());
         setHasOptionsMenu(true);
     }
 
