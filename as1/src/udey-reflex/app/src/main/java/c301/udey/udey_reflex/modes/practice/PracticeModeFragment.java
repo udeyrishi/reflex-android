@@ -18,27 +18,16 @@ package c301.udey.udey_reflex.modes.practice;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 
 import c301.udey.udey_reflex.MainActivity;
 import c301.udey.udey_reflex.R;
 import c301.udey.udey_reflex.modes.InstructionsFragment;
-import c301.udey.udey_reflex.sectionmanager.FragmentAttacher;
 
 /**
  * A fragment showing the instructions for the PracticeMode.
  */
 public class PracticeModeFragment extends InstructionsFragment {
-
-    private FragmentAttacher fragmentAttacher;
-
-    /**
-     * Default constructor.
-     */
-    public PracticeModeFragment() {
-        fragmentAttacher = new FragmentAttacher(this);
-    }
 
     /**
      * Creates an instance of {@link PracticeModeFragment}.
@@ -51,19 +40,8 @@ public class PracticeModeFragment extends InstructionsFragment {
 
         PracticeModeFragment fragment = new PracticeModeFragment();
         fragment.setArguments(context.getString(R.string.practice_instructions));
-        fragment.fragmentAttacher.attachSectionNumber(sectionNumber);
+        fragment.attachSectionNumber(sectionNumber);
         return fragment;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (fragmentAttacher == null) {
-            fragmentAttacher = new FragmentAttacher(this);
-        }
     }
 
     /**
@@ -85,6 +63,6 @@ public class PracticeModeFragment extends InstructionsFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        fragmentAttacher.onSectionAttached((MainActivity) context);
+        onSectionAttached((MainActivity) context);
     }
 }

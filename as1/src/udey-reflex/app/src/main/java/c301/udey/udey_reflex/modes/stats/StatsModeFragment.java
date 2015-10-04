@@ -34,17 +34,14 @@ import java.util.ArrayList;
 
 import c301.udey.udey_reflex.MainActivity;
 import c301.udey.udey_reflex.R;
-import c301.udey.udey_reflex.RefocusAwareFragment;
-import c301.udey.udey_reflex.sectionmanager.FragmentAttacher;
-import c301.udey.udey_reflex.statisticsmanager.Statistic;
+import c301.udey.udey_reflex.SectionedFragment;
 import c301.udey.udey_reflex.statisticsmanager.ReflexStatisticsManager;
+import c301.udey.udey_reflex.statisticsmanager.Statistic;
 
 /**
  * A fragment for showing the stats.
  */
-public class StatsModeFragment extends RefocusAwareFragment {
-
-    private FragmentAttacher fragmentAttacher;
+public class StatsModeFragment extends SectionedFragment {
 
     private ArrayList<Statistic<? extends Number>> reactionTimeStats;
     private ArrayList<Statistic<Long>> buzzerStats;
@@ -58,20 +55,14 @@ public class StatsModeFragment extends RefocusAwareFragment {
     private ReflexStatisticsManager statsManager;
 
     /**
-     * The default constructor.
-     */
-    public StatsModeFragment() {
-        this.fragmentAttacher = new FragmentAttacher(this);
-    }
-
-    /**
      * Creates an instance of {@link StatsModeFragment}.
+     *
      * @param sectionNumber The section number where this fragment will be placed.
      * @return The generated StatsModeFragment.
      */
     public static StatsModeFragment getInstance(int sectionNumber) {
         StatsModeFragment fragment = new StatsModeFragment();
-        fragment.fragmentAttacher.attachSectionNumber(sectionNumber);
+        fragment.attachSectionNumber(sectionNumber);
         return fragment;
     }
 
@@ -81,9 +72,6 @@ public class StatsModeFragment extends RefocusAwareFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (fragmentAttacher == null) {
-            fragmentAttacher = new FragmentAttacher(this);
-        }
 
         statsManager = new ReflexStatisticsManager(getContext());
         setHasOptionsMenu(true);
@@ -91,6 +79,7 @@ public class StatsModeFragment extends RefocusAwareFragment {
 
     /**
      * Inflates the appropriate views, refreshes the stats, and displays them.
+     *
      * @param inflater           The LayoutInflater.
      * @param container          The ViewGroup container that will contain the inflated view.
      * @param savedInstanceState The saved instance's state.
@@ -111,10 +100,12 @@ public class StatsModeFragment extends RefocusAwareFragment {
 
     // Method to add menu items borrowed from:
     // Source: http://stackoverflow.com/questions/8308695/android-options-menu-in-fragment
+
     /**
      * Adds the 'clear reaction time stats', 'clear buzzer count stats', and 'email stats'
      * options in the menu bar.
-     * @param menu The menu.
+     *
+     * @param menu     The menu.
      * @param inflater The menu inflator.
      */
     @Override
@@ -146,8 +137,7 @@ public class StatsModeFragment extends RefocusAwareFragment {
                 Intent emailIntent = statsManager.getStatsEmailIntent(getString(R.string.stats_email_subject));
                 try {
                     startActivityForResult(emailIntent, 1);
-                }
-                catch (ActivityNotFoundException e) {
+                } catch (ActivityNotFoundException e) {
                     Toast errorToast = Toast.makeText(StatsModeFragment.this.getContext(),
                             "No email app configured. Please install one and try again.", Toast.LENGTH_LONG);
                     errorToast.show();
@@ -163,7 +153,7 @@ public class StatsModeFragment extends RefocusAwareFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        fragmentAttacher.onSectionAttached((MainActivity) context);
+        onSectionAttached((MainActivity) context);
     }
 
     private void clearBuzzerStats() {

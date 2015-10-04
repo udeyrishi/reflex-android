@@ -16,8 +16,6 @@
 
 package c301.udey.udey_reflex.modes.practice;
 
-import android.support.v7.internal.app.ToolbarActionBar;
-import android.view.View;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -84,9 +82,9 @@ public class PracticeModeActivity extends FragmentsActivity
      * Callback for the buzzer. Displays the result in a toast.
      *
      * @param delayInMilliseconds The delay value between the buzzer being activated, and the user pressing it.
-     *              A negative value implies that the buzzer was pressed too soon. The random wait
-     *              timer (before the buzzer is activated) will be restarted.
-     *              A positive value will display the result, and go back to the countdown screen.
+     *                            A negative value implies that the buzzer was pressed too soon. The random wait
+     *                            timer (before the buzzer is activated) will be restarted.
+     *                            A positive value will display the result, and go back to the countdown screen.
      */
     @Override
     public void onBuzzerTapped(Long delayInMilliseconds) {

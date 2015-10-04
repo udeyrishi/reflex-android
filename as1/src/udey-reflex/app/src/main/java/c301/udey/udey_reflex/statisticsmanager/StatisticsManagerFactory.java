@@ -31,6 +31,7 @@ public class StatisticsManagerFactory {
 
     /**
      * Creates a new instance of the {@link BuzzerCountStatisticsManager}.
+     *
      * @return The {@link BuzzerCountStatisticsManager}.
      */
     public static BuzzerCountStatisticsManager getBuzzerCountStatisticsManager() {
@@ -42,6 +43,7 @@ public class StatisticsManagerFactory {
 
     /**
      * Creates a new instance of the {@link ReactionTimeStatisticsManager}.
+     *
      * @return The {@link ReactionTimeStatisticsManager}.
      */
     public static ReactionTimeStatisticsManager getReactionTimeStatisticsManager() {

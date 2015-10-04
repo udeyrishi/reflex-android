@@ -51,10 +51,12 @@ public class PracticeModeTapFragment extends Fragment {
     /**
      * Default constructor.
      */
-    public PracticeModeTapFragment() { }
+    public PracticeModeTapFragment() {
+    }
 
     /**
      * Creates a new instance of {@link PracticeModeTapFragment}
+     *
      * @param minDelayMilliSeconds The minimum delay value in milliseconds before the buzzer is to be
      *                             activated.
      * @param maxDelayMilliseconds The maximum delay value in milliseconds before the buzzer is to be
@@ -68,6 +70,10 @@ public class PracticeModeTapFragment extends Fragment {
         args.putInt(ARG_MAX_DELAY_MILLISECONDS, maxDelayMilliseconds);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    private static int getRandom(int min, int max) {
+        return new Random().nextInt(max - min) + min;
     }
 
     /**
@@ -86,6 +92,7 @@ public class PracticeModeTapFragment extends Fragment {
     /**
      * Inflates the buzzer button view, and configures the button to be activated after a random
      * delay.
+     *
      * @param inflater           The LayoutInflater.
      * @param container          The ViewGroup container that will contain the inflated view.
      * @param savedInstanceState The saved instance's state.
@@ -116,8 +123,9 @@ public class PracticeModeTapFragment extends Fragment {
     /**
      * Sets the button alpha to a translucent value, and creates a task to restore it to the original
      * value. Also changes the instructions to {@link c301.udey.udey_reflex.R.string#practice_session_go}.
+     *
      * @param rootView The root View.
-     * @param button The buzzer button.
+     * @param button   The buzzer button.
      * @return The created task.
      */
     @NonNull
@@ -168,8 +176,7 @@ public class PracticeModeTapFragment extends Fragment {
         if (buttonDisplayedTime == null) {
             // Tapped too early
             delayMilliseconds = new Long(-1);
-        }
-        else {
+        } else {
             delayMilliseconds = currentTime - buttonDisplayedTime;
             buttonDisplayedTime = null;
         }
@@ -215,12 +222,9 @@ public class PracticeModeTapFragment extends Fragment {
     public interface OnBuzzerTappedListener {
         /**
          * The callback for the buzzer tapping event.
+         *
          * @param delayInMilliseconds The delayInMilliseconds in milliseconds that the user took to hit the buzzer.
          */
         void onBuzzerTapped(Long delayInMilliseconds);
-    }
-
-    private static int getRandom(int min, int max) {
-        return new Random().nextInt(max - min) + min;
     }
 }

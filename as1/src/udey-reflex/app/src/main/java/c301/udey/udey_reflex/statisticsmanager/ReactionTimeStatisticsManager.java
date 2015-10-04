@@ -38,8 +38,9 @@ public class ReactionTimeStatisticsManager {
 
     /**
      * Creates a new instance of {@link ReactionTimeStatisticsManager}.
+     *
      * @param storageManager The {@link FileStorageManager} to be used for stats persistance.
-     * @param fileName The file name to be used for persistance.
+     * @param fileName       The file name to be used for persistance.
      */
     public ReactionTimeStatisticsManager(FileStorageManager storageManager, String fileName) {
         this.fileName = fileName;
@@ -49,6 +50,7 @@ public class ReactionTimeStatisticsManager {
     /**
      * Saves a new delayInMilliseconds value. Only stores the last 100 stats, and keeps
      * deleting old ones when this threshold is crossed.
+     *
      * @param delayInMilliseconds The delay value in milliseconds.
      * @throws IOException Thrown by {@link FileStorageManager#save(Object, String, Type)}.
      */
@@ -65,6 +67,7 @@ public class ReactionTimeStatisticsManager {
 
     /**
      * Gets the minimum delay time over the last min(lastN, 100) plays.
+     *
      * @param lastN The number of stats to be analysed. If lastN > 100, then analyses last 100 stats.
      * @return The minimum delay time.
      */
@@ -76,6 +79,7 @@ public class ReactionTimeStatisticsManager {
 
     /**
      * Gets the maximum delay time over the last min(lastN, 100) plays.
+     *
      * @param lastN The number of stats to be analysed. If lastN > 100, then analyses last 100 stats.
      * @return The maximum delay time.
      */
@@ -87,6 +91,7 @@ public class ReactionTimeStatisticsManager {
 
     /**
      * Gets the average delay time over the last min(lastN, 100) plays.
+     *
      * @param lastN The number of stats to be analysed. If lastN > 100, then analyses last 100 stats.
      * @return The average delay time.
      */
@@ -110,6 +115,7 @@ public class ReactionTimeStatisticsManager {
 
     /**
      * Gets the median delay time over the last min(lastN, 100) plays.
+     *
      * @param lastN The number of stats to be analysed. If lastN > 100, then analyses last 100 stats.
      * @return The median delay time.
      */

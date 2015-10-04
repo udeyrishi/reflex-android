@@ -35,6 +35,7 @@ public class ResultFragment extends InstructionsFragment {
 
     /**
      * Creates a new instance of {@link ResultFragment}.
+     *
      * @param result The result to be displayed.
      * @return The created ResultFragment.
      */

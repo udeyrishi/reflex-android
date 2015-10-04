@@ -30,6 +30,7 @@ public class ReflexApp extends Application {
 
     /**
      * Gets the app wide context. Should be used for non-UI actions.
+     *
      * @return The app wide {@link Context}
      */
     public static Context getAppContext() {

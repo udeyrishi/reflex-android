@@ -26,8 +26,9 @@ public class Statistic<T> {
 
     /**
      * Creates a new instance of {@link Statistic}.
+     *
      * @param message The statistic's message/descriptor.
-     * @param value The value associated to a statistic.
+     * @param value   The value associated to a statistic.
      */
     public Statistic(String message, T value) {
         setMessage(message);
@@ -36,6 +37,7 @@ public class Statistic<T> {
 
     /**
      * Gets the message.
+     *
      * @return The message.
      */
     public String getMessage() {
@@ -44,6 +46,7 @@ public class Statistic<T> {
 
     /**
      * Sets the message.
+     *
      * @param message The message.
      */
     public void setMessage(String message) {
@@ -52,6 +55,7 @@ public class Statistic<T> {
 
     /**
      * Gets the value.
+     *
      * @return The value.
      */
     public T getValue() {
@@ -60,6 +64,7 @@ public class Statistic<T> {
 
     /**
      * Sets the value.
+     *
      * @param value The value.
      */
     public void setValue(T value) {
@@ -68,6 +73,7 @@ public class Statistic<T> {
 
     /**
      * Creates a human friendly string describing the statistic.
+     *
      * @return The string describing the statistic.
      */
     @Override
@@ -75,14 +81,11 @@ public class Statistic<T> {
         String valueString;
         if (value == null) {
             valueString = "N/A";
-        }
-        else if (value instanceof Double) {
-            valueString = String.format("%.2f", (Double)value);
-        }
-        else if (value instanceof Float) {
-            valueString = String.format("%.2f", (Float)value);
-        }
-        else {
+        } else if (value instanceof Double) {
+            valueString = String.format("%.2f", (Double) value);
+        } else if (value instanceof Float) {
+            valueString = String.format("%.2f", (Float) value);
+        } else {
             valueString = value.toString();
         }
 

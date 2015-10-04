@@ -44,10 +44,12 @@ public class PracticeModeCountdownFragment extends Fragment {
     /**
      * The default constructor
      */
-    public PracticeModeCountdownFragment() { }
+    public PracticeModeCountdownFragment() {
+    }
 
     /**
      * Creates an instance of {@link PracticeModeCountdownFragment}.
+     *
      * @param countdownDurationSeconds The duration of the countdown in seconds.
      * @return The generated PracticeModeCountdownFragment.
      */
@@ -72,6 +74,7 @@ public class PracticeModeCountdownFragment extends Fragment {
 
     /**
      * Inflates the layout and starts the animation.
+     *
      * @param inflater           The LayoutInflater.
      * @param container          The ViewGroup container that will contain the inflated view.
      * @param savedInstanceState The saved instance's state.

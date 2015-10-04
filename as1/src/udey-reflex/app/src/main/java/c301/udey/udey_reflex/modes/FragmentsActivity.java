@@ -64,6 +64,7 @@ public class FragmentsActivity extends AppCompatActivity {
     /**
      * Swaps the fragment with the new fragment, if the activity is still in foreground.
      * Does nothing if the activity is not in the foreground ({@link #onPause()} was called).
+     *
      * @param newFragment The new fragment to be put up in the fragment container of the layout.
      */
     protected void swapFragments(Fragment newFragment) {

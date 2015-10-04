@@ -34,6 +34,7 @@ public class ReflexStatisticsManager {
 
     /**
      * Creates a new instance of {@link ReflexStatisticsManager}.
+     *
      * @param context The context for getting the string resources.
      */
     public ReflexStatisticsManager(Context context) {
@@ -44,6 +45,7 @@ public class ReflexStatisticsManager {
 
     /**
      * Gets a list of buzzer count stats.
+     *
      * @return List of buzzer count stats.
      */
     public ArrayList<Statistic<Long>> getBuzzerCountStats() {
@@ -82,6 +84,7 @@ public class ReflexStatisticsManager {
 
     /**
      * Gets a list of reaction time stats.
+     *
      * @return List of reaction time stats.
      */
     public ArrayList<Statistic<? extends Number>> getReactionTimeStats() {
@@ -111,6 +114,7 @@ public class ReflexStatisticsManager {
 
     /**
      * Creates an intent for sending an email containing all the stats.
+     *
      * @param emailSubject The emails subject.
      * @return The created intent.
      */

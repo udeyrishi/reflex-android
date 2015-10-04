@@ -24,7 +24,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 
 import c301.udey.udey_reflex.modes.AppModesFactory;
-import c301.udey.udey_reflex.sectionmanager.SectionHolder;
 
 /**
  * The app's main activity.
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity
      */
     private CharSequence title;
 
-    private RefocusAwareFragment currentFragment;
+    private SectionedFragment currentFragment;
 
 
     /**
@@ -66,6 +65,7 @@ public class MainActivity extends AppCompatActivity
 
     /**
      * Loads the fragment at the specified position/section number.
+     *
      * @param position The position of the fragment in the navigation pane (section number).
      */
     @Override
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * Calls the last fragment's {@link RefocusAwareFragment#onRefocus()} method.
+     * Calls the last fragment's {@link SectionedFragment#onRefocus()} method.
      */
     @Override
     public void onNavigationDrawerClosed() {

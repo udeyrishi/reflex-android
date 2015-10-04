@@ -24,14 +24,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import c301.udey.udey_reflex.R;
-import c301.udey.udey_reflex.RefocusAwareFragment;
+import c301.udey.udey_reflex.SectionedFragment;
 
 /**
- * An abstract {@link RefocusAwareFragment} that contains a text view for showing some instructions,
+ * An abstract {@link SectionedFragment} that contains a text view for showing some instructions,
  * and a button for moving to the next logical step.
  * Useful if the button press's callback logic resides in a fragment. In that case, extend this fragment.
  */
-public abstract class InstructionsFragment extends RefocusAwareFragment {
+public abstract class InstructionsFragment extends SectionedFragment {
 
     private CharSequence instructions;
     private View rootView;
@@ -40,6 +40,7 @@ public abstract class InstructionsFragment extends RefocusAwareFragment {
      * Inflates the appropriate views, sets the instructions, and the button's callback.
      * The instructions must be set by the child classes through the {@link #setArguments(CharSequence)}
      * before this method is called.
+     *
      * @param inflater           The LayoutInflater.
      * @param container          The ViewGroup container that will contain the inflated view.
      * @param savedInstanceState The saved instance's state.
@@ -73,6 +74,7 @@ public abstract class InstructionsFragment extends RefocusAwareFragment {
      * Sets the arguments needed by this class, i.e., the text in the instructions.
      * This method shall be called immediately after construction, before
      * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} is called by Android.
+     *
      * @param instructions The instructions to be set.
      */
     protected void setArguments(CharSequence instructions) {
@@ -81,12 +83,14 @@ public abstract class InstructionsFragment extends RefocusAwareFragment {
 
     /**
      * The callback for the button press.
+     *
      * @param v The button's view.
      */
     protected abstract void onButtonPress(View v);
 
     /**
      * Gets a reference to the text view containing the instructions for more specific tweaking.
+     *
      * @return The {@link TextView}
      */
     protected TextView getInstructionsTextView() {
@@ -95,6 +99,7 @@ public abstract class InstructionsFragment extends RefocusAwareFragment {
 
     /**
      * Gets a reference to the fragment's button for more specific tweaking.
+     *
      * @return The {@link Button}
      */
     protected Button getButton() {

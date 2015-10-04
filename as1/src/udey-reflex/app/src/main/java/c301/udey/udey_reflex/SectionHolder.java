@@ -16,18 +16,16 @@
 
 package c301.udey.udey_reflex;
 
-import android.support.v4.app.Fragment;
-
 /**
- * A base class for a {@link Fragment} that needs to be aware of when the fragment comes back in
- * focus.
+ * An interface for a class that contains multiple fragments as sections, and it wants to listen
+ * to these fragment's attach events.
+ * Should be used in combination with {@link SectionedFragment}.
  */
-public class RefocusAwareFragment extends Fragment {
-
+public interface SectionHolder {
     /**
-     * Callback for the event when the fragment comes back in focus.
+     * Callback for the section attached event of a {@link android.support.v4.app.Fragment}.
+     *
+     * @param sectionNumber The fragments section number.
      */
-    public void onRefocus() {
-        // Default implementation => don't do anything
-    }
+    void onSectionAttached(int sectionNumber);
 }

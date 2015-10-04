@@ -20,14 +20,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioGroup;
 
 import c301.udey.udey_reflex.MainActivity;
 import c301.udey.udey_reflex.R;
 import c301.udey.udey_reflex.modes.InstructionsFragment;
-import c301.udey.udey_reflex.sectionmanager.FragmentAttacher;
 
 /**
  * Fragment showing the instructions for the compete (multi-player) mode.
@@ -37,15 +35,7 @@ public class CompeteModeFragment extends InstructionsFragment {
 
     public static final String EXTRA_MESSAGE_NUMBER_PLAYERS = "numberOfPlayers";
     private int numberPlayers;
-    private FragmentAttacher fragmentAttacher;
     private boolean areNumberOfPlayersSelected;
-
-    /**
-     * Default constructor.
-     */
-    public CompeteModeFragment() {
-        fragmentAttacher = new FragmentAttacher(this);
-    }
 
     /**
      * Creates an instance of {@link CompeteModeFragment}.
@@ -57,19 +47,8 @@ public class CompeteModeFragment extends InstructionsFragment {
     public static CompeteModeFragment getInstance(Context context, int sectionNumber) {
         CompeteModeFragment fragment = new CompeteModeFragment();
         fragment.setArguments(context.getString(R.string.compete_instructions));
-        fragment.fragmentAttacher.attachSectionNumber(sectionNumber);
+        fragment.attachSectionNumber(sectionNumber);
         return fragment;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (fragmentAttacher == null) {
-            fragmentAttacher = new FragmentAttacher(this);
-        }
     }
 
     /**
@@ -78,7 +57,7 @@ public class CompeteModeFragment extends InstructionsFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        fragmentAttacher.onSectionAttached((MainActivity) context);
+        onSectionAttached((MainActivity) context);
     }
 
     /**

@@ -35,8 +35,9 @@ public class BuzzerCountStatisticsManager {
 
     /**
      * Creates a new instance of {@link BuzzerCountStatisticsManager}.
+     *
      * @param storageManager The {@link FileStorageManager} to be used for stats persistance.
-     * @param fileName The file name to be used for persistance.
+     * @param fileName       The file name to be used for persistance.
      */
     public BuzzerCountStatisticsManager(FileStorageManager storageManager, String fileName) {
         this.storageManager = storageManager;
@@ -45,8 +46,9 @@ public class BuzzerCountStatisticsManager {
 
     /**
      * Registers a new buzzer win event.
+     *
      * @param numberOfPlayers The number of players that were playing.
-     * @param playerWhoWon The name ot the player who won.
+     * @param playerWhoWon    The name ot the player who won.
      * @throws IOException Thrown by the {@link FileStorageManager#save(Object, String, Type)}.
      */
     public void registerBuzzerWin(Integer numberOfPlayers, final String playerWhoWon) throws IOException {
@@ -71,8 +73,9 @@ public class BuzzerCountStatisticsManager {
     /**
      * Gets the number of buzzes for the specified player name in the specified number of players
      * game mode.
+     *
      * @param numberOfPlayers The number of players that were playing.
-     * @param playerName The name of the player.
+     * @param playerName      The name of the player.
      * @return The number of victories by the player in this game mode.
      */
     public Statistic<Long> getNumberOfBuzzes(Integer numberOfPlayers, String playerName) {

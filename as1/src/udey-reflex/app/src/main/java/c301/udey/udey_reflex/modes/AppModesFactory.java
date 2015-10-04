@@ -19,7 +19,7 @@ package c301.udey.udey_reflex.modes;
 import android.content.Context;
 
 import c301.udey.udey_reflex.R;
-import c301.udey.udey_reflex.RefocusAwareFragment;
+import c301.udey.udey_reflex.SectionedFragment;
 import c301.udey.udey_reflex.modes.compete.CompeteModeFragment;
 import c301.udey.udey_reflex.modes.practice.PracticeModeFragment;
 import c301.udey.udey_reflex.modes.stats.StatsModeFragment;
@@ -31,6 +31,7 @@ public class AppModesFactory {
 
     /**
      * Gets the names of all the modes supported by the app.
+     *
      * @param context The context to be used for getting the string resources.
      * @return The array of Strings corresponding to the app mode names.
      */
@@ -43,15 +44,16 @@ public class AppModesFactory {
     }
 
     /**
-     * Gets the {@link RefocusAwareFragment} corresponding to the app mode specified by the
+     * Gets the {@link SectionedFragment} corresponding to the app mode specified by the
      * sectionNumber.
-     * @param context The caller's context.
+     *
+     * @param context       The caller's context.
      * @param sectionNumber The section number to be attached to the fragment. This section number
      *                      is the index in the navigation pane, and correspond to the
      *                      index in the array that is the return value of {@link #getAppModes(Context)}.
      * @return The appropriate fragment.
      */
-    public static RefocusAwareFragment getAppModeFragment(Context context, int sectionNumber) {
+    public static SectionedFragment getAppModeFragment(Context context, int sectionNumber) {
         switch (sectionNumber) {
             case 0:
                 return PracticeModeFragment.getInstance(context, sectionNumber);

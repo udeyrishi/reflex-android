@@ -14,44 +14,45 @@
  * limitations under the License.
  */
 
-package c301.udey.udey_reflex.sectionmanager;
+package c301.udey.udey_reflex;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 /**
- * A helper utility class to be used in fragments being used with {@link SectionHolder}.
+ * A base class for a {@link Fragment} that needs to be aware of when the fragment comes back in
+ * focus.
  */
-public class FragmentAttacher {
+public class SectionedFragment extends Fragment {
+
     protected static final String ARG_SECTION_NUMBER = "section_number";
 
-    private final Fragment fragment;
-
     /**
-     * Creates a new instance of {@link FragmentAttacher}.
-     * @param fragment The fragment to be attached to a {@link SectionHolder}.
+     * Callback for the event when the fragment comes back in focus.
      */
-    public FragmentAttacher(Fragment fragment) {
-        this.fragment = fragment;
+    public void onRefocus() {
+        // Default implementation => don't do anything
     }
 
     /**
      * Configures the fragment to contain the section number as an argument value.
+     *
      * @param sectionNumber The section number to be used.
      */
-    public void attachSectionNumber(int sectionNumber) {
+    protected void attachSectionNumber(int sectionNumber) {
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
+        this.setArguments(args);
     }
 
     /**
      * Passes the fragment's section number (configured earlier by {@link #attachSectionNumber(int)})
      * to the {@link SectionHolder#onSectionAttached(int)} method.
+     *
      * @param holder The {@link SectionHolder} whose {@link SectionHolder#onSectionAttached(int)}
      *               method is to be called.
      */
-    public void onSectionAttached(SectionHolder holder) {
-        holder.onSectionAttached(fragment.getArguments().getInt(ARG_SECTION_NUMBER));
+    protected void onSectionAttached(SectionHolder holder) {
+        holder.onSectionAttached(this.getArguments().getInt(ARG_SECTION_NUMBER));
     }
 }

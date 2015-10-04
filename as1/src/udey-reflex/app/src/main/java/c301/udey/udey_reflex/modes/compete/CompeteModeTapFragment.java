@@ -194,6 +194,7 @@ public class CompeteModeTapFragment extends Fragment {
     public interface OnBuzzerTappedListener {
         /**
          * Callback for the buzzer tap event.
+         *
          * @param playerWhoWon The player's name who won.
          */
         void onBuzzerTapped(CharSequence playerWhoWon);
