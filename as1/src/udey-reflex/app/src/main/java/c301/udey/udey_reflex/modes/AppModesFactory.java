@@ -19,7 +19,7 @@ package c301.udey.udey_reflex.modes;
 import android.content.Context;
 
 import c301.udey.udey_reflex.R;
-import c301.udey.udey_reflex.SectionedFragment;
+import c301.udey.udey_reflex.SectionFragment;
 import c301.udey.udey_reflex.modes.compete.CompeteModeFragment;
 import c301.udey.udey_reflex.modes.practice.PracticeModeFragment;
 import c301.udey.udey_reflex.modes.stats.StatsModeFragment;
@@ -44,7 +44,7 @@ public class AppModesFactory {
     }
 
     /**
-     * Gets the {@link SectionedFragment} corresponding to the app mode specified by the
+     * Gets the {@link SectionFragment} corresponding to the app mode specified by the
      * sectionNumber.
      *
      * @param context       The caller's context.
@@ -53,7 +53,7 @@ public class AppModesFactory {
      *                      index in the array that is the return value of {@link #getAppModes(Context)}.
      * @return The appropriate fragment.
      */
-    public static SectionedFragment getAppModeFragment(Context context, int sectionNumber) {
+    public static SectionFragment getAppModeFragment(Context context, int sectionNumber) {
         switch (sectionNumber) {
             case 0:
                 return PracticeModeFragment.getInstance(context, sectionNumber);

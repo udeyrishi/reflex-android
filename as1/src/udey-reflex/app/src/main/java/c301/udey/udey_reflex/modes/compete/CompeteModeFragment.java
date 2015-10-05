@@ -35,7 +35,7 @@ public class CompeteModeFragment extends InstructionsFragment {
 
     public static final String EXTRA_MESSAGE_NUMBER_PLAYERS = "numberOfPlayers";
     private int numberPlayers;
-    private boolean areNumberOfPlayersSelected;
+    private boolean areNumberOfPlayersChosen;
 
     /**
      * Creates an instance of {@link CompeteModeFragment}.
@@ -77,7 +77,7 @@ public class CompeteModeFragment extends InstructionsFragment {
      */
     @Override
     protected void onButtonPress(View v) {
-        if (areNumberOfPlayersSelected) {
+        if (areNumberOfPlayersChosen) {
             Intent intent = new Intent(getActivity(), CompeteModeActivity.class);
             intent.putExtra(EXTRA_MESSAGE_NUMBER_PLAYERS, numberPlayers);
             startActivity(intent);
@@ -101,12 +101,12 @@ public class CompeteModeFragment extends InstructionsFragment {
         playerNumberChoices.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                areNumberOfPlayersSelected = true;
+                areNumberOfPlayersChosen = true;
                 dialog.hide();
                 numberPlayers = group.indexOfChild(group.findViewById(group.getCheckedRadioButtonId())) + 2;
             }
         });
         dialog.show();
-        areNumberOfPlayersSelected = false;
+        areNumberOfPlayersChosen = false;
     }
 }

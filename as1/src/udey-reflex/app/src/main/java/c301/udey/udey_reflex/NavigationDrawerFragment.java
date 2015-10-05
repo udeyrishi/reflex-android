@@ -208,19 +208,6 @@ public class NavigationDrawerFragment extends Fragment {
         this.drawerLayout.setDrawerListener(actionBarDrawerToggle);
     }
 
-    private void selectItem(int position) {
-        currentSelectedPosition = position;
-        if (drawerListView != null) {
-            drawerListView.setItemChecked(position, true);
-        }
-        if (drawerLayout != null) {
-            drawerLayout.closeDrawer(fragmentContainerView);
-        }
-        if (drawerCallbacks != null) {
-            drawerCallbacks.onNavigationDrawerItemSelected(position);
-        }
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -268,6 +255,19 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void selectItem(int position) {
+        currentSelectedPosition = position;
+        if (drawerListView != null) {
+            drawerListView.setItemChecked(position, true);
+        }
+        if (drawerLayout != null) {
+            drawerLayout.closeDrawer(fragmentContainerView);
+        }
+        if (drawerCallbacks != null) {
+            drawerCallbacks.onNavigationDrawerItemSelected(position);
+        }
     }
 
     /**

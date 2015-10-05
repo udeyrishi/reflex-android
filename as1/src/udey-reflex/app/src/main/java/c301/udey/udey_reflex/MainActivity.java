@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity
      */
     private CharSequence title;
 
-    private SectionedFragment currentFragment;
+    private SectionFragment currentFragment;
 
 
     /**
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * Calls the last fragment's {@link SectionedFragment#onRefocus()} method.
+     * Calls the last fragment's {@link SectionFragment#onRefocus()} method.
      */
     @Override
     public void onNavigationDrawerClosed() {

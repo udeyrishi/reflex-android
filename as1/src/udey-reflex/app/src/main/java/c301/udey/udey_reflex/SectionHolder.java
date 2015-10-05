@@ -19,7 +19,7 @@ package c301.udey.udey_reflex;
 /**
  * An interface for a class that contains multiple fragments as sections, and it wants to listen
  * to these fragment's attach events.
- * Should be used in combination with {@link SectionedFragment}.
+ * Should be used in combination with {@link SectionFragment}.
  */
 public interface SectionHolder {
     /**

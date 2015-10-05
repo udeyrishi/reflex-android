@@ -24,14 +24,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import c301.udey.udey_reflex.R;
-import c301.udey.udey_reflex.SectionedFragment;
+import c301.udey.udey_reflex.SectionFragment;
 
 /**
- * An abstract {@link SectionedFragment} that contains a text view for showing some instructions,
+ * An abstract {@link SectionFragment} that contains a text view for showing some instructions,
  * and a button for moving to the next logical step.
  * Useful if the button press's callback logic resides in a fragment. In that case, extend this fragment.
  */
-public abstract class InstructionsFragment extends SectionedFragment {
+public abstract class InstructionsFragment extends SectionFragment {
 
     private CharSequence instructions;
     private View rootView;
@@ -53,21 +53,6 @@ public abstract class InstructionsFragment extends SectionedFragment {
         setButtonHandler();
         changeInstructionsInTextView();
         return rootView;
-    }
-
-    private void changeInstructionsInTextView() {
-        TextView v = getInstructionsTextView();
-        v.setText(instructions == null ? "" : instructions);
-    }
-
-    private void setButtonHandler() {
-        Button b = getButton();
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onButtonPress(v);
-            }
-        });
     }
 
     /**
@@ -104,5 +89,20 @@ public abstract class InstructionsFragment extends SectionedFragment {
      */
     protected Button getButton() {
         return (Button) rootView.findViewById(R.id.finish_instructions_button);
+    }
+
+    private void changeInstructionsInTextView() {
+        TextView v = getInstructionsTextView();
+        v.setText(instructions == null ? "" : instructions);
+    }
+
+    private void setButtonHandler() {
+        Button b = getButton();
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onButtonPress(v);
+            }
+        });
     }
 }

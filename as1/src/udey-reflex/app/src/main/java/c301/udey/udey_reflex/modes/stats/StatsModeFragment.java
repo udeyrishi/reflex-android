@@ -34,14 +34,14 @@ import java.util.ArrayList;
 
 import c301.udey.udey_reflex.MainActivity;
 import c301.udey.udey_reflex.R;
-import c301.udey.udey_reflex.SectionedFragment;
+import c301.udey.udey_reflex.SectionFragment;
 import c301.udey.udey_reflex.statisticsmanager.ReflexStatisticsManager;
 import c301.udey.udey_reflex.statisticsmanager.Statistic;
 
 /**
  * A fragment for showing the stats.
  */
-public class StatsModeFragment extends SectionedFragment {
+public class StatsModeFragment extends SectionFragment {
 
     private ArrayList<Statistic<? extends Number>> reactionTimeStats;
     private ArrayList<Statistic<Long>> buzzerStats;

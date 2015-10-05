@@ -20,10 +20,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 /**
- * A base class for a {@link Fragment} that needs to be aware of when the fragment comes back in
- * focus.
+ * A base class for a {@link Fragment} that acts as a section filler that can be swapped in or out.
+ * Needs to be aware of when the fragment comes back in focus.
  */
-public class SectionedFragment extends Fragment {
+public class SectionFragment extends Fragment {
 
     protected static final String ARG_SECTION_NUMBER = "section_number";
 
