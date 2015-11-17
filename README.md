@@ -22,7 +22,7 @@ Or, copy the .apk to the phone's SD card, and install it through Android's launc
 License
 ----
 
-Apache v2.0 (See LICENSE in the repository root)
+[Apache v2.0](https://github.com/udeyrishi/reflex-android/blob/master/LICENSE)
 
 External Sources
 ----
