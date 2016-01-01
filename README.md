@@ -22,7 +22,7 @@ Or, copy the .apk to the phone's SD card, and install it through Android's launc
 License
 ----
 
-Apache v2.0 (See LICENSE in the repository root)
+[Apache v2.0](https://github.com/udeyrishi/reflex-android/blob/master/LICENSE)
 
 External Sources
 ----
@@ -50,6 +50,6 @@ appropriate sections, along with an optional explanation of how the source was u
   - https://developer.android.com/samples/BasicMediaRouter/res/values/colors.html
   - http://stackoverflow.com/questions/18990633/android-actionbar-text-color
 
-  Logo
-  ----
-  Haw Gestures Stroke graphic by [Yannick](http://yanlu.de) and Hourglass graphic by [Freepik](http://www.freepik.com/) from [Flaticon](http://www.flaticon.com/) are licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/). Made with [Logo Maker](http://logomakr.com).
+Logo
+----
+Haw Gestures Stroke graphic by [Yannick](http://yanlu.de) and Hourglass graphic by [Freepik](http://www.freepik.com/) from [Flaticon](http://www.flaticon.com/) are licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/). Made with [Logo Maker](http://logomakr.com).
