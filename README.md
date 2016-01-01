@@ -49,3 +49,7 @@ appropriate sections, along with an optional explanation of how the source was u
   - http://www.iconshut.com/click-double-finger-gesture-hand-one-tap-touch-zoom-icons/dT1hSFIwY0hNNkx5OWpaRzR5TG1samIyNW1hVzVrWlhJdVkyOXRMMlJoZEdFdmFXTnZibk12WjJWemRIVnlaWE10TWk4ek1pOXZibVV0Wm1sdVoyVnlMV1J2ZFdKc1pTMTBZWEF0TWpVMkxuQnVad3x1cj1odHRwczovL3d3dy5pY29uZmluZGVyLmNvbS9pY29ucy8zMzE2MzcvY2xpY2tfZG91YmxlX2Zpbmdlcl9nZXN0dXJlX2hhbmRfb25lX3RhcF90b3VjaF96b29tX2ljb258dz0yNTZ8aD0yNTZ8dD1wbmd8
   - https://developer.android.com/samples/BasicMediaRouter/res/values/colors.html
   - http://stackoverflow.com/questions/18990633/android-actionbar-text-color
+
+  Logo
+  ----
+  Haw Gestures Stroke graphic by [Yannick](http://yanlu.de) and Hourglass graphic by [Freepik](http://www.freepik.com/) from [Flaticon](http://www.flaticon.com/) are licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/). Made with [Logo Maker](http://logomakr.com).
