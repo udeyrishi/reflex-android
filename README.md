@@ -1,5 +1,7 @@
 # Reflex
 
+![](https://raw.githubusercontent.com/udeyrishi/reflex-android/master/reflex.png)
+
 Reflex is an Android gameshow buzzer app. It has three modes:
 
   - Single-User mode: The practice mode for measuring the buzzer pressing reaction times
